@@ -1,0 +1,113 @@
+<template>
+  <div>
+    <add-lost-wallet-record @lost-wallet-record-added="fetchLostWalletRecords()"></add-lost-wallet-record>
+    <div class="d-flex mb-5 mt-5">
+      <h1>Lost wallet Records</h1>
+      <span class="ml-1"></span>
+      <div v-if="!checkIfPolicyExpired">
+      <button type="button" class="btn btn-outline-success btn-text-1_5rem rounded-3" data-bs-toggle="modal" data-bs-target="#addLostWalletRecord">+ Add Lost Wallet Record</button>
+      </div>
+      <div v-if="checkIfPolicyExpired">
+        <button :disabled="checkIfPolicyExpired" type="button" class="btn btn-outline-danger btn-text-1_5rem rounded-3">Can not add Lost Wallet Record, Policy Expired</button>
+        <router-link to="/policyDetails"> <button type="button" class="btn btn-outline-info btn-text-1_5rem rounded-3">See Policy Details</button></router-link>
+      </div>
+    </div>
+    <hr>
+    <div v-if="lostWalletRecords">
+      <map-of-lost-wallet-records :refreshMapList="refreshMap"></map-of-lost-wallet-records>
+      <hr>
+      <table v-if="lostWalletRecords.length > 0" class="table table-hover">
+        <thead>
+          <tr>
+            <th v-for="(lostWalletField, index) in lostWalletFields" :key="index">{{lostWalletField}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(lostWalletRecord, index) in lostWalletRecords" :key="index">
+            <td>{{lostWalletRecord.id}}</td>
+            <td>{{lostWalletRecord.howYouLostWallet}}</td>
+            <td>{{lostWalletRecord.dateTimeOfLosingWallet}}</td>
+            <td>{{lostWalletRecord.locationOfLosingWallet}}</td>
+            <td>{{lostWalletRecord.additionalDetailsOfLostWallet}}</td>
+            <td>
+              <span v-for="(card, index) in lostWalletRecord.listOfCardsToBlock" :key="index">
+                <p>{{card}}</p>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div v-if="!lostWalletRecords" class="container">
+      <h2 class="text-muted">Unable to load lost wallet records.</h2>
+      <br>
+      <h4>Server Issue</h4>
+      <h4>We are sorry for the inconvinience, please try again after some time</h4>
+    </div>
+  </div>
+</template>
+
+<script>
+import { getLostWalletRecords, getPolicies } from '@/service/service.js';
+import AddLostWalletRecord from '../components/AddLostWalletRecord.vue';
+import MapOfLostWalletRecords from '../components/MapOfLostWalletRecords.vue';
+export default {
+  components: { AddLostWalletRecord
+  , MapOfLostWalletRecords 
+  },
+name: 'LostWalletRecords',
+data(){ 
+    return {
+        lostWalletFields : [],
+        lostWalletRecords : null,
+        refreshMap : false,
+        checkIfPolicyExpired : null
+    }
+},
+methods: {
+    async initialiseValues(){
+      this.checkIfPolicyExpired = await this.isPolicyExpired();
+      this.lostWalletFields = [
+        'Claim ID',
+        'How You Lost Wallet',
+        'Date',
+        'Location',
+        'Additional Details',
+        'Cards IDs'
+      ];
+      await this.fetchLostWalletRecords();
+    },
+    async isPolicyExpired(){
+      let policy = await getPolicies();
+      let latestPolicy = policy[policy.length - 1];
+      let todaysDate = new Date();
+      let endDate = new Date(latestPolicy.endDate);
+      let remainingDays = Math.round((endDate - todaysDate)/(1000*60*60*24));
+      if(remainingDays < 0)
+        return true;
+      return false;      
+    },
+    async fetchLostWalletRecords(){
+      this.lostWalletRecords = await getLostWalletRecords();
+      // This we are doing just to refresh the mapMarkerslist as refreshMap is on "watch" in map Marker
+      this.refreshMap = true
+      setTimeout(()=>{
+        this.refreshMap = false;
+      },2000)      
+    }
+},
+created(){
+    this.initialiseValues();
+  }
+}
+</script>
+
+<style scoped>
+  .btn-text-1_5rem{
+  font-size: 1.5rem
+}
+.ml-1{
+  margin-left:1rem;
+}
+</style>
+
