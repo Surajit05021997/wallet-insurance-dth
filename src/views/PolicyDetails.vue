@@ -14,7 +14,7 @@
             </thead>
             <tbody>
             <tr v-for="(policyDetail, index) in policyDetails" :key="index">
-              <td>{{policyDetail.policyId}}</td>
+              <td>{{policyDetail.id}}</td>
               <td>{{policyDetail.startDate}}</td>
               <td>{{policyDetail.endDate}}</td>
               <td>{{policyDetail.insuranceAmount}}</td>
@@ -51,7 +51,7 @@
                   </thead>
                   <tbody>
                   <tr class="table-secondary">
-                    <td>{{latestPolicy.policyId}}</td>
+                    <td>{{latestPolicy.id}}</td>
                     <td>{{latestPolicy.startDate}}</td>
                     <td>{{latestPolicy.endDate}}</td>
                     <td>{{latestPolicy.insuranceAmount}}</td>
@@ -98,7 +98,7 @@ methods: {
     ...mapActions(['getCustomerDetailsAction']),
     async initialiseValues(){
       const response = await getLoginType();
-      this.selectedLogin = response[0].loginType;
+      this.selectedLogin = response.loginType;
       console.log(this.selectedLogin);
       if(this.selectedLogin === "Customer"){
         let customerDetails = await getCustomerDetailsService(this.loggedInUser);

@@ -1,42 +1,13 @@
 {
   "customers": [
     {
-      "id": 1,
-      "name": "Anusha",
-      "emailId": "anusha@gmail.com",
-      "mobileNum": 9553805468,
-      "username": "Anusha",
-      "password": "anusha123",
-      "policy": {
-        "policyId": "P01",
-        "startDate": "2018-08-03",
-        "endDate": "2022-08-03",
-        "insuranceAmount": "150000"
-      }
-    },
-    {
-      "id": 2,
-      "name": "Surajit",
-      "emailId": "surajit@gmail.com",
-      "mobileNum": 9553546756,
-      "username": "a",
-      "password": "a",
-      "policy": {
-        "policyId": "P02",
-        "startDate": "2018-08-03",
-        "endDate": "2021-10-13",
-        "insuranceAmount": "100000",
-        "mobileNum": 9553546756
-      }
-    },
-    {
       "name": "Siddhant",
-      "mobileNum": "1234567890",
+      "mobileNum": "9989678967",
       "emailId": "rs4siddhant@gmail.com",
       "type": "platinum",
-      "username": "uQSUS6yp",
-      "password": "EzuW7iCF",
-      "id": 3
+      "username": "ehiwj8Io",
+      "password": "sSfLs3g3",
+      "id": 1
     }
   ],
   "employees": [
@@ -54,436 +25,93 @@
     }
   ],
   "preCustomer": {
-    "name": "Surajit Maity",
-    "number": "0908349569",
-    "email": "surajitmaity12345@gmail.com",
+    "name": "Siddhant",
+    "number": "9989678967",
+    "email": "rs4siddhant@gmail.com",
     "type": "platinum",
-    "isTravelInsTaken": false,
-    "isMobileInsTaken": false,
+    "isTravelInsTaken": true,
+    "isMobileInsTaken": true,
     "isCyberInsTaken": false,
-    "totalPrice": 2400,
-    "priceWithoutDiscount": 2400
+    "totalPrice": 4720,
+    "priceWithoutDiscount": 5900
   },
-  "loginWith": [
+  "loginWith": {
+    "loginType": "Employee"
+  },
+  "searchWith": [
     {
-      "loginType": "Customer",
+      "searchVal": "9989678967",
+      "id": 1
+    },
+    {
+      "searchVal": "9989678967",
       "id": 2
     },
     {
-      "loginType": "Customer",
+      "searchVal": "9989678967",
       "id": 3
-    },
-    {
-      "loginType": "Customer",
-      "id": 4
-    },
-    {
-      "loginType": "Customer",
-      "id": 5
-    },
-    {
-      "loginType": "Customer",
-      "id": 6
     }
   ],
-  "searchWith": [
+  "banks": [],
+  "policies": [
     {
-      "searchVal": "P02",
+      "startDate": "11/20/2021",
+      "endDate": "11/20/2022",
+      "insuranceAmount": "150000",
+      "mobileNum": "9989678967",
       "id": 1
     }
   ],
-  "banks": [
-    {
-      "id": 1,
-      "mobileNum": 9553805468,
-      "name": "HDFC",
-      "cardType": "Visa",
-      "cardNumber": "4376 5573 7894 3543",
-      "isBlocked": false
-    },
-    {
-      "id": 2,
-      "mobileNum": 9553546756,
-      "name": "ICICI",
-      "cardType": "Visa",
-      "cardNumber": "4376 5573 7894 3342",
-      "isBlocked": false
-    },
-    {
-      "id": 3,
-      "mobileNum": 9553546756,
-      "name": "ICICI",
-      "cardType": "Master",
-      "cardNumber": "4224 5573 8904 2222",
-      "isBlocked": false
-    }
-  ],
-  "policies": [],
   "registeredCards": [
     {
-      "id": 1637157194901,
-      "cardNumber": "1234567891234678",
+      "id": 1637391911956,
+      "cardNumber": "8989898989898989",
       "bank": "State Bank of India",
       "cardType": "cardTypeDebit",
-      "paymentGatewayType": "MasterCard",
-      "isBlocked": false
-    },
-    {
-      "id": 1637158794755,
-      "cardNumber": "asfasf",
-      "bank": "Driving Lisence",
-      "cardType": "cardTypeIdCard",
-      "paymentGatewayType": "IdCard",
-      "isBlocked": false
-    },
-    {
-      "id": 1637162673824,
-      "cardNumber": "1234567891234",
-      "bank": "Driving Lisence",
-      "cardType": "cardTypeIdCard",
-      "paymentGatewayType": "IdCard",
-      "isBlocked": false
-    },
-    {
-      "id": 1637166063483,
-      "cardNumber": "1234567785678965",
-      "bank": "Axis Bank",
-      "cardType": "cardTypeDebit",
-      "paymentGatewayType": "MasterCard",
+      "paymentGatewayType": "Maestro",
+      "mobileNum": "9989678967",
       "isBlocked": false
     }
   ],
   "lostWalletRecords": [
     {
-      "id": 1637082462146,
+      "id": 1637392135233,
       "howYouLostWallet": "Stolen",
-      "dateTimeOfLosingWallet": "2021-11-16T22:37",
-      "locationOfLosingWallet": "Berlin, Germany",
-      "locationOfLosingWalletLatitude": 52.52000659999999,
-      "locationOfLosingWalletLongitude": 13.404954,
-      "additionalDetailsOfLostWallet": "No",
-      "listOfCardsToBlock": [
-        "1637037654251"
-      ]
-    },
-    {
-      "id": 1637130758432,
-      "howYouLostWallet": "Stolen",
-      "dateTimeOfLosingWallet": "2021-11-17T12:02",
-      "locationOfLosingWallet": "Jodhpur",
-      "locationOfLosingWalletLatitude": 26.2389469,
-      "locationOfLosingWalletLongitude": 73.02430939999999,
-      "additionalDetailsOfLostWallet": "No",
-      "listOfCardsToBlock": [
-        "1636885136323"
-      ]
-    },
-    {
-      "id": 1637154678755,
-      "howYouLostWallet": "MIspalces",
-      "dateTimeOfLosingWallet": "2021-11-17T18:41",
-      "locationOfLosingWallet": "Stretford End, Kildare Road, Crumlin, Dublin 12, D, Ireland",
-      "locationOfLosingWalletLatitude": 53.3244833,
-      "locationOfLosingWalletLongitude": -6.298182799999999,
-      "additionalDetailsOfLostWallet": "No",
-      "listOfCardsToBlock": [
-        "1636889697616"
-      ]
-    },
-    {
-      "id": 1637166448103,
-      "howYouLostWallet": "Stolen",
-      "dateTimeOfLosingWallet": "2021-11-17T21:57",
-      "locationOfLosingWallet": "New York, NY, USA",
-      "locationOfLosingWalletLatitude": 40.7127753,
-      "locationOfLosingWalletLongitude": -74.0059728,
+      "dateTimeOfLosingWallet": "2021-11-20T12:38",
+      "locationOfLosingWallet": "Jaipur",
+      "locationOfLosingWalletLatitude": 26.9124336,
+      "locationOfLosingWalletLongitude": 75.7872709,
       "additionalDetailsOfLostWallet": "no",
       "listOfCardsToBlock": [
-        "1637157194901"
-      ]
-    },
-    {
-      "id": 1637168029156,
-      "howYouLostWallet": "MIspalces",
-      "dateTimeOfLosingWallet": "2021-11-12T22:23",
-      "locationOfLosingWallet": "New York, NY, USA",
-      "locationOfLosingWalletLatitude": 40.7127753,
-      "locationOfLosingWalletLongitude": -74.0059728,
-      "additionalDetailsOfLostWallet": "",
-      "listOfCardsToBlock": [
-        "1637157194901"
-      ]
-    },
-    {
-      "id": 1637168230385,
-      "howYouLostWallet": "Stolen",
-      "dateTimeOfLosingWallet": "2021-11-02T22:27",
-      "locationOfLosingWallet": "Nevada City, CA, USA",
-      "locationOfLosingWalletLatitude": 39.2615606,
-      "locationOfLosingWalletLongitude": -121.0160594,
-      "additionalDetailsOfLostWallet": "n",
-      "listOfCardsToBlock": [
-        "1637157194901"
-      ]
-    },
-    {
-      "id": 1637168395461,
-      "howYouLostWallet": "MIspalces",
-      "dateTimeOfLosingWallet": "2021-11-03T22:29",
-      "locationOfLosingWallet": "raibareli",
-      "locationOfLosingWalletLatitude": 26.3579419,
-      "locationOfLosingWalletLongitude": 81.1573975,
-      "additionalDetailsOfLostWallet": "No",
-      "listOfCardsToBlock": [
-        "1637157194901"
-      ]
-    },
-    {
-      "id": 1637169231557,
-      "howYouLostWallet": "Stolen",
-      "dateTimeOfLosingWallet": "2021-11-17T22:43",
-      "locationOfLosingWallet": "San Fransisco",
-      "locationOfLosingWalletLatitude": 37.7749295,
-      "locationOfLosingWalletLongitude": -122.4194155,
-      "additionalDetailsOfLostWallet": "yes lot many",
-      "listOfCardsToBlock": [
-        "1637157194901"
-      ]
-    },
-    {
-      "id": 1637169391507,
-      "howYouLostWallet": "MIspalces",
-      "dateTimeOfLosingWallet": "2021-11-17T22:46",
-      "locationOfLosingWallet": "New York, NY, USA",
-      "locationOfLosingWalletLatitude": 40.7127753,
-      "locationOfLosingWalletLongitude": -74.0059728,
-      "additionalDetailsOfLostWallet": "No",
-      "listOfCardsToBlock": [
-        "1637157194901"
-      ]
-    },
-    {
-      "id": 1637169440613,
-      "howYouLostWallet": "Stolen",
-      "dateTimeOfLosingWallet": "2021-11-17T22:46",
-      "locationOfLosingWallet": "New Delhi",
-      "locationOfLosingWalletLatitude": 28.6139391,
-      "locationOfLosingWalletLongitude": 77.2090212,
-      "additionalDetailsOfLostWallet": "Lot many",
-      "listOfCardsToBlock": [
-        "1637157194901"
-      ]
-    },
-    {
-      "id": 1637177333587,
-      "howYouLostWallet": "Stolen",
-      "dateTimeOfLosingWallet": "2021-11-11T00:58",
-      "locationOfLosingWallet": "New York, NY, USA",
-      "locationOfLosingWalletLatitude": 40.7127753,
-      "locationOfLosingWalletLongitude": -74.0059728,
-      "additionalDetailsOfLostWallet": "ahamadabad",
-      "listOfCardsToBlock": [
-        "1637157194901"
-      ]
-    },
-    {
-      "id": 1637178879041,
-      "howYouLostWallet": "Stolen",
-      "dateTimeOfLosingWallet": "2021-11-18T03:25",
-      "locationOfLosingWallet": "Jamalpur, Bihar, India",
-      "locationOfLosingWalletLatitude": 25.3180386,
-      "locationOfLosingWalletLongitude": 86.49340649999999,
-      "additionalDetailsOfLostWallet": "no",
-      "listOfCardsToBlock": [
-        "1637157194901",
-        "1637166063483"
-      ]
-    },
-    {
-      "id": 1637179119770,
-      "howYouLostWallet": "MIspalces",
-      "dateTimeOfLosingWallet": "2021-11-18T01:28",
-      "locationOfLosingWallet": "aaaaaaaaaaaaaaaaaaa",
-      "locationOfLosingWalletLatitude": 44.5998489,
-      "locationOfLosingWalletLongitude": -75.70392129999999,
-      "additionalDetailsOfLostWallet": "a",
-      "listOfCardsToBlock": [
-        "1637157194901"
-      ]
-    },
-    {
-      "id": 1637179289874,
-      "howYouLostWallet": "Stolen",
-      "dateTimeOfLosingWallet": "2021-11-18T01:31",
-      "locationOfLosingWallet": "Baker Street London",
-      "locationOfLosingWalletLatitude": 51.520568,
-      "locationOfLosingWalletLongitude": -0.1567804,
-      "additionalDetailsOfLostWallet": "asd",
-      "listOfCardsToBlock": [
-        "1637157194901",
-        "1637166063483"
-      ]
+        "1637391911956"
+      ],
+      "mobileNum": "9989678967"
     }
   ],
   "claimsHistory": [
     {
-      "notifiedOn": "2021-11-17T06:35:11.559Z",
-      "dateTimeOfLosingWallet": "2021-11-16T22:37",
-      "locationOfLosingWallet": "Berlin, Germany",
-      "status": "success",
-      "listOfCardsToBlock": [
-        "1637037654251"
-      ],
-      "claimAmount": "10000",
-      "claimRejectionReason": "",
-      "id": 1637082462146
-    },
-    {
       "notifiedOn": "",
-      "dateTimeOfLosingWallet": "2021-11-17T12:02",
-      "locationOfLosingWallet": "Jodhpur",
+      "dateTimeOfLosingWallet": "2021-11-20T12:38",
+      "locationOfLosingWallet": "Jaipur",
       "status": "Processing",
       "listOfCardsToBlock": [
-        "1636885136323"
+        "1637391911956"
       ],
       "claimAmount": "",
       "claimRejectionReason": "",
-      "id": 1637130758432
-    },
-    {
-      "notifiedOn": "2021-11-17T14:50:17.703Z",
-      "dateTimeOfLosingWallet": "2021-11-17T18:41",
-      "locationOfLosingWallet": "Stretford End, Kildare Road, Crumlin, Dublin 12, D, Ireland",
-      "status": "success",
-      "listOfCardsToBlock": [
-        "1636889697616"
-      ],
-      "claimAmount": "30000",
-      "claimRejectionReason": "",
-      "id": 1637154678755
-    },
-    {
-      "notifiedOn": "",
-      "dateTimeOfLosingWallet": "2021-11-17T21:57",
-      "locationOfLosingWallet": "New York, NY, USA",
-      "status": "Processing",
-      "listOfCardsToBlock": [
-        "1637157194901"
-      ],
-      "claimAmount": "",
-      "claimRejectionReason": "",
-      "id": 1637166448103
-    },
-    {
-      "notifiedOn": "",
-      "dateTimeOfLosingWallet": "2021-11-12T22:23",
-      "locationOfLosingWallet": "New York, NY, USA",
-      "status": "Processing",
-      "listOfCardsToBlock": [
-        "1637157194901"
-      ],
-      "claimAmount": "",
-      "claimRejectionReason": "",
-      "id": 1637168029156
-    },
-    {
-      "notifiedOn": "",
-      "dateTimeOfLosingWallet": "2021-11-02T22:27",
-      "locationOfLosingWallet": "Nevada City, CA, USA",
-      "status": "Processing",
-      "listOfCardsToBlock": [
-        "1637157194901"
-      ],
-      "claimAmount": "",
-      "claimRejectionReason": "",
-      "id": 1637168230385
-    },
-    {
-      "notifiedOn": "",
-      "dateTimeOfLosingWallet": "2021-11-03T22:29",
-      "locationOfLosingWallet": "raibareli",
-      "status": "Processing",
-      "listOfCardsToBlock": [
-        "1637157194901"
-      ],
-      "claimAmount": "",
-      "claimRejectionReason": "",
-      "id": 1637168395461
-    },
-    {
-      "notifiedOn": "",
-      "dateTimeOfLosingWallet": "2021-11-17T22:46",
-      "locationOfLosingWallet": "New York, NY, USA",
-      "status": "Processing",
-      "listOfCardsToBlock": [
-        "1637157194901"
-      ],
-      "claimAmount": "",
-      "claimRejectionReason": "",
-      "id": 1637169391507
-    },
-    {
-      "notifiedOn": "",
-      "dateTimeOfLosingWallet": "2021-11-17T22:46",
-      "locationOfLosingWallet": "New Delhi",
-      "status": "Processing",
-      "listOfCardsToBlock": [
-        "1637157194901"
-      ],
-      "claimAmount": "",
-      "claimRejectionReason": "",
-      "id": 1637169440613
-    },
-    {
-      "notifiedOn": "",
-      "dateTimeOfLosingWallet": "2021-11-11T00:58",
-      "locationOfLosingWallet": "New York, NY, USA",
-      "status": "Processing",
-      "listOfCardsToBlock": [
-        "1637157194901"
-      ],
-      "claimAmount": "",
-      "claimRejectionReason": "",
-      "id": 1637177333587
-    },
-    {
-      "notifiedOn": "",
-      "dateTimeOfLosingWallet": "2021-11-18T03:25",
-      "locationOfLosingWallet": "Jamalpur, Bihar, India",
-      "status": "Processing",
-      "listOfCardsToBlock": [
-        "1637157194901",
-        "1637166063483"
-      ],
-      "claimAmount": "",
-      "claimRejectionReason": "",
-      "id": 1637178879041
-    },
-    {
-      "notifiedOn": "",
-      "dateTimeOfLosingWallet": "2021-11-18T01:28",
-      "locationOfLosingWallet": "aaaaaaaaaaaaaaaaaaa",
-      "status": "Processing",
-      "listOfCardsToBlock": [
-        "1637157194901"
-      ],
-      "claimAmount": "",
-      "claimRejectionReason": "",
-      "id": 1637179119770
-    },
-    {
-      "notifiedOn": "",
-      "dateTimeOfLosingWallet": "2021-11-18T01:31",
-      "locationOfLosingWallet": "Baker Street London",
-      "status": "Processing",
-      "listOfCardsToBlock": [
-        "1637157194901",
-        "1637166063483"
-      ],
-      "claimAmount": "",
-      "claimRejectionReason": "",
-      "id": 1637179289874
+      "mobileNum": "9989678967",
+      "id": 1637392135233
     }
   ],
-  "familyMembers": []
+  "familyMembers": [
+    {
+      "familyMemberName": "Shashank",
+      "familyMemberEmail": "shs@g.co",
+      "familyMemberMobile": "9898989800",
+      "familyMemberRelation": "Brother",
+      "isAuthorised": false,
+      "familyHeadMobileNum": "9989678967",
+      "id": 1
+    }
+  ]
 }

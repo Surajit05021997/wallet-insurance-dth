@@ -63,10 +63,14 @@
 </template>
 
 <script>
-import { addFamilyMember } from '@/service/service.js';
+import { addFamilyMember, getCustomerDetailsService } from '@/service/service.js';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: "AddCard",
+  computed: {
+    ...mapState(['loggedInUser']),
+  },
   data(){
     return {
       relationsList : [],
@@ -77,13 +81,20 @@ export default {
       addFormFamilyMemberRelation : '',
       addFormErrors: [],
       addFormProcessing: false,
+
+      loggedInUserMobileNum : ''
     }
   },
   created(){
+    this.getCustomerDetailsAction(this.loggedInUser);
     this.initialiseValues();
   },
   methods: {
-    initialiseValues(){
+    ...mapActions(['getCustomerDetailsAction']),
+    async initialiseValues(){
+      let customerDetails = await getCustomerDetailsService(this.loggedInUser);
+      // Add the Customer mobile number to fetch the cards registered with the logged in user
+      this.loggedInUserMobileNum = customerDetails[0].mobileNum;
       this.relationsList = [
         'Father',
         'Mother',
@@ -148,6 +159,7 @@ export default {
         familyMemberMobile : this.addFormFamilyMemberMobile,
         familyMemberRelation : this.addFormFamilyMemberRelation || 'IdCard',
         isAuthorised : this.addFormFamilyMemberIsAuthorised,
+        familyHeadMobileNum : this.loggedInUserMobileNum
       }
       this.addFormProcessing = true;
       let addFamilyMemberStatusText = await addFamilyMember(addFormFields);

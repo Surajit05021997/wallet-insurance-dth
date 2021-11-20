@@ -67,7 +67,8 @@
 </template>
 
 <script>
-import { updateRegisteredCard } from '@/service/service.js'
+import { updateRegisteredCard, getCustomerDetailsService } from '@/service/service.js'
+import { mapState, mapActions } from 'vuex';
 export default {
   name: "EditCard",
   props: [
@@ -92,13 +93,23 @@ export default {
       editFormPaymentGatewayType : '',
       editFormProcessing: false,
       editFormErrors: [],
+
+      loggedInUserMobileNum : ''
     }
   },
+  computed: {
+    ...mapState(['loggedInUser']),
+  },
   created(){
+    this.getCustomerDetailsAction(this.loggedInUser);
     this.initialiseValues();
   },
   methods: {
-    initialiseValues(){
+    ...mapActions(['getCustomerDetailsAction']),
+    async initialiseValues(){
+      let customerDetails = await getCustomerDetailsService(this.loggedInUser);
+      // Add the Customer mobile number to fetch the cards registered with the logged in user
+      this.loggedInUserMobileNum = customerDetails[0].mobileNum;
 // Setting form Values coming from Props (And Keeping under Watch)
       this.selectedOption='cardTypeCredit';
       this.selectionOptions = [
@@ -185,6 +196,7 @@ export default {
         cardType : this.editFormCardType,
         paymentGatewayType : this.editFormPaymentGatewayType || 'IdCard',
         isBlocked : false,
+        mobileNum : this.loggedInUserMobileNum
       }
 
       this.editFormProcessing = true;

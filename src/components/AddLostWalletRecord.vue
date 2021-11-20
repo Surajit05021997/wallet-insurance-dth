@@ -65,7 +65,8 @@
 </template>
 
 <script>
-import { getRegisteredCards, addLostWalletRecord, addClaim } from '@/service/service.js'
+import { getRegisteredCards, addLostWalletRecord, addClaim, getCustomerDetailsService } from '@/service/service.js'
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: "AddLostWalletRecord",
@@ -90,10 +91,16 @@ export default {
       addFormAdditionalDetailsOfLostWallet : '',
       addFormListOfCardsToBlock : [],
       // checkIfPolicyExpired : null
+
+      loggedInUserMobileNum : ''
       
     }
   },
+  computed: {
+    ...mapState(['loggedInUser']),
+  },
   created(){
+    this.getCustomerDetailsAction(this.loggedInUser);
     // this.checkIfPolicyExpired =  await this.isPolicyExpired();
     // if(this.checkIfPolicyExpired)
     // {
@@ -107,15 +114,15 @@ export default {
     this.initialiseValues();
   },
   metaInfo () {
-    const API_KEY = `AIzaSyBxvgEknMKUeQAqta0bFGa3louYvmIz5wg`;
+    const API_KEY = `AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg`;
       return {
         script: [
-          {
-          src: `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places`,
-          async: true,
-          defer: true,
-          callback: () => this.googleMapPlacesAutocompleteServiceInit() // will declare it in methods
-          },
+          // {
+          // src: `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places`,
+          // async: true,
+          // defer: true,
+          // callback: () => this.googleMapPlacesAutocompleteServiceInit() // will declare it in methods
+          // },
           {
           src: `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`,
           async: true,
@@ -126,7 +133,12 @@ export default {
       }
     },
   methods: {
+    ...mapActions(['getCustomerDetailsAction']),
     async initialiseValues(){
+      let customerDetails = await getCustomerDetailsService(this.loggedInUser);
+      // Add the Customer mobile number to fetch the cards registered with the logged in user
+      this.loggedInUserMobileNum = customerDetails[0].mobileNum;
+
       this.listOfRegisteredCards = await this.getAllCardsList();
     },
     getCheckboxButtonForCards(card){
@@ -138,7 +150,7 @@ export default {
         'cardTypeDebit',
         'cardTypeCredit'
       ];
-      let allCards = await getRegisteredCards();
+      let allCards = await getRegisteredCards(this.loggedInUserMobileNum);
       let debitCreditCardList = allCards.filter(eachCard => !eachCard.isBlocked && (filterCardType.includes(eachCard.cardType)));
     return debitCreditCardList;
   },
@@ -196,7 +208,8 @@ export default {
         status : 'Processing',
         listOfCardsToBlock : this.addFormListOfCardsToBlock,
         claimAmount : '',
-        claimRejectionReason : ''
+        claimRejectionReason : '',
+        mobileNum : this.loggedInUserMobileNum
       }
       let addLostWalletRecordFields = {
         id : Date.now(),
@@ -207,6 +220,7 @@ export default {
         locationOfLosingWalletLongitude : this.addFormLocationOfLosingWalletLongitude,
         additionalDetailsOfLostWallet : this.addFormAdditionalDetailsOfLostWallet,
         listOfCardsToBlock : this.addFormListOfCardsToBlock,
+        mobileNum : this.loggedInUserMobileNum
       };
       this.$swal({
               title: 'Are you sure?',
@@ -230,7 +244,7 @@ export default {
                         this.resetFormFields();
                           this.$swal({
                           title: 'Record added',
-                          html : `The Lost Wallet Record added and Claim created. Note below claim ID for reference.<br>Claim ID <br><a href="/claimsHistory"><b>${claimId}</b></a>`,
+                          html : `The Lost Wallet Record added and Claim created. Note below claim ID for reference.<br>Claim ID <br><b>${claimId}</b>`,
                           icon : 'success'
                           });
                         this.$emit('lost-wallet-record-added');
@@ -278,9 +292,9 @@ export default {
         let listOfCardsToBlock = document.querySelectorAll('input.listOfCardsToBlock:checked');      
         listOfCardsToBlock.forEach(element => element.checked = false);
     },
-    googleMapPlacesAutocompleteServiceInit () {
-        this.googleMapPlacesAutocompleteService = new window.google.maps.places.AutocompleteService();
-      },
+    // googleMapPlacesAutocompleteServiceInit () {
+    //     this.googleMapPlacesAutocompleteService = new window.google.maps.places.AutocompleteService();
+    //   },
     googleMapGeocoderServiceInit () {
       this.googleMapGeocodeService = new window.google.maps.Geocoder();
     },
@@ -317,26 +331,26 @@ export default {
       
     // }
   },
-  watch: {
-      async addFormLocationOfLosingWallet(newValue) {
-        // If the location is not a valid selected one from google Places, then only search for more results
-        this.addFormLocationOfLosingWalletValid = false;        
-          if (newValue) {
-                  await this.googleMapPlacesAutocompleteService.getPlacePredictions({
-                  input: this.addFormLocationOfLosingWallet,
-                  types: ['geocode']
-                   }, (predictions, status) => {
-                      this.addFormLocationOfLosingWalletValid = false;
-                      if (status !== window.google.maps.places.PlacesServiceStatus.OK) {
-                        this.listOfAllPlaces = []
-                        console.error("No Place found");
-                        return;
-                      }
-                      this.listOfAllPlaces = predictions.map(prediction => prediction.description)
-                    })
-              }                
-        }
-      }
+  // watch: {
+  //     async addFormLocationOfLosingWallet(newValue) {
+  //       // If the location is not a valid selected one from google Places, then only search for more results
+  //       this.addFormLocationOfLosingWalletValid = false;        
+  //         if (newValue) {
+  //                 await this.googleMapPlacesAutocompleteService.getPlacePredictions({
+  //                 input: this.addFormLocationOfLosingWallet,
+  //                 types: ['geocode']
+  //                  }, (predictions, status) => {
+  //                     this.addFormLocationOfLosingWalletValid = false;
+  //                     if (status !== window.google.maps.places.PlacesServiceStatus.OK) {
+  //                       this.listOfAllPlaces = []
+  //                       console.error("No Place found");
+  //                       return;
+  //                     }
+  //                     this.listOfAllPlaces = predictions.map(prediction => prediction.description)
+  //                   })
+  //             }                
+  //       }
+  //     }
 }
 </script>
 

@@ -48,7 +48,8 @@
 import AddCard from '@/components/AddCard.vue';
 import PaymentCard from '@/components/PaymentCard.vue';
 import EditCard from '@/components/EditCard.vue';
-import { getRegisteredCards, deleteRegisteredCard } from '@/service/service.js'
+import { getRegisteredCards, deleteRegisteredCard, getCustomerDetailsService } from '@/service/service.js'
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'RegisteredCards',
@@ -69,12 +70,19 @@ export default {
       selectedCardFields_paymentGatewayType : '',
       selectedCardFields_cardId : '',
       cardTypeOptions : [],
+      loggedInUserMobileNum : ''
     }
   },
-  computed: {},
+  computed: {
+    ...mapState(['loggedInUser']),
+  },
   methods: {
+    ...mapActions(['getCustomerDetailsAction']),
     async initialiseValues(){
-      this.cardsList = await this.getAllCardsList();
+      let customerDetails = await getCustomerDetailsService(this.loggedInUser);
+      // Add the Customer mobile number to fetch the cards registered with the logged in user
+      this.loggedInUserMobileNum = customerDetails[0].mobileNum;
+      this.cardsList = await this.getAllCardsList(this.loggedInUserMobileNum);
       this.selectedOption = 'showAll',
       this.selectionOptions = [
         {
@@ -124,10 +132,11 @@ export default {
     this.selectedOption = selectedMenu;
   },
   async fetchCardsList(){
-      this.cardsList = await this.getAllCardsList();
+      this.cardsList = await this.getAllCardsList(this.loggedInUserMobileNum);
   },
   async getAllCardsList(){
-    let responseData = await getRegisteredCards();
+    let mobileNunber = this.loggedInUserMobileNum
+    let responseData = await getRegisteredCards(mobileNunber);
     responseData.filter(card => !card.isBlocked);
     return responseData;
   },
@@ -198,6 +207,7 @@ export default {
   }
   },  
   created(){
+    this.getCustomerDetailsAction(this.loggedInUser);
     this.initialiseValues();
     this.showInfoSweetAlert();
   }

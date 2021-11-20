@@ -143,7 +143,7 @@ export default {
     ...mapActions(['getCustomerDetailsAction']),
     async initialize() {
       const response = await getLoginType();
-      this.selectedLogin = response[0].loginType;
+      this.selectedLogin = response.loginType;
     },
     async getCustomerPolicyDetails() {
       let customerPolicyDetails = '';
@@ -154,10 +154,10 @@ export default {
       }
 
       if(customerPolicyDetails.length !== 0) {
-        const deletedStatusText = await deleteSearchValue(1);
-        if(deletedStatusText === "OK"){
+        await deleteSearchValue(1);
+        // if(deletedStatusText === "OK"){
           await postSearchValue({"searchVal": this.searchValue});
-        }
+        // }
         this.$router.push({
           name: 'PolicyDetails',
           params: {

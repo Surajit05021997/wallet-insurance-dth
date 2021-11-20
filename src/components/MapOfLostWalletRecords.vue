@@ -18,7 +18,8 @@
 </template>
 
 <script>
-import { getLostWalletRecords } from '@/service/service.js'
+import { getLostWalletRecords, getCustomerDetailsService } from '@/service/service.js'
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: "MapOfLostWalletRecord",
@@ -26,8 +27,13 @@ export default {
   data(){
     return {
       googleMapGeocodeService: null,
-      listOfLostWalletRecordsLocationMarkers : null
+      listOfLostWalletRecordsLocationMarkers : null,
+
+      loggedInUserMobileNum : ''
     }
+  },
+  computed: {
+    ...mapState(['loggedInUser']),
   },
   watch: {
     async refreshMapList(newValue){
@@ -38,10 +44,15 @@ export default {
     }
   },
   created(){
+    this.getCustomerDetailsAction(this.loggedInUser);
     this.initialiseValues();
   },
   methods: {
+    ...mapActions(['getCustomerDetailsAction']),
     async initialiseValues(){
+      let customerDetails = await getCustomerDetailsService(this.loggedInUser);
+      // Add the Customer mobile number to fetch the cards registered with the logged in user
+      this.loggedInUserMobileNum = customerDetails[0].mobileNum;
       this.googleMapGeocodeService = new window.google.maps.Geocoder();
       await this.refreshListOfLostWalletRecordsLocationMarkers();
       if(this.listOfLostWalletRecordsLocationMarkers){
@@ -56,7 +67,7 @@ export default {
     //   },
     async getListOfLostWalletRecordsLocationMarkers(){
       let eachLocationLatLong = [];
-      let responseData = await getLostWalletRecords();
+      let responseData = await getLostWalletRecords(this.loggedInUserMobileNum);
 
       responseData.forEach(lostWalletRecord => {
                           let dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };

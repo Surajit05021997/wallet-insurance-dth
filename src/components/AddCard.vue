@@ -67,7 +67,8 @@
 </template>
 
 <script>
-import { addRegisteredCard } from '@/service/service.js';
+import { addRegisteredCard, getCustomerDetailsService } from '@/service/service.js';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: "AddCard",
@@ -86,13 +87,23 @@ export default {
       addFormPaymentGatewayType : '',
       addFormErrors: [],
       addFormProcessing: false,
+
+      loggedInUserMobileNum : ''
     }
   },
   created(){
+    this.getCustomerDetailsAction(this.loggedInUser);
     this.initialiseValues();
   },
+  computed: {
+    ...mapState(['loggedInUser']),
+  },
   methods: {
-    initialiseValues(){
+    ...mapActions(['getCustomerDetailsAction']),
+    async initialiseValues(){
+      let customerDetails = await getCustomerDetailsService(this.loggedInUser);
+      // Add the Customer mobile number to fetch the cards registered with the logged in user
+      this.loggedInUserMobileNum = customerDetails[0].mobileNum;
       this.selectedOption='cardTypeCredit';
       this.selectionOptions = [
         {
@@ -177,6 +188,7 @@ export default {
         bank : this.addFormSelectBank,
         cardType : this.addFormCardType,
         paymentGatewayType : this.addFormPaymentGatewayType || 'IdCard',
+        mobileNum :  this.loggedInUserMobileNum,
         isBlocked : false,
       }
       this.addFormProcessing = true;

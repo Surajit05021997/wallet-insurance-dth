@@ -1,33 +1,31 @@
 <template>
-  <div class="login">
-    <div class="container">
-      <div class="login-card">
-        <div class="login-img">
-          <p class="img-des">Nice to see you again</p>
-          <p class="img-heading">WELCOME BACK</p>
-        </div>
-        <div class="login-field">
-          <p class="field-des">Login Account</p>
-          <form class="login-form" @submit.prevent="authenticate">
-            <div style="display-flex">
-              <div class="radio-toolbar" id="loginType">
-                <div v-for="(option, index) in loginType" :key="index" class="m-1">
-                  <input type="radio" class="form-check-input btn-text-1_5rem" name="loginType" :value="option.value" :id="option.value" v-model="selectedLoginType" @change="getSelectedLoginType()">
-                  <label class="mx-0_5rem form-check-label btn-text-1_5rem" :for="option.id">{{option.value}}</label>
-                </div>
+  <div class="container">
+    <div class="login-card">
+      <div class="login-img">
+        <p class="img-des">Nice to see you again</p>
+        <p class="img-heading">WELCOME BACK</p>
+      </div>
+      <div class="login-field">
+        <p class="field-des">Login Account</p>
+        <form class="login-form" @submit.prevent="authenticate">
+          <div style="display-flex">
+            <div class="radio-toolbar" id="loginType">
+              <div v-for="(option, index) in loginType" :key="index" class="m-1">
+                <input type="radio" class="form-check-input btn-text-1_5rem" name="loginType" :value="option.value" :id="option.value" v-model="selectedLoginType" @change="getSelectedLoginType()">
+                <label class="mx-0_5rem form-check-label btn-text-1_5rem" :for="option.id">{{option.value}}</label>
               </div>
             </div>
-            
-            <p class="invalid" v-if="isInvalid">Your username or password is incorrecct.</p>
-            <input type="text" placeholder="Username" v-model="username">
-            <input type="password" placeholder="Password" v-model="password">
-            <div class="remember-user">
-              <input type="checkbox">
-              <label>Remember username</label>
-            </div>
-            <button class="btn">LOGIN</button>
-          </form>
-        </div>
+          </div>
+           
+          <p class="invalid" v-if="isInvalid">Your username or password is incorrecct.</p>
+          <input type="text" placeholder="Username" v-model="username">
+          <input type="password" placeholder="Password" v-model="password">
+          <div class="remember-user">
+            <input type="checkbox">
+            <label>Remember username</label>
+          </div>
+          <button class="btn">LOGIN</button>
+        </form>
       </div>
     </div>
   </div>
@@ -35,7 +33,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { getCustomerService, getEmployeeService, postLoginType, deleteLoginType } from '@/service/service.js';
+import { getCustomerService, getEmployeeService, postLoginType } from '@/service/service.js';
 
 export default {
   name: 'Login',
@@ -66,7 +64,7 @@ export default {
     ...mapActions(['setLoginStatusAction', 'setLoggedInUserAction']),
     async authenticate() {
       let customerList;
-      await deleteLoginType(1);
+      // await deleteLoginType(1);
       await postLoginType({"loginType": this.selectedLoginType});
       if (this.selectedLoginType === 'Employee') {
         customerList = await getEmployeeService();
@@ -101,13 +99,10 @@ export default {
 </script>
 
 <style scoped>
-.login {
-  background: linear-gradient(42deg, rgba(0,101,209,1) 0%, rgba(243,248,255,1) 51%, rgba(201,217,255,1) 100%);
-}
 .container {
   max-width: 120rem;
-  margin: 0 auto;
-  padding: 5rem 2rem;
+  margin: 5rem auto;
+  padding: 0 2rem;
 }
 .radio-toolbar, .d-flex {
   display: flex;
@@ -130,9 +125,8 @@ export default {
 }
 .login-card {
   max-width:80rem;
-  margin: 0 auto;
+  margin: 5rem auto;
   height: 50rem;
-  border-radius: 20px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -161,7 +155,6 @@ export default {
   color: #fff;
 }
 .login-field {
-  background-color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
