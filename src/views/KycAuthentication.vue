@@ -56,7 +56,8 @@
 </template>
 
 <script>
-import { getFamilyMembers, updateFamilyMember, deleteFamilyMember } from '@/service/service.js'
+import { getFamilyMembers, updateFamilyMember, deleteFamilyMember, getCustomerDetailsService } from '@/service/service.js'
+import { mapState, mapActions } from 'vuex';
 import AddFamilyMember from '../components/AddFamilyMember.vue';
 
 export default {
@@ -67,10 +68,17 @@ data(){
     return {
         familyMembersFields : [],
         familyMembersList : null,
+        loggedInUserMobileNumber : ''
     }
 },
+computed: {
+    ...mapState(['loggedInUser']),
+  },
 methods: {
+  ...mapActions(['getCustomerDetailsAction']),
     async initialiseValues(){
+      let customerDetails = await getCustomerDetailsService(this.loggedInUser);
+      this.loggedInUserMobileNumber = customerDetails[0].mobileNum;
       await this.fetchFamilyMembersList();
       this.familyMembersFields = [
         'Name',
@@ -83,7 +91,7 @@ methods: {
       ];      
     },
     async getFamilyMembersList(){
-      const responseData = await getFamilyMembers();
+      const responseData = await getFamilyMembers(this.loggedInUserMobileNumber);
       return responseData;
     },
     async fetchFamilyMembersList(){
@@ -145,6 +153,7 @@ methods: {
     }
 },
 created(){
+   this.getCustomerDetailsAction(this.loggedInUser);
     this.initialiseValues();
 }
 }

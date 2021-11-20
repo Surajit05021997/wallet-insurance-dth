@@ -109,9 +109,9 @@ async function deleteSearchValue(id){
   }
 }
 
-async function getRegisteredCards(){
+async function getRegisteredCards(mobileNum){
   try {
-    const response = await axios.get(`http://localhost:3001/registeredCards`);
+    const response = await axios.get(`http://localhost:3001/registeredCards?mobileNum=${mobileNum}`);
     return response.data;
   } catch(error){
     console.log(error);
@@ -127,9 +127,9 @@ async function getRegisteredCardWithId(id){
   }
 }
 
-async function getLostWalletRecords(){
+async function getLostWalletRecords(mobileNum){
   try {
-    const response = await axios.get(`http://localhost:3001/lostWalletRecords`);
+    const response = await axios.get(`http://localhost:3001/lostWalletRecords?mobileNum=${mobileNum}`);
     return response.data;
   } catch(error){
     console.log(error);
@@ -145,18 +145,18 @@ async function getPolicies(){
   }
 }
 
-async function getClaimsHistory(){
+async function getClaimsHistory(mobileNum){
   try {
-    const response = await axios.get(`http://localhost:3001/claimsHistory`);
+    const response = await axios.get(`http://localhost:3001/claimsHistory?mobileNum=${mobileNum}`);
     return response.data;
   } catch(error){
     console.log(error);
   }
 }
 
-async function getFamilyMembers(){
+async function getFamilyMembers(mobileNum){
   try {
-    const response = await axios.get(`http://localhost:3001/familyMembers`);
+    const response = await axios.get(`http://localhost:3001/familyMembers?familyHeadMobileNum=${mobileNum}`);
     return response.data;
   }catch(error){
     console.log(error);

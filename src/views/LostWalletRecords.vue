@@ -4,12 +4,16 @@
     <div class="d-flex mb-5 mt-5">
       <h1>Lost wallet Records</h1>
       <span class="ml-1"></span>
-      <div v-if="!checkIfPolicyExpired">
-      <button type="button" class="btn btn-outline-success btn-text-1_5rem rounded-3" data-bs-toggle="modal" data-bs-target="#addLostWalletRecord">+ Add Lost Wallet Record</button>
-      </div>
       <div v-if="checkIfPolicyExpired">
         <button :disabled="checkIfPolicyExpired" type="button" class="btn btn-outline-danger btn-text-1_5rem rounded-3">Can not add Lost Wallet Record, Policy Expired</button>
         <router-link to="/policyDetails"> <button type="button" class="btn btn-outline-info btn-text-1_5rem rounded-3">See Policy Details</button></router-link>
+      </div>
+      <div v-if="!checkIfPolicyExpired && checkIfNoRegisteredCards">
+        <button :disabled="checkIfNoRegisteredCards" type="button" class="btn btn-outline-danger btn-text-1_5rem rounded-3">Can not add Lost Wallet Record, No Registered Cr / D Cards Found</button>
+        <router-link to="/registeredCards"> <button type="button" class="btn btn-outline-info btn-text-1_5rem rounded-3">Register Cards</button></router-link>
+      </div>
+      <div v-if="!checkIfPolicyExpired && !checkIfNoRegisteredCards">
+        <button type="button" class="btn btn-outline-success btn-text-1_5rem rounded-3" data-bs-toggle="modal" data-bs-target="#addLostWalletRecord">+ Add Lost Wallet Record</button>
       </div>
     </div>
     <hr>
@@ -48,9 +52,10 @@
 </template>
 
 <script>
-import { getLostWalletRecords, getPolicies } from '@/service/service.js';
+import { getLostWalletRecords, getPolicyDetailsWithMobNum, getCustomerDetailsService, getRegisteredCards } from '@/service/service.js';
 import AddLostWalletRecord from '../components/AddLostWalletRecord.vue';
 import MapOfLostWalletRecords from '../components/MapOfLostWalletRecords.vue';
+import { mapState, mapActions } from 'vuex';
 export default {
   components: { AddLostWalletRecord
   , MapOfLostWalletRecords 
@@ -61,12 +66,23 @@ data(){
         lostWalletFields : [],
         lostWalletRecords : null,
         refreshMap : false,
-        checkIfPolicyExpired : null
+        checkIfPolicyExpired : null,
+        checkIfNoRegisteredCards : null,
+
+        loggedInUserMobileNum : ''
     }
 },
+computed: {
+    ...mapState(['loggedInUser']),
+  },
 methods: {
+  ...mapActions(['getCustomerDetailsAction']),
     async initialiseValues(){
+      let customerDetails = await getCustomerDetailsService(this.loggedInUser);
+      // Add the Customer mobile number to fetch the cards registered with the logged in user
+      this.loggedInUserMobileNum = customerDetails[0].mobileNum;
       this.checkIfPolicyExpired = await this.isPolicyExpired();
+      this.checkIfNoRegisteredCards = await this.areNoRegisteredCardsAdded();
       this.lostWalletFields = [
         'Claim ID',
         'How You Lost Wallet',
@@ -77,9 +93,21 @@ methods: {
       ];
       await this.fetchLostWalletRecords();
     },
+    async areNoRegisteredCardsAdded(){
+      let filterCardType = [
+        'cardTypeDebit',
+        'cardTypeCredit'
+      ];
+      let allCards = await getRegisteredCards(this.loggedInUserMobileNum);
+      let debitCreditCardList = allCards.filter(eachCard => !eachCard.isBlocked && (filterCardType.includes(eachCard.cardType)));
+      console.log(debitCreditCardList);
+      if (debitCreditCardList.length === 0 )
+        return true;
+      return false
+    },
     async isPolicyExpired(){
-      let policy = await getPolicies();
-      let latestPolicy = policy[policy.length - 1];
+      let policyDetails = await getPolicyDetailsWithMobNum(this.loggedInUserMobileNum);
+      let latestPolicy = policyDetails[0];
       let todaysDate = new Date();
       let endDate = new Date(latestPolicy.endDate);
       let remainingDays = Math.round((endDate - todaysDate)/(1000*60*60*24));
@@ -88,7 +116,7 @@ methods: {
       return false;      
     },
     async fetchLostWalletRecords(){
-      this.lostWalletRecords = await getLostWalletRecords();
+      this.lostWalletRecords = await getLostWalletRecords(this.loggedInUserMobileNum);
       // This we are doing just to refresh the mapMarkerslist as refreshMap is on "watch" in map Marker
       this.refreshMap = true
       setTimeout(()=>{
@@ -97,6 +125,7 @@ methods: {
     }
 },
 created(){
+  this.getCustomerDetailsAction(this.loggedInUser);
     this.initialiseValues();
   }
 }

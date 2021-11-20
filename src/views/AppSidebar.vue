@@ -22,7 +22,7 @@
             <router-link class="routerLink" to="/registeredCards">Card Registration</router-link>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="this.selectedLogin === 'Customer'">
           <a class="nav-link" href="#">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"  d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -30,7 +30,7 @@
             <router-link class="routerLink" to="/kycAuthentication">KYC Authentication</router-link>              
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="this.selectedLogin === 'Customer'">
           <a class="nav-link" href="#">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm2 10a1 1 0 10-2 0v3a1 1 0 102 0v-3zm2-3a1 1 0 011 1v5a1 1 0 11-2 0v-5a1 1 0 011-1zm4-1a1 1 0 10-2 0v7a1 1 0 102 0V8z" clip-rule="evenodd" />
@@ -56,6 +56,16 @@
             <router-link class="routerLink" to="/claimsHistory">Claims / Advances</router-link>
           </a>
         </li>
+        <li class="nav-item" v-if="this.selectedLogin === 'Employee'">
+          <a class="nav-link" href="#">
+            <!-- <span data-feather="file"></span> -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"  d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd" />
+            </svg>
+            <router-link class="routerLink" to="/claimsHistory">Pending Claims</router-link>
+          </a>
+        </li>
       </ul>
     </div>
     </nav>
@@ -78,7 +88,7 @@ export default {
   methods: {
     async initialize() {
       const response = await getLoginType();
-      this.selectedLogin = response[0].loginType;
+      this.selectedLogin = response.loginType;
     }
   }
 }

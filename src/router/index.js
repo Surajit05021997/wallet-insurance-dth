@@ -64,6 +64,10 @@ const routes = [
     name:'KycAuthentication',
     component: KycAuthentication,
   },
+  {
+    path: '*',
+    redirect: Home
+  },
 ]
 
 const router = new VueRouter({

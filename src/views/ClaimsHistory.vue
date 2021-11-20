@@ -47,22 +47,32 @@
 </template>
 
 <script>
-import { getClaimsHistory, updateNotifiedTimestampForClaim } from '@/service/service.js'
+import { getClaimsHistory, updateNotifiedTimestampForClaim, getCustomerDetailsService } from '@/service/service.js'
+import { mapState, mapActions } from 'vuex';
 export default {
 name: 'ClaimsHistory',
 data(){ 
     return {
         claimsHistoryList : null,
-        recentlySuccessfulUnnotifiedClaims : []
+        recentlySuccessfulUnnotifiedClaims : [],
+
+        loggedInUserMobileNum : ''
     }
 },
+computed: {
+    ...mapState(['loggedInUser']),
+  },
 methods: {
+    ...mapActions(['getCustomerDetailsAction']),
     async initialiseValues(){
+      let customerDetails = await getCustomerDetailsService(this.loggedInUser);
+      // Add the Customer mobile number to fetch the cards registered with the logged in user
+      this.loggedInUserMobileNum = customerDetails[0].mobileNum;
       this.claimsHistoryList = await this.getAllClaimsHistory();
       this.recentlySuccessfulUnnotifiedClaims = this.getRecentlySuccessfulUnnotifiedClaims(this.claimsHistoryList);
     },
     async getAllClaimsHistory(){
-      const claimsHistory = await getClaimsHistory();
+      const claimsHistory = await getClaimsHistory(this.loggedInUserMobileNum);
       return claimsHistory;
     },
     getShortDate(date){
@@ -90,6 +100,7 @@ methods: {
     }
 },
 created(){
+  this.getCustomerDetailsAction(this.loggedInUser);
     this.initialiseValues();
 }
 }
