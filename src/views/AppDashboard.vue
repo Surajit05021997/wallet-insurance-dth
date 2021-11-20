@@ -120,6 +120,7 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import { getPolicyDetailsWithID, getPolicyDetailsWithMobNum, postSearchValue, getLoginType, deleteSearchValue } from '@/service/service.js';
+import {isValidSession} from '@/common.js'
 
 export default {
   name: 'Dashboard',
@@ -136,6 +137,11 @@ export default {
     ...mapState(['customerDetails', 'loggedInUser','blockCards']),
   },
   created() {
+    if(!isValidSession()){
+      this.$router.push({
+        name: 'Login'
+      })
+    }
     this.initialize();
     this.getCustomerDetailsAction(this.loggedInUser);
   },

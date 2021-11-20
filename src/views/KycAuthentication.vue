@@ -59,6 +59,7 @@
 import { getFamilyMembers, updateFamilyMember, deleteFamilyMember, getCustomerDetailsService } from '@/service/service.js'
 import { mapState, mapActions } from 'vuex';
 import AddFamilyMember from '../components/AddFamilyMember.vue';
+import {isValidSession} from '@/common.js';
 
 export default {
   components: { AddFamilyMember
@@ -153,6 +154,11 @@ methods: {
     }
 },
 created(){
+  if(!isValidSession()){
+      this.$router.push({
+        name: 'Login'
+      })
+    }
    this.getCustomerDetailsAction(this.loggedInUser);
     this.initialiseValues();
 }

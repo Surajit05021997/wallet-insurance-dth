@@ -50,6 +50,7 @@ import PaymentCard from '@/components/PaymentCard.vue';
 import EditCard from '@/components/EditCard.vue';
 import { getRegisteredCards, deleteRegisteredCard, getCustomerDetailsService } from '@/service/service.js'
 import { mapState, mapActions } from 'vuex';
+import { isValidSession } from '@/common.js';
 
 export default {
   name: 'RegisteredCards',
@@ -207,6 +208,11 @@ export default {
   }
   },  
   created(){
+    if(!isValidSession()){
+      this.$router.push({
+        name: 'Login'
+      })
+    }
     this.getCustomerDetailsAction(this.loggedInUser);
     this.initialiseValues();
     this.showInfoSweetAlert();

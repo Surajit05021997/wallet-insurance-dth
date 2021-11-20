@@ -49,6 +49,8 @@
 <script>
 import { getClaimsHistory, updateNotifiedTimestampForClaim, getCustomerDetailsService } from '@/service/service.js'
 import { mapState, mapActions } from 'vuex';
+import { isValidSession } from '@/common.js';
+
 export default {
 name: 'ClaimsHistory',
 data(){ 
@@ -100,6 +102,11 @@ methods: {
     }
 },
 created(){
+  if(!isValidSession()){
+      this.$router.push({
+        name: 'Login'
+      })
+    }
   this.getCustomerDetailsAction(this.loggedInUser);
     this.initialiseValues();
 }

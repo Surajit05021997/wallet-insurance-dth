@@ -4,7 +4,7 @@
       <div style="position: sticky; top:0;background: #fff; z-index:5">
         <app-navbar></app-navbar>
       </div>
-    <div>
+    <div class="row">
       <div v-if="isLoggedIn" class="col-lg-2 col-md-2">
         <app-sidebar></app-sidebar>
       </div>

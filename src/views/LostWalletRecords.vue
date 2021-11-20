@@ -56,6 +56,8 @@ import { getLostWalletRecords, getPolicyDetailsWithMobNum, getCustomerDetailsSer
 import AddLostWalletRecord from '../components/AddLostWalletRecord.vue';
 import MapOfLostWalletRecords from '../components/MapOfLostWalletRecords.vue';
 import { mapState, mapActions } from 'vuex';
+import { isValidSession } from '@/common.js';
+
 export default {
   components: { AddLostWalletRecord
   , MapOfLostWalletRecords 
@@ -125,6 +127,11 @@ methods: {
     }
 },
 created(){
+  if(!isValidSession()){
+      this.$router.push({
+        name: 'Login'
+      })
+    }
   this.getCustomerDetailsAction(this.loggedInUser);
     this.initialiseValues();
   }

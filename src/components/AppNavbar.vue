@@ -42,6 +42,12 @@ export default {
     ...mapActions(['setLoginStatusAction']),
     logout() {
       this.setLoginStatusAction(false);
+
+      if(sessionStorage.getItem("loggedInUsername")){
+        sessionStorage.removeItem("loggedInUsername");
+      }
+      
+
       this.$router.push({ name: 'Home' });
     },
     scrollToTop() {
