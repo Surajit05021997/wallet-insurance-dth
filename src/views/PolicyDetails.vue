@@ -44,6 +44,10 @@
               </div>
               <div class="col-lg-8">
                 <table class="table table-hover font-size-1_6rem">
+                    <!-- <tr v-for="(policyDetailsField, index) in policyDetailsFields" :key="index">
+                      <th>{{policyDetailsField}}</th>
+                      <td>{{renderLatestPolicy(index)}}</td>
+                    </tr> -->
                   <thead>
                     <tr>
                       <th v-for="(policyDetailsField, index) in policyDetailsFields" :key="index">{{policyDetailsField}}</th>
@@ -59,7 +63,7 @@
                   </tbody>
                 </table>
                 <div class="mt-6">
-                  <h3 class="card-title">{{getTitleStringForCard(getRemainingDays(latestPolicy.endDate))}}</h3>
+                  <h1 class="card-title">{{getTitleStringForCard(getRemainingDays(latestPolicy.endDate))}}</h1>
                   <button class="btn btn-danger font-size-1_6rem" v-show="showRenewPolicyButton(latestPolicy.endDate)" :disabled="!showRenewPolicyButton(latestPolicy.endDate)">Renew Policy</button>
                 </div>
               </div>
@@ -79,6 +83,7 @@
 <script>
 import { getSearchValue, getPolicyDetailsWithMobNum, getPolicyDetailsWithID, getLoginType, getCustomerDetailsService } from '@/service/service.js';
 import { mapState, mapActions } from 'vuex';
+import { isValidSession } from '@/common.js';
 
 export default {
 name: 'PolicyDetails',
@@ -178,9 +183,29 @@ methods: {
       }
       else 
       return `${remainingDays} days remaining`
-    }
+    },
+    // renderLatestPolicy(index){
+    //   switch(Object.keys(this.latestPolicy)[index]){
+    //     case "id" : return this.latestPolicy["id"]
+    //     case "startDate" : return this.latestPolicy["startDate"]
+    //     case "endDate" : return this.latestPolicy["endDate"]
+    //     case "insuranceAmount" : return this.latestPolicy["insuranceAmount"]
+    //   }
+    //   we know 
+    //   this.policyDetailsFields = [
+    //     'Policy ID',
+    //     'Start Date',
+    //     'End Date',
+    //     'Insurance Amount',
+    //   ];
+    // }
 }, 
 created(){
+  if(!isValidSession()){
+      this.$router.push({
+        name: 'Login'
+      })
+    }
   this.getCustomerDetailsAction(this.loggedInUser);
     this.initialiseValues();
   }

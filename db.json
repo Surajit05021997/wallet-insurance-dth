@@ -45,7 +45,7 @@
     "priceWithoutDiscount": 5900
   },
   "loginWith": {
-    "loginType": "Employee"
+    "loginType": "Customer"
   },
   "searchWith": [
     {
@@ -87,56 +87,8 @@
       "id": 1
     }
   ],
-  "registeredCards": [
-    {
-      "id": 1637391911956,
-      "cardNumber": "8989898989898989",
-      "bank": "State Bank of India",
-      "cardType": "cardTypeDebit",
-      "paymentGatewayType": "Maestro",
-      "mobileNum": "9989678967",
-      "isBlocked": false
-    }
-  ],
-  "lostWalletRecords": [
-    {
-      "id": 1637392135233,
-      "howYouLostWallet": "Stolen",
-      "dateTimeOfLosingWallet": "2021-11-20T12:38",
-      "locationOfLosingWallet": "Jaipur",
-      "locationOfLosingWalletLatitude": 26.9124336,
-      "locationOfLosingWalletLongitude": 75.7872709,
-      "additionalDetailsOfLostWallet": "no",
-      "listOfCardsToBlock": [
-        "1637391911956"
-      ],
-      "mobileNum": "9989678967"
-    }
-  ],
-  "claimsHistory": [
-    {
-      "notifiedOn": "",
-      "dateTimeOfLosingWallet": "2021-11-20T12:38",
-      "locationOfLosingWallet": "Jaipur",
-      "status": "Processing",
-      "listOfCardsToBlock": [
-        "1637391911956"
-      ],
-      "claimAmount": "",
-      "claimRejectionReason": "",
-      "mobileNum": "9989678967",
-      "id": 1637392135233
-    }
-  ],
-  "familyMembers": [
-    {
-      "familyMemberName": "Shashank",
-      "familyMemberEmail": "shs@g.co",
-      "familyMemberMobile": "9898989800",
-      "familyMemberRelation": "Brother",
-      "isAuthorised": false,
-      "familyHeadMobileNum": "9989678967",
-      "id": 1
-    }
-  ]
+  "registeredCards": [],
+  "lostWalletRecords": [],
+  "claimsHistory": [],
+  "familyMembers": []
 }

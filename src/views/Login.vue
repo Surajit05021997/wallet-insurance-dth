@@ -76,6 +76,7 @@ export default {
         this.setLoginStatusAction(true);
         this.setLoggedInUserAction(this.username);
 
+        sessionStorage.setItem("loggedInUsername", this.username);
         
         this.$router.push({
           name: 'Dashboard',
