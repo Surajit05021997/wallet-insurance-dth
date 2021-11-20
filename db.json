@@ -5,9 +5,18 @@
       "mobileNum": "9989678967",
       "emailId": "rs4siddhant@gmail.com",
       "type": "platinum",
-      "username": "ehiwj8Io",
-      "password": "sSfLs3g3",
-      "id": 1
+      "username": "uQSUS6yp",
+      "password": "EzuW7iCF",
+      "id": 3
+    },
+    {
+      "name": "Raju",
+      "mobileNum": "1234567890",
+      "emailId": "nagaramaraju@gmail.com",
+      "type": "platinum",
+      "username": "tohqrl93",
+      "password": "Zl2Aurwk",
+      "id": 4
     }
   ],
   "employees": [
@@ -25,9 +34,9 @@
     }
   ],
   "preCustomer": {
-    "name": "Siddhant",
-    "number": "9989678967",
-    "email": "rs4siddhant@gmail.com",
+    "name": "Raju",
+    "number": "1234567890",
+    "email": "nagaramaraju@gmail.com",
     "type": "platinum",
     "isTravelInsTaken": true,
     "isMobileInsTaken": true,
@@ -48,8 +57,24 @@
       "id": 2
     },
     {
-      "searchVal": "9989678967",
-      "id": 3
+      "loginType": "Customer",
+      "id": 6
+    },
+    {
+      "loginType": "Customer",
+      "id": 7
+    },
+    {
+      "loginType": "Customer",
+      "id": 8
+    },
+    {
+      "loginType": "Customer",
+      "id": 9
+    },
+    {
+      "loginType": "Customer",
+      "id": 10
     }
   ],
   "banks": [],

@@ -26,8 +26,13 @@
               <p class="invalid" v-if="!isValidEmail">Enter your email</p>
             </div>
             <div class="captcha">
-              <img :src="require(`../assets/captcha-${captchaNo}.png`)" alt="Captcha">
-              <input type="text" v-model="captchaInput" @input="validateCaptcha">
+              <div class="captcha-field">
+                <img :src="require(`../assets/captcha-${captchaNo}.png`)" alt="Captcha">
+                <svg @click="generateRandomNumber()" xmlns="http://www.w3.org/2000/svg" class="reload-captcha" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                <input type="text" v-model="captchaInput" @change="validateCaptcha">
+              </div>
               <p class="invalid" v-if="!isValidCaptcha">Wrong captcha</p>
             </div>
             <div class="terms-conditions">
@@ -186,7 +191,7 @@ export default {
   },
   created() {
     window.scrollTo(0, 0);
-    this.captchaNo = Math.floor((Math.random()*3)+1);
+    this.generateRandomNumber();
   },
   methods: {
     ...mapActions(["setPreCustomerAction"]),
@@ -345,6 +350,9 @@ export default {
         this.planPrice = 1800;
         return this.planPrice;
       }
+    },
+    generateRandomNumber() {
+      this.captchaNo = Math.floor((Math.random()*3)+1);
     },
   },
   watch: {
@@ -506,6 +514,22 @@ input {
   width: 3rem;
   height: 3rem;
   stroke: limegreen
+}
+.captcha-field {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.captcha input {
+  margin-left: 2.5rem;
+}
+.reload-captcha {
+  width: 3rem;
+  height: 3rem;
+}
+.reload-captcha:hover {
+  cursor: pointer;
+  stroke: #999;
 }
 @media screen and (max-width: 992px) {
   .box {
