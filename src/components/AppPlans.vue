@@ -194,7 +194,7 @@ ul {
 }
 ul li {
   margin-bottom: 1rem;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   list-style: none;
 }
 .btn:link,

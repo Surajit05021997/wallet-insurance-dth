@@ -4,9 +4,7 @@
       <h2 class="heading">What we provide</h2>
       <div class="feature">
         <div class="feature-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-          </svg>
+          <img src="../assets/feature-1.svg" alt="Card Icon" class="icon">
         </div>
         <div class="feature-description">
           <h3>Card Protection</h3>
@@ -14,21 +12,17 @@
         </div>
       </div>
       <div class="feature">
+        <div class="feature-icon">
+          <img src="../assets/feature-2.svg" alt="Card Icon" class="icon">
+        </div>
         <div class="feature-description">
           <h3>Travel Assistance & Coverage</h3>
           <p>Incase of the Wallet theft/loosing/card fraud in traveling, Bank can provide travel assistance in this case including the hotel bill payments, booking your tickets and cash arrangement.</p>
         </div>
-        <div class="feature-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        </div>
       </div>
-      <div class="feature">
+      <div class="feature mb-0">
         <div class="feature-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-          </svg>
+          <img src="../assets/feature-3.svg" alt="Card Icon" class="icon">
         </div>
         <div class="feature-description">
           <h3>24/7 Chat Support</h3>
@@ -85,16 +79,16 @@ export default {
   .feature {
     padding: 0.5rem 2rem;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.1fr 2fr;
     align-items: center;
+    margin-bottom: 3rem;
   }
   .feature-icon {
     display: flex;
     justify-content: center;
   }
   .icon {
-    width: 10rem;
-    stroke: #007fff;
+    width: 8rem;
   }
   .feature-description h3 {
     font-size: 2.7rem;
