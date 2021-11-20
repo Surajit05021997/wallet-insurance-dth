@@ -1,17 +1,17 @@
 <template>
   <nav class="navbar">
     <div class="container">
-      <div class="brand">
-        <router-link v-if="!isLoggedIn" class="wallet-icon" :to="{ name: 'Home' }" @click="scrollToTop()">
+      <div v-if="!isLoggedIn" class="brand">
+        <router-link class="wallet-icon" :to="{ name: 'Home' }" @click="scrollToTop()">
           <img src="@/assets/wallet-icon.svg" alt="Wallet Icon">
         </router-link>
-        <router-link v-if="!isLoggedIn" class="logo" :to="{ name: 'Home' }" @click="scrollToTop()">Wallet-Insurance</router-link>
+        <router-link class="logo" :to="{ name: 'Home' }" @click="scrollToTop()">Wallet-Insurance</router-link>
       </div>
-      <div class="brand">
-        <router-link v-if="isLoggedIn" class="wallet-icon" :to="{ name: 'Dashboard' }" @click="scrollToTop()">
+      <div v-if="isLoggedIn" class="brand">
+        <router-link class="wallet-icon" :to="{ name: 'Dashboard' }" @click="scrollToTop()">
           <img src="@/assets/wallet-icon.svg" alt="Wallet Icon">
         </router-link>
-        <router-link v-if="isLoggedIn" class="logo" :to="{ name: 'Dashboard' }" @click="scrollToTop()">Wallet-Insurance</router-link>
+        <router-link class="logo" :to="{ name: 'Dashboard' }" @click="scrollToTop()">Wallet-Insurance</router-link>
       </div>
       <div class="right-nav" v-if="!isLoggedIn">
         <!-- <div class="right-nav"> -->
