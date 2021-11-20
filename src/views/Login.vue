@@ -1,31 +1,34 @@
 <template>
-  <div class="container">
-    <div class="login-card">
-      <div class="login-img">
-        <p class="img-des">Nice to see you again</p>
-        <p class="img-heading">WELCOME BACK</p>
-      </div>
-      <div class="login-field">
-        <p class="field-des">Login Account</p>
-        <form class="login-form" @submit.prevent="authenticate">
-          <div style="display-flex">
-            <div class="radio-toolbar" id="loginType">
-              <div v-for="(option, index) in loginType" :key="index" class="m-1">
-                <input type="radio" class="form-check-input btn-text-1_5rem" name="loginType" :value="option.value" :id="option.value" v-model="selectedLoginType" @change="getSelectedLoginType()">
-                <label class="mx-0_5rem form-check-label btn-text-1_5rem" :for="option.id">{{option.value}}</label>
+  <div class="login">
+    <div class="container">
+      <div class="login-card">
+        <div class="login-img">
+          <img class="login-icon" src="../assets/login-icon.svg" alt="Login Icon">
+          <p class="img-des">Nice to see you again</p>
+          <p class="img-heading">WELCOME BACK</p>
+        </div>
+        <div class="login-field">
+          <p class="field-des">Login Account</p>
+          <form class="login-form" @submit.prevent="authenticate">
+            <div style="display-flex">
+              <div class="radio-toolbar" id="loginType">
+                <div v-for="(option, index) in loginType" :key="index" class="m-1">
+                  <input type="radio" class="form-check-input btn-text-1_5rem" name="loginType" :value="option.value" :id="option.value" v-model="selectedLoginType" @change="getSelectedLoginType()">
+                  <label class="mx-0_5rem form-check-label btn-text-1_5rem" :for="option.id">{{option.value}}</label>
+                </div>
               </div>
             </div>
-          </div>
-           
-          <p class="invalid" v-if="isInvalid">Your username or password is incorrecct.</p>
-          <input type="text" placeholder="Username" v-model="username">
-          <input type="password" placeholder="Password" v-model="password">
-          <div class="remember-user">
-            <input type="checkbox">
-            <label>Remember username</label>
-          </div>
-          <button class="btn">LOGIN</button>
-        </form>
+            
+            <p class="invalid" v-if="isInvalid">Your username or password is incorrecct.</p>
+            <input type="text" placeholder="Username" v-model="username">
+            <input type="password" placeholder="Password" v-model="password">
+            <div class="remember-user">
+              <input type="checkbox">
+              <label>Remember username</label>
+            </div>
+            <button class="btn">LOGIN</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -100,13 +103,17 @@ export default {
 </script>
 
 <style scoped>
+.login {
+  padding: 8rem 2rem;
+  background: linear-gradient(158deg, rgba(165,229,255,1) 0%, rgba(11,3,107,1) 100%);
+}
 .container {
   max-width: 120rem;
-  margin: 5rem auto;
-  padding: 0 2rem;
+  margin: 0 auto;
 }
 .radio-toolbar, .d-flex {
   display: flex;
+  align-items: center;
 }
 .m-1{
   margin: 8px;
@@ -125,21 +132,23 @@ export default {
   font-size: 1.5rem
 }
 .login-card {
-  max-width:80rem;
-  margin: 5rem auto;
+  max-width:100rem;
+  margin: 0 auto;
   height: 50rem;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  border-radius: 10px;
 }
 .login-img {
   background: url('../assets/login-img.jpg');
-  background-size: 400px 500px;
+  background-size: 500px 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
+  border-radius: 10px 0 0 10px;
 }
 .login-img a {
   position: absolute;
@@ -161,9 +170,12 @@ export default {
   align-items: center;
   justify-content: center;
   gap: 3rem;
+  background-color: #fff;
+  border-radius: 0 10px 10px 0;
 }
 .field-des {
-  font-size: 3rem;
+  font-size: 5rem;
+  margin-bottom: 0;
   color: #007fff;
 }
 .login-form {
@@ -174,7 +186,7 @@ export default {
   gap: 1.5rem;
 }
 .login-form input {
-  font-size: 1.5rem;
+  font-size: 2rem;
   border: none;
   border-left: 4px solid #007fff;
   border-radius: 2px;
@@ -208,6 +220,18 @@ export default {
   .invalid {
     color: red;
     font-size: 1.5rem;
+  }
+  input[type='radio'] {
+    border-radius: 50%;
+    border: 2px solid #007fff;
+    margin: 0;
+  }
+  input[type='radio']:checked {
+    background: #007fff;
+  }
+  .login-icon {
+    width: 20rem;
+    height: 20rem;
   }
 @media screen and (max-width: 768px) {
   .login-card {
