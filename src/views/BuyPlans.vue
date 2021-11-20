@@ -1,17 +1,17 @@
 <template>
   <div class="buy-plans">
     <div class="container">
-      <p class="des">Enter your details</p>
+      <p class="des"><strong>Enter your details</strong></p>
       <div class="box">
         <form @submit.prevent="validate">
           <div class="field-box">
             <div class="field">
-              <label>Name</label>
+              <label><strong>Name</strong></label>
               <input type="text" v-model="name" @input="validateName" />
               <p class="invalid" v-if="!isValidName">Enter your name</p>
             </div>
             <div class="field">
-              <label>Mobile Number</label>
+              <label><strong>Mobile Number</strong></label>
               <input type="text" v-model="number" @input="validateNumber" />
               <p class="invalid" v-if="isEmptyNumber">
                 Enter your mobile number
@@ -21,7 +21,7 @@
               </p>
             </div>
             <div class="field">
-              <label>Email</label>
+              <label><strong>Email</strong></label>
               <input type="email" v-model="email" @input="validateEmail" />
               <p class="invalid" v-if="!isValidEmail">Enter your email</p>
             </div>
@@ -31,7 +31,7 @@
                 <svg @click="generateRandomNumber()" xmlns="http://www.w3.org/2000/svg" class="reload-captcha" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
-                <input type="text" v-model="captchaInput" @change="validateCaptcha">
+                <input type="text" v-model="captchaInput" @focus="isValidCaptcha=true">
               </div>
               <p class="invalid" v-if="!isValidCaptcha">Wrong captcha</p>
             </div>
@@ -74,7 +74,6 @@
                 ><strong>₹ 1800 /year</strong></span
               >
             </p>
-            <p>Inclusive of all taxes</p>
             <p class="sub-heading"><strong>Addition Insurance taken</strong></p>
             <p
               v-if="
@@ -190,7 +189,6 @@ export default {
     };
   },
   created() {
-    window.scrollTo(0, 0);
     this.generateRandomNumber();
   },
   methods: {
@@ -352,7 +350,13 @@ export default {
       }
     },
     generateRandomNumber() {
-      this.captchaNo = Math.floor((Math.random()*3)+1);
+      this.isValidCaptcha = true;
+      const randomNumber = Math.floor((Math.random()*3)+1);
+      if(randomNumber === this.captchaNo) {
+        this.generateRandomNumber();
+      } else {
+        this.captchaNo = randomNumber;
+      }
     },
   },
   watch: {
@@ -388,6 +392,7 @@ p {
 .field-box label {
   font-size: 2rem;
   padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 .field-box {
   padding: 2rem;
@@ -396,14 +401,14 @@ p {
   margin-bottom: 3rem;
   display: grid;
   grid-template-columns: 100%;
-  row-gap: 2rem;
+  row-gap: 2.8rem;
 }
 .field {
   display: flex;
   flex-direction: column;
 }
 input {
-  font-size: 1.6rem;
+  font-size: 2rem;
   border: none;
   border-left: 4px solid #007fff;
   border-radius: 2px;
@@ -458,6 +463,7 @@ input {
 .terms-conditions label {
   font-size: 1.5rem;
   padding-top: 0;
+  padding-bottom: 0;
   padding-left: 1.5rem;
 }
 .terms-conditions a {
@@ -482,16 +488,17 @@ input {
 }
 .discount-text {
   margin: 0;
+  font-size: 1.3rem;
 }
 .addons form input {
   margin: 1rem 0;
 }
 .addons form label {
-  font-size: 1.5rem;
+  font-size: 2rem;
   padding-left: 1rem;
 }
 .addons form p {
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 .addon-options {
   display: flex;
@@ -499,7 +506,7 @@ input {
   align-items: center;
 }
 .additional span {
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 .sub-heading {
   font-size: 2rem;
@@ -519,6 +526,7 @@ input {
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  margin-top: 0.5rem;
 }
 .captcha input {
   margin-left: 2.5rem;

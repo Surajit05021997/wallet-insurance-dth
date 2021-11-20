@@ -17,6 +17,15 @@
       "username": "tohqrl93",
       "password": "Zl2Aurwk",
       "id": 4
+    },
+    {
+      "name": "Surajit Maity",
+      "mobileNum": "0908349569",
+      "emailId": "fsdfs@sdsada.com",
+      "type": "platinum",
+      "username": "YZ8D1GBS",
+      "password": "E&y7$MZB",
+      "id": 5
     }
   ],
   "employees": [
@@ -34,15 +43,15 @@
     }
   ],
   "preCustomer": {
-    "name": "Raju",
-    "number": "1234567890",
-    "email": "nagaramaraju@gmail.com",
+    "name": "Surajit Maity",
+    "number": "0908349569",
+    "email": "surajitmaity12345@gmail.com",
     "type": "platinum",
-    "isTravelInsTaken": true,
-    "isMobileInsTaken": true,
+    "isTravelInsTaken": false,
+    "isMobileInsTaken": false,
     "isCyberInsTaken": false,
-    "totalPrice": 4720,
-    "priceWithoutDiscount": 5900
+    "totalPrice": 2400,
+    "priceWithoutDiscount": 2400
   },
   "loginWith": {
     "loginType": "Customer"
@@ -85,6 +94,13 @@
       "insuranceAmount": "150000",
       "mobileNum": "9989678967",
       "id": 1
+    },
+    {
+      "startDate": "11/20/2021",
+      "endDate": "11/20/2022",
+      "insuranceAmount": "150000",
+      "mobileNum": "0908349569",
+      "id": 2
     }
   ],
   "registeredCards": [],
