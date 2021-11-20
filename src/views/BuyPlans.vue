@@ -25,6 +25,11 @@
               <input type="email" v-model="email" @input="validateEmail" />
               <p class="invalid" v-if="!isValidEmail">Enter your email</p>
             </div>
+            <div class="captcha">
+              <img :src="require(`../assets/captcha-${captchaNo}.png`)" alt="Captcha">
+              <input type="text" v-model="captchaInput" @input="validateCaptcha">
+              <p class="invalid" v-if="!isValidCaptcha">Wrong captcha</p>
+            </div>
             <div class="terms-conditions">
               <input type="checkbox" v-model="termsChecked" />
               <div class="field">
@@ -165,6 +170,7 @@ export default {
       isEmptyNumber: false,
       isValidNumber: true,
       isValidEmail: true,
+      isValidCaptcha: true,
       isTravelInsTaken: false,
       isMobileInsTaken: false,
       isCyberInsTaken: false,
@@ -173,10 +179,14 @@ export default {
       cyberInsPrice: 1800,
       planPrice: 0,
       priceWithoutDiscount: 0,
+      captchaNo: 0,
+      captchaInput: '',
+      captchaData: ['22d5n', '226md', '2356g'],
     };
   },
   created() {
     window.scrollTo(0, 0);
+    this.captchaNo = Math.floor((Math.random()*3)+1);
   },
   methods: {
     ...mapActions(["setPreCustomerAction"]),
@@ -184,11 +194,13 @@ export default {
       this.validateName();
       this.validateNumber();
       this.validateEmail();
+      this.validateCaptcha();
       this.validateTerms();
       if (
         this.isValidName &&
         this.isValidNumber &&
         this.isValidEmail &&
+        this.isValidCaptcha &&
         this.termsChecked
       ) {
         await addPreCustomer({
@@ -240,6 +252,13 @@ export default {
         this.isValidEmail = true;
       } else {
         this.isValidEmail = false;
+      }
+    },
+    validateCaptcha() {
+      if(this.captchaData[this.captchaNo - 1] === this.captchaInput) {
+        this.isValidCaptcha = true;
+      } else {
+        this.isValidCaptcha = false;
       }
     },
     validateTerms() {
