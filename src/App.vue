@@ -4,11 +4,11 @@
       <div style="position: sticky; top:0;background: #fff; z-index:5">
         <app-navbar></app-navbar>
       </div>
-    <div class="row">
-      <div v-if="isLoggedIn" class="col-lg-2 col-md-2">
+    <div :class="isLoggedIn? 'dashboard-container' : ''">
+      <div v-if="isLoggedIn" >
         <app-sidebar></app-sidebar>
       </div>
-      <div :class="{ 'col-lg-10 col-md-10': isLoggedIn }">
+      <div>
         <router-view></router-view>
       </div>
     </div>
@@ -57,5 +57,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+}
+
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  max-width: 120rem;
+  margin: 0 auto;
 }
 </style>
