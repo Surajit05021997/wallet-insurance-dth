@@ -10,11 +10,6 @@
           />
         </div>
         <div>
-          <!-- <p class="contact-heading">Get in touch</p>
-          <p class="contact-text">
-            Want to get in touch? We'd love to hear from you. Here's how you can
-            reach us...
-          </p> -->
           <div class="contact-item">
             <div>
               <div class="icon-container">
@@ -107,7 +102,7 @@ export default {
 
 <style scoped>
 .contact-us {
-  padding: 7.5rem 2rem ;
+  padding: 7.5rem 2rem 3rem 2rem ;
 }
 .container {
   max-width: 120rem;

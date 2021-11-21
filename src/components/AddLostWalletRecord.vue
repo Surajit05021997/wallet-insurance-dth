@@ -45,7 +45,7 @@
                 <label class="btn btn-outline-danger" :for="card.id">{{getCheckboxButtonForCards(card)}}</label>
               </div>
             </div>
-            <button type="button" :disabled="checkBrowseSupportForGeoLocation()" @click="fetchDeviceLocation()" class="btn btn-primary">Fetch Device Location</button>
+            <!-- <button type="button" :disabled="checkBrowseSupportForGeoLocation()" @click="fetchDeviceLocation()" class="btn btn-primary">Fetch Device Location</button> -->
           <div v-if="addLostWalletRecordProcessing" class="spinner-border text-primary float-end" role="status">
             <span class="sr-only"></span>
           </div>
@@ -191,7 +191,14 @@ export default {
     },
     async getLocationLatLong(addressOfLocation){
       let locationObject = await this.googleMapGeocodeService.geocode({'address' : addressOfLocation})
-                            .then((locObject) => locObject).catch(error=>console.log(error));
+                            .then((locObject) => locObject).catch(()=>{
+                              // If we could not find any result, that may be due to bad internet connectio, Wrong API key, or no such Address
+                              this.$swal({
+                                title: 'Address not found !',
+                                html: "<h4>The mentioned address is not found, Please enter correct address</h4><br><h6><u>Note: Address search requires internet connection.</u> Please check and try again.<h6>",
+                                icon: 'warning',
+                              })
+                            });
       let locationLatitude = locationObject.results[0].geometry.location.lat();
       let locationLongitude = locationObject.results[0].geometry.location.lng();
       return { latitude : locationLatitude, longitude : locationLongitude };
@@ -244,7 +251,7 @@ export default {
                         this.resetFormFields();
                           this.$swal({
                           title: 'Record added',
-                          html : `The Lost Wallet Record added and Claim created. Note below claim ID for reference.<br>Claim ID <br><b>${claimId}</b>`,
+                          html : `The Lost Wallet Record added and Claim created. Note below claim ID for reference.<br>Claim ID <br><b><a href="/claimsHistory">${claimId}</b></a>`,
                           icon : 'success'
                           });
                         this.$emit('lost-wallet-record-added');
@@ -311,14 +318,14 @@ export default {
         return true;
       return false;
     },
-    fetchDeviceLocation(){
-          function successCallback () {              
-          }
-          function errorCallback (error) {
-              console.log(error.message);
-          }
-          navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-    },
+    // fetchDeviceLocation(){
+    //       function successCallback () {              
+    //       }
+    //       function errorCallback (error) {
+    //           console.log(error.message);
+    //       }
+    //       navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    // },
 
     // async isPolicyExpired(){
     //   let policy = await getPolicies();

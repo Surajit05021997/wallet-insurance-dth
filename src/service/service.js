@@ -145,6 +145,15 @@ async function getPolicies(){
   }
 }
 
+async function getAllClaims(){
+  try {
+    const response = await axios.get(`http://localhost:3001/claimsHistory`);
+    return response.data;
+  } catch(error){
+    console.log(error);
+  }
+}
+
 async function getClaimsHistory(mobileNum){
   try {
     const response = await axios.get(`http://localhost:3001/claimsHistory?mobileNum=${mobileNum}`);
@@ -200,6 +209,15 @@ async function updateFamilyMember(id, updatedFamilyMember){
 }
 
 async function updateNotifiedTimestampForClaim(id, updatedClaim){
+  try {
+    const response = await axios.put(`http://localhost:3001/claimsHistory/${id}`, updatedClaim);
+    return response.statusText;
+  }catch(error){
+    console.log(error);
+  }
+}
+
+async function updateClaimStatus(id, updatedClaim){
   try {
     const response = await axios.put(`http://localhost:3001/claimsHistory/${id}`, updatedClaim);
     return response.statusText;
@@ -284,7 +302,8 @@ export {
   getLoginType,
   getRegisteredCards,
   getRegisteredCardWithId,
-  getLostWalletRecords, 
+  getLostWalletRecords,
+  getAllClaims,
   getClaimsHistory, 
   getFamilyMembers, 
   getPolicies,
@@ -295,6 +314,7 @@ export {
   updateRegisteredCard,
   updateFamilyMember,
   updateNotifiedTimestampForClaim,
+  updateClaimStatus,
   deleteRegisteredCard, 
   deleteFamilyMember,
   addPreCustomer,

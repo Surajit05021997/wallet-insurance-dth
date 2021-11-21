@@ -23,7 +23,7 @@
         <router-link class="login-btn" :to="{ name: 'Login'}"><strong>Login</strong></router-link>
       </div>
       <div v-if="isLoggedIn">
-        <a class="logout-btn logoutSpecs" @click="logout">Logout</a>
+        <a class="logout-btn logoutSpecs" href="#" @click.prevent="logout">Logout</a>
       </div>
     </div>
     <img class="christmas-logo" src="../assets/bauble-christmas.svg" alt="Christmas bauble">

@@ -10,6 +10,7 @@ import LostWalletRecords from '@/views/LostWalletRecords.vue'
 import PolicyDetails from '@/views/PolicyDetails.vue'
 import ClaimsHistory from '@/views/ClaimsHistory.vue'
 import KycAuthentication from '@/views/KycAuthentication.vue'
+import PendingClaims from '@/views/PendingClaims.vue'
 
 Vue.use(VueRouter)
 
@@ -60,6 +61,11 @@ const routes = [
     component: ClaimsHistory,
   },
   {
+    path: '/pendingClaims',
+    name:'PendingClaims',
+    component: PendingClaims,
+  },
+  {
     path: '/kycAuthentication',
     name:'KycAuthentication',
     component: KycAuthentication,
@@ -73,7 +79,14 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior () {
+    return {
+      x: 0,
+      y: 0,
+      behavior: 'smooth',
+    }
+  }
 })
 
 export default router

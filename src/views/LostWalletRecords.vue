@@ -35,7 +35,7 @@
             <td>{{lostWalletRecord.additionalDetailsOfLostWallet}}</td>
             <td>
               <span v-for="(card, index) in lostWalletRecord.listOfCardsToBlock" :key="index">
-                <p>{{card}}</p>
+                <p>{{getCardDetailsWithCardId(card)}}</p>
               </span>
             </td>
           </tr>
@@ -71,7 +71,8 @@ data(){
         checkIfPolicyExpired : null,
         checkIfNoRegisteredCards : null,
 
-        loggedInUserMobileNum : ''
+        loggedInUserMobileNum : '',
+        allRegisteredCardsIncludingBlocked : null
     }
 },
 computed: {
@@ -101,6 +102,7 @@ methods: {
         'cardTypeCredit'
       ];
       let allCards = await getRegisteredCards(this.loggedInUserMobileNum);
+      this.allRegisteredCardsIncludingBlocked = allCards;
       let debitCreditCardList = allCards.filter(eachCard => !eachCard.isBlocked && (filterCardType.includes(eachCard.cardType)));
       console.log(debitCreditCardList);
       if (debitCreditCardList.length === 0 )
@@ -124,7 +126,14 @@ methods: {
       setTimeout(()=>{
         this.refreshMap = false;
       },2000)      
-    }
+    },
+    getCardDetailsWithCardId(cardId){
+      let parsedCardId = parseInt(cardId);
+      let cardDetails = this.allRegisteredCardsIncludingBlocked.filter(card => card.id === parsedCardId);
+      // the cardDetails will contain only one elememt, but as an array, so retrieve that with cardDetails[0]
+      let stringForCardDetails = `${cardDetails[0].bank.slice(0, cardDetails[0].bank.length/2)} - xx ${cardDetails[0].cardNumber.slice(cardDetails[0].cardNumber.length - 4)}`;
+      return stringForCardDetails;
+    },
 },
 created(){
   if(!isValidSession()){

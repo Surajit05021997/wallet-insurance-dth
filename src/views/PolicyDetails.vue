@@ -26,6 +26,39 @@
       <div v-if="this.selectedLogin==='Customer'">
         <div v-if="latestPolicy" class="container">
           <div class="row">
+              <div class="col-lg-8">
+                <div class="card">
+                  <h3 class="card-header">Policy Id : {{latestPolicy.id}}</h3>
+                  <div class="card-body">
+                    <h2 class="card-title">
+                      <span v-if="showRenewPolicyButton(latestPolicy.endDate)">Ended on: </span>
+                      <span v-if="!showRenewPolicyButton(latestPolicy.endDate)">Ending on: </span>
+                      {{getShortDate(latestPolicy.endDate)}}
+                      </h2>
+                    <h4 class="mt-5">Insuarnce Amount : {{latestPolicy.insuranceAmount}}</h4>
+                    <h5 class="card-text">Started On : {{getShortDate(latestPolicy.startDate)}}</h5>
+                  </div>
+                </div>
+                <!-- <table class="table table-hover font-size-1_6rem">
+                  <thead>
+                    <tr>
+                      <th v-for="(policyDetailsField, index) in policyDetailsFields" :key="index">{{policyDetailsField}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <tr class="table-secondary">
+                    <td>{{latestPolicy.id}}</td>
+                    <td>{{latestPolicy.startDate}}</td>
+                    <td>{{latestPolicy.endDate}}</td>
+                    <td>{{latestPolicy.insuranceAmount}}</td>
+                  </tr>
+                  </tbody>
+                </table> -->
+                <div class="mt-6">
+                  <h1 class="card-title">{{getTitleStringForCard(getRemainingDays(latestPolicy.endDate))}}</h1>
+                  <button class="btn btn-danger font-size-1_6rem" :disabled="!showRenewPolicyButton(latestPolicy.endDate)">Renew Policy</button>
+                </div>
+              </div>
               <div v-if="!showRenewPolicyButton(latestPolicy.endDate)" class="col-lg-4">
                 <div class="centered-content">
                   <h2 class="text-success"><b>You are Protected</b></h2>
@@ -41,31 +74,6 @@
                 <div class="centered-content">
                     <img src="../assets/vulnerability.png" alt="Wallet unprotected Image">
                 </div>     
-              </div>
-              <div class="col-lg-8">
-                <table class="table table-hover font-size-1_6rem">
-                    <!-- <tr v-for="(policyDetailsField, index) in policyDetailsFields" :key="index">
-                      <th>{{policyDetailsField}}</th>
-                      <td>{{renderLatestPolicy(index)}}</td>
-                    </tr> -->
-                  <thead>
-                    <tr>
-                      <th v-for="(policyDetailsField, index) in policyDetailsFields" :key="index">{{policyDetailsField}}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  <tr class="table-secondary">
-                    <td>{{latestPolicy.id}}</td>
-                    <td>{{latestPolicy.startDate}}</td>
-                    <td>{{latestPolicy.endDate}}</td>
-                    <td>{{latestPolicy.insuranceAmount}}</td>
-                  </tr>
-                  </tbody>
-                </table>
-                <div class="mt-6">
-                  <h1 class="card-title">{{getTitleStringForCard(getRemainingDays(latestPolicy.endDate))}}</h1>
-                  <button class="btn btn-danger font-size-1_6rem" v-show="showRenewPolicyButton(latestPolicy.endDate)" :disabled="!showRenewPolicyButton(latestPolicy.endDate)">Renew Policy</button>
-                </div>
               </div>
           </div>
         </div>
@@ -183,6 +191,11 @@ methods: {
       }
       else 
       return `${remainingDays} days remaining`
+    },
+    getShortDate(date){
+      let dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+      let shortDate = new Date(date).toLocaleDateString("en-US", dateOptions)
+      return shortDate;
     },
     // renderLatestPolicy(index){
     //   switch(Object.keys(this.latestPolicy)[index]){

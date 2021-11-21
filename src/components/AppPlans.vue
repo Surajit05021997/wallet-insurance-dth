@@ -17,11 +17,11 @@
           <ul>
             <li>&rarr; All Credit/Debits card blocking</li>
             <li>&rarr; All Identity cards replacement</li>
-            <li>&rarr; Travel Assistance : Hotel Bill payment*</li>
-            <li v-if="!visiblePlatinum">&ensp;&emsp;<strong>. . .</strong></li>
+            <li v-if="!visiblePlatinum" class="more-benifits">&ensp;&emsp;<strong>. . .</strong></li>
+            <li :class="visiblePlatinum? '' : 'hide-benifit'">&rarr; Travel Assistance : Hotel Bill payment*</li>
             <li :class="visiblePlatinum? '' : 'hide-benifit'">&rarr; Travel Assistance : Ticket booking*</li>
-            <li :class="visiblePlatinum? '' : 'hide-benifit'">&rarr; Travel Assistance : Cash arrangements*</li>
             <li :class="visiblePlatinum? '' : 'hide-benifit'">&rarr; Travel Assistance : Cards Fraud protection</li>
+            <li :class="visiblePlatinum? '' : 'hide-benifit'">&rarr; Travel Assistance : Cash arrangements*</li>
             <li :class="visiblePlatinum? '' : 'hide-benifit'">&rarr; <strong>Get additional 20% discounts if you book the carbon neutral hotel or eco friendly hotels</strong></li>
           </ul>
           <p class="s-fs plan-conditions" :class="visiblePlatinum? '' : 'hide-benifit'">
@@ -53,8 +53,8 @@
           <ul>
             <li>&rarr; All Credit/Debits card blocking</li>
             <li>&rarr; All Identity cards replacement</li>
-            <li>&rarr; Travel Assistance : Hotel Bill payment*</li>
-            <li v-if="!visibleGold">&ensp;&emsp;<strong>. . .</strong></li>
+            <li v-if="!visibleGold" class="more-benifits">&ensp;&emsp;<strong>. . .</strong></li>
+            <li :class="visibleGold? '' : 'hide-benifit'">&rarr; Travel Assistance : Hotel Bill payment*</li>
             <li :class="visibleGold? '' : 'hide-benifit'">&rarr; Travel Assistance : Ticket booking*</li>
             <li :class="visibleGold? '' : 'hide-benifit'">&rarr; Travel Assistance : Cards Fraud protection</li>
             <li :class="visibleGold? '' : 'hide-benifit'">&rarr; <strong>Get additional 10% discounts if you book the carbon neutral hotel or eco friendly hotels</strong></li>
@@ -75,6 +75,10 @@
           </button>
           <img class="wallet-icon" src="../assets/wallet-icon-2.svg" alt="Wallet">
         </div>
+      </div>
+      <div class="info-box">
+        <img class="info-icon" src="../assets/info-icon.svg" alt="Info Icon">
+        <p>Get additional discounts if you book the carbon neutral hotel or eco friendly hotels.</p>
       </div>
     </div>
   </section>
@@ -121,7 +125,7 @@ export default {
   width: 75%;
   height: fit-content;
   margin: 0 auto;
-  padding: 5rem 3rem;
+  padding: 3rem 3rem;
   box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
   border-radius: 10px;
   transition: all 0.3s;
@@ -191,10 +195,11 @@ span {
 }
 ul {
   font-size: 2rem;
+  margin-bottom: 0;
 }
 ul li {
-  margin-bottom: 1rem;
-  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
   list-style: none;
 }
 .btn:link,
@@ -210,7 +215,6 @@ ul li {
   border-radius: 20rem;
   transition: all 0.3s;
 }
-
 .btn:hover,
 .btn:active {
   cursor: pointer;
@@ -250,11 +254,36 @@ ul li {
   top: -40px;
   z-index: -1;
 }
+.more-benifits {
+  margin-bottom: 0;
+}
+.info-box {
+  max-width: 87.5%;
+  padding: 1rem;
+  margin: 0 auto;
+  margin-top: 3rem;
+  border: 2px solid #0057ad;
+  border-radius: 5px;
+  background-color: #cce5ff;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.info-icon {
+  width: 4rem;
+  height: 4rem;
+}
+.info-box p {
+  font-size: 2.4rem;
+  font-weight: bold;
+  color: #0057ad;
+  margin-bottom: 0;
+}
 @media screen and (max-width: 992px) {
   .plans {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
-    padding: 0 15%;
+    padding: 2rem 15%;
     gap: 5rem;
   } 
 }
