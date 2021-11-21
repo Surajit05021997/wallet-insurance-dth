@@ -5,7 +5,6 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Dashboard</h1>
         </div>
-      <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
        <div class="row">
           <div  v-if="this.selectedLogin === 'Employee'">
             <div class="search-holder">
@@ -52,7 +51,7 @@
                             <div class="numbers">
                                 <h2>Your account balance</h2>
                                 <h1>&euro;7,893.66</h1>
-                                <p class="text-warning text-xs font-weight-bolder">Account number 0019-XXXX-XXXX-4420</p>
+                                <h5 class="text-warning text-xs font-weight-bolder pt-5">Account number 0019-XXXX-XXXX-4420</h5>
                             </div>
                             </div>
                             <div class="col-4 text-end">
@@ -77,11 +76,11 @@
                                 <div class="d-flex flex-column h-100">
                                     <p class="mb-1 pt-2 text-bold">Built by developers</p>
                                     <h5 class="font-weight-bolder">Amalgam Wallet Insurance</h5>
-                                    <p class="mb-5">From lost wallet insurance, travel insurance, immediate card blocking, KYC authentication, analytics related to your profile etc. you will find lots of features inbuilt.</p>
+                                    <p class="mb-5">We are providing similar insurance products which are catering to your emergency needs.</p>
                                     <div>
                                       <carousel-image></carousel-image>
                                     </div>
-                                    <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="https://dhwalletinsurance.azurewebsites.net/">
+                                    <a class="text-body text-decoration-none text-sm font-weight-bold mb-0 icon-move-right p-3" href="https://dhwalletinsurance.azurewebsites.net/">
                                     Read More
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon-move-right maxHeightIcon h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                       <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
@@ -99,9 +98,9 @@
                         <div class="overflow-hidden position-relative border-radius-lg bg-cover h-100" style="background-image: url('../assets/img/ivancik.jpg') !important;">
                           <span class="mask bg-gradient-dark"></span>
                           <div class="card-body position-relative z-index-1 d-flex flex-column ">
-                              <h5 class="font-weight-bolder mb-4 pt-2">Check <form action="" method="get"></form> Analytics</h5>
-                              <p>Check on the analytics related to your profile and compare other insurances.</p>
-                              <a class="text-white text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="https://dhwalletinsurance.azurewebsites.net/">
+                              <h5 class="font-weight-bolder mb-4 pt-2">Refer <form action="" method="get"></form> A Friend</h5>
+                              <p>Get referral bonus on referring a friend and you can use that in the near future.</p>
+                              <a class="text-black text-decoration-none text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="https://dhwalletinsurance.azurewebsites.net/">
                               Read More
                               <svg xmlns="http://www.w3.org/2000/svg" class="maxHeightIcon h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
@@ -112,9 +111,15 @@
                       </div>
                       <div>
                         <div class="bg-gradient-primary border-radius-lg h-100">
-                            <img src="../assets/img/shapes/waves-white.svg" class="position-absolute h-100 w-50 top-0 d-lg-block d-none" alt="waves">
+                            <!-- <img src="../assets/img/shapes/waves-white.svg" class="position-absolute h-100 w-50 top-0 d-lg-block d-none" alt="waves"> -->
+                            <div class="m-3">
+                              <social-media></social-media>
+                            </div>
                             <div class="position-relative d-flex justify-content-center h-100">
-                            <img class="w-100 position-relative z-index-2 pt-4" src="../assets/img/illustrations/rocket-white.png" alt="rocket">
+                              <!-- <img class="w-100 position-relative z-index-2 pt-4" src="../assets/img/illustrations/rocket-white.png" alt="rocket"> -->
+                              <video class="carousel-video" width="320" height="240" autoplay muted loop playsinline preload="metadata" poster="http://techslides.com/demos/sample-videos/small.jpg">
+                                <source src="../assets/video/Wallet-lost-on-Vyond.webm" type="video/webm">
+                              </video>
                             </div>
                         </div>
                       </div>
@@ -122,7 +127,7 @@
                 </div>
             </div>
             <div class="row mt-4">
-                <div class="col-lg-5 mb-lg-0 mb-4">
+                <div class="col-lg-7 mb-lg-0 mb-4">
                   <div class="card z-index-2">
                       <div class="card-body p-3">
                         <div class="bg-gradient-dark border-radius-lg py-3 pe-1 mb-3">
@@ -139,7 +144,7 @@
                               </div>
                             <canvas id="chart-bars" class="chart-canvas chartjs-render-monitor" height="255" style="display: block; height: 170px; width: 342px;" width="513"></canvas>
                             </div>
-                            <!-- <chart></chart> -->
+                            <chart-js></chart-js>
                         </div>
                       <h6 class="ms-2 mt-4 mb-0"> Active Users </h6>
                       <p class="text-sm ms-2"> (<span class="font-weight-bolder">+23%</span>) than last week </p>
@@ -249,25 +254,7 @@
                       </div>
                   </div>
                 </div>
-                <div class="col-lg-7">
-                <div class="card z-index-2">
-                    <div class="card-header pb-0">
-                    <h6>Sales overview</h6>
-                    <p class="text-sm">
-                        <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
-                        <span class="font-weight-bold">4% more</span> in 2021
-                    </p>
-                    </div>
-                    <div class="card-body p-3">
-                    <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                        <canvas id="chart-line" class="chart-canvas chartjs-render-monitor" height="450" width="760" style="display: block; height: 300px; width: 507px;"></canvas>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="col-sm">
+                <div class="col-lg-5">
                   <div class="profile-card">
                     <h3>My Profile</h3>
                     <div>
@@ -298,10 +285,14 @@ import { getPolicyDetailsWithID, getPolicyDetailsWithMobNum, postSearchValue, ge
 import {isValidSession} from '@/common.js';
 import  CarouselImage  from './CarouselImage.vue';
 // import Chart from './Chart.vue';
+import SocialMedia from '../components/SocialMedia.vue';
+import ChartJs from './ChartJs.vue';
 export default {
   name: 'Dashboard',
   components: {
     CarouselImage,
+    ChartJs,
+    SocialMedia,
     // Chart
   },
   data() {
@@ -371,31 +362,18 @@ export default {
       }).then(async (result) => {
         if (result.isConfirmed) {
           const registeredCards =  await getRegisteredCards();
-          console.dir(registeredCards);
           registeredCards.forEach(registeredCard => {
-            console.log(registeredCard.emailId);
             if(registeredCard.emailId === this.customerDetails.emailId ) {
-              console.dir("Inside mapCardsToBlockWithUserID" + registeredCards);
               registeredCard.isBlocked = status;
               this.updateCardInformation(registeredCard);
-              console.log("Registered cards" + registeredCard.isBlocked);
             }
           });
             // await addCustomerService(this.customerDetails);
-          }
-          else{
-                this.$swal({
-                  title: 'Could not Delete, Server Issue',
-                  text: "Sorry for inconvinience, please reload page",
-                  icon: 'warning',
-                  timer: 3000
-                });
-          }      
-        }
+        }    
+      }
     )},
     async updateCardInformation(registeredCard) { 
       const updateRegisteredCardsStatusText =  await updateRegisteredCard(registeredCard.id, registeredCard);
-      console.log("updateRegisteredCardsStatusText"+ updateRegisteredCardsStatusText);
       if(updateRegisteredCardsStatusText==="OK"){
         this.$swal(
           'Blocked!',
@@ -435,11 +413,16 @@ html * {
 .mb-0 {
     margin-bottom: 0!important;
 }
+button {
+  cursor: pointer;
+  font-weight: bold;
+  size: auto;
+  padding: 0.8rem;
+  font-size: 16px;
+}
 p {
     line-height: 1.625;
     font-weight: 400;
-}
-p {
     display: block;
     margin-block-start: 1em;
     margin-block-end: 1em;
@@ -461,12 +444,12 @@ p {
     /* border: 0 solid rgba(0,0,0,.125); */
     border-radius: 1rem;
     /* box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%); */
-    background-image: linear-gradient(90deg, #669dcd, #cf76f5);
+    /* background-image: linear-gradient(90deg, #669dcd, #cf76f5); */
     flex-direction: column;
     /* font-family: Open Sans; */
     /* font-family: Century Gothic; */
     font-size: 2.2rem;
-    color: white;
+    color: black;
 }
 .profile-card {
   flex-direction: column;
@@ -483,7 +466,7 @@ p {
   background-size: cover;
   font-weight: bold;
   font-size: 2rem;
-  background-image: linear-gradient(90deg, #eee, #eee);
+  /* background-image: linear-gradient(90deg, #eee, #eee); */
 }
 .profile-img {
   width: 13rem;
@@ -509,6 +492,12 @@ p {
 }
 .border-radius-sm {
     border-radius: 0.25rem;
+}
+.border-radius-md {
+    border-radius: 0.5rem;
+}
+.border-radius-lg {
+    border-radius: 0.75rem;
 }
 .icon-xxs {
     width: 20px;
@@ -537,5 +526,47 @@ p {
 }
 .maxHeightIcon {
   max-height: 2rem;
+}
+.bg-gradient-primary {
+    background-image: linear-gradient(
+      310deg,#7928ca,#ff0080);
+}
+.bg-gradient-info {
+    background-image: linear-gradient(
+      310deg,#2152ff,#21d4fd);
+}
+.bg-gradient-warning {
+    background-image: linear-gradient(
+      310deg,#f53939,#fbcf33);
+}
+.bg-gradient-danger {
+    background-image: linear-gradient(
+      310deg,#ea0606,#ff667c);
+}
+.progress-bar {
+    height: 6px;
+    border-radius: 0.25rem;
+    margin-top: -2px;
+}
+.progress-bar {
+    flex-direction: column;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #cb0c9f;
+    transition: width .6s ease;
+}
+.progress {
+    height: 3px;
+    font-size: .75rem;
+    background-color: #e9ecef;
+    border-radius: 0.5rem;
+}
+.bg-dark {
+    background-color: #344767!important;
+}
+.w-60 {
+    width: 60%!important;
 }
 </style>
