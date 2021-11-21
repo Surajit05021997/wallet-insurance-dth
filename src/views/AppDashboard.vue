@@ -95,7 +95,7 @@
                 <div class="col-lg-5">
                   <div class="card row">
                       <div class="h-100 p-3">
-                        <div class="overflow-hidden position-relative border-radius-lg bg-cover h-100" style="background-image: url('../assets/img/ivancik.jpg') !important;">
+                        <div class="overflow-hidden position-relative border-radius-lg bg-cover h-100" style="background-image: url('../assets/img/ivancik.jpg')">
                           <span class="mask bg-gradient-dark"></span>
                           <div class="card-body position-relative z-index-1 d-flex flex-column ">
                               <h5 class="font-weight-bolder mb-4 pt-2">Refer <form action="" method="get"></form> A Friend</h5>
@@ -130,7 +130,7 @@
                 <div class="col-lg-7 mb-lg-0 mb-4">
                   <div class="card z-index-2">
                       <div class="card-body p-3">
-                        <div class="bg-gradient-dark border-radius-lg py-3 pe-1 mb-3">
+                        <div class="border-radius-lg py-3 pe-1 mb-3 background-image bg-cover">
                             <div class="chart">
                               <div class="chartjs-size-monitor">
                                 <div class="chartjs-size-monitor-expand">
@@ -480,9 +480,6 @@ p {
 .h-100 {
     height: 100%!important;
 }
-.border-radius-lg {
-    border-radius: 0.75rem;
-}
 .h5, h5 {
     font-size: 2rem;
 }
@@ -568,5 +565,23 @@ p {
 }
 .w-60 {
     width: 60%!important;
+}
+.background-image {
+  background-image: url('../assets/img/ivancik.jpg');
+  height: 21.5rem;
+  width: 50rem;
+}
+.bg-cover, .mask {
+    background-size: cover;
+}
+.pe-1 {
+    padding-right: 0.25rem!important;
+}
+.py-3 {
+    padding-top: 1rem!important;
+    padding-bottom: 1rem!important;
+}
+.mb-3 {
+    margin-bottom: 1rem!important;
 }
 </style>
