@@ -2,116 +2,291 @@
   <div>
     <div class="sidebarContent">
       <main>
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dashboard</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-          </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <span data-feather="calendar"></span>
-            This week
-          </button>
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">Dashboard</h1>
         </div>
-      </div>
       <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
-      <div class="row">
-        <div class="col-sm-8" v-if= "this.selectedLogin === 'Employee'">
-          <div class="search-holder">
-            <input
-              type="search"
-              class="search-box"
-              placeholder="Search with MobileNo or PolicyID"
-              v-model="searchValue"
-              @keyup.enter="getCustomerPolicyDetails" />
+       <div class="row">
+          <div  v-if="this.selectedLogin === 'Employee'">
+            <div class="search-holder">
+              <input
+                type="search"
+                class="search-box"
+                placeholder="Search with MobileNo or PolicyID"
+                v-model="searchValue"
+                @keyup.enter="getCustomerPolicyDetails" />
+            </div>
           </div>
-        </div>
-        <div class="col-sm-8" v-if="this.selectedLogin === 'Customer'">
-          <div class="row">
+          <div  v-if="this.selectedLogin === 'Customer'">
+            <div class="container-fluid py-4">
+              <div class="row">
+                  <div class="col-xl-6 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card">
+                        <div class="card-body p-3">
+                          <div class="row">
+                              <div class="col-8">
+                              <div class="numbers">
+                                  <p class="text-sm mb-0 font-weight-bold">Hey there, are you having tough time with your cards?</p>
+                                  <h5 class="font-weight-bolder mb-0 p-3">
+                                    <button v-if="!customerDetails.blockCards" type="button" @click="blockCards(true)" class="btn btn-lg btn-warning btn-outline-secondary">Block your cards</button>
+                                    <button v-if="customerDetails.blockCards" type="button" @click="blockCards(false)" class="btn btn-lg btn-warning btn-outline-secondary">Enable your cards</button>
+                                  </h5>
+                              </div>
+                              </div>
+                              <div class="col-4 text-end">
+                              <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+                                  </svg>
+                              </div>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card">
+                        <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-8">
+                            <div class="numbers">
+                                <h2>Your account balance</h2>
+                                <h1>&euro;7,893.66</h1>
+                                <p class="text-warning text-xs font-weight-bolder">Account number 0019-XXXX-XXXX-4420</p>
+                            </div>
+                            </div>
+                            <div class="col-4 text-end">
+                            <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.736 6.979C9.208 6.193 9.696 6 10 6c.304 0 .792.193 1.264.979a1 1 0 001.715-1.029C12.279 4.784 11.232 4 10 4s-2.279.784-2.979 1.95c-.285.475-.507 1-.67 1.55H6a1 1 0 000 2h.013a9.358 9.358 0 000 1H6a1 1 0 100 2h.351c.163.55.385 1.075.67 1.55C7.721 15.216 8.768 16 10 16s2.279-.784 2.979-1.95a1 1 0 10-1.715-1.029c-.472.786-.96.979-1.264.979-.304 0-.792-.193-1.264-.979a4.265 4.265 0 01-.264-.521H10a1 1 0 100-2H8.017a7.36 7.36 0 010-1H10a1 1 0 100-2H8.472c.08-.185.167-.36.264-.521z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                  </div>
+              </div> 
+            </div>
+            <div class="row mt-4">
+                <div class="col-lg-7 mb-lg-0 mb-4">
+                    <div class="card">
+                        <div class="card-body p-3">
+                          <div class="row">
+                              <div>
+                                <div class="d-flex flex-column h-100">
+                                    <p class="mb-1 pt-2 text-bold">Built by developers</p>
+                                    <h5 class="font-weight-bolder">Amalgam Wallet Insurance</h5>
+                                    <p class="mb-5">From lost wallet insurance, travel insurance, immediate card blocking, KYC authentication, analytics related to your profile etc. you will find lots of features inbuilt.</p>
+                                    <div>
+                                      <carousel-image></carousel-image>
+                                    </div>
+                                    <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="https://dhwalletinsurance.azurewebsites.net/">
+                                    Read More
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon-move-right maxHeightIcon h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                    </a>
+                                </div>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                  <div class="card row">
+                      <div class="h-100 p-3">
+                        <div class="overflow-hidden position-relative border-radius-lg bg-cover h-100" style="background-image: url('../assets/img/ivancik.jpg') !important;">
+                          <span class="mask bg-gradient-dark"></span>
+                          <div class="card-body position-relative z-index-1 d-flex flex-column ">
+                              <h5 class="font-weight-bolder mb-4 pt-2">Check <form action="" method="get"></form> Analytics</h5>
+                              <p>Check on the analytics related to your profile and compare other insurances.</p>
+                              <a class="text-white text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="https://dhwalletinsurance.azurewebsites.net/">
+                              Read More
+                              <svg xmlns="http://www.w3.org/2000/svg" class="maxHeightIcon h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
+                              </svg>
+                              </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="bg-gradient-primary border-radius-lg h-100">
+                            <img src="../assets/img/shapes/waves-white.svg" class="position-absolute h-100 w-50 top-0 d-lg-block d-none" alt="waves">
+                            <div class="position-relative d-flex justify-content-center h-100">
+                            <img class="w-100 position-relative z-index-2 pt-4" src="../assets/img/illustrations/rocket-white.png" alt="rocket">
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-lg-5 mb-lg-0 mb-4">
+                  <div class="card z-index-2">
+                      <div class="card-body p-3">
+                        <div class="bg-gradient-dark border-radius-lg py-3 pe-1 mb-3">
+                            <div class="chart">
+                              <div class="chartjs-size-monitor">
+                                <div class="chartjs-size-monitor-expand">
+                                  <div class="">
+                                  </div>
+                                </div>
+                                <div class="chartjs-size-monitor-shrink">
+                                  <div class="">
+                                  </div>
+                                </div>
+                              </div>
+                            <canvas id="chart-bars" class="chart-canvas chartjs-render-monitor" height="255" style="display: block; height: 170px; width: 342px;" width="513"></canvas>
+                            </div>
+                            <!-- <chart></chart> -->
+                        </div>
+                      <h6 class="ms-2 mt-4 mb-0"> Active Users </h6>
+                      <p class="text-sm ms-2"> (<span class="font-weight-bolder">+23%</span>) than last week </p>
+                        <div class="container border-radius-lg">
+                            <div class="row">
+                            <div class="col-3 py-3 ps-0">
+                                <div class="d-flex mb-2">
+                                <div class="icon icon-shape icon-xxs shadow border-radius-sm bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center">
+                                    <svg width="10px" height="10px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <title>document</title>
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                                        <g transform="translate(1716.000000, 291.000000)">
+                                            <g transform="translate(154.000000, 300.000000)">
+                                            <path class="color-background" d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z" opacity="0.603585379"></path>
+                                            <path class="color-background" d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z"></path>
+                                            </g>
+                                        </g>
+                                        </g>
+                                    </g>
+                                    </svg>
+                                </div>
+                                <p class="text-xs mt-1 mb-0 font-weight-bold">Users</p>
+                                </div>
+                                <h4 class="font-weight-bolder">36K</h4>
+                                <div class="progress w-75">
+                                <div class="progress-bar bg-dark w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="col-3 py-3 ps-0">
+                                <div class="d-flex mb-2">
+                                <div class="icon icon-shape icon-xxs shadow border-radius-sm bg-gradient-info text-center me-2 d-flex align-items-center justify-content-center">
+                                    <svg width="10px" height="10px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <title>spaceship</title>
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g transform="translate(-1720.000000, -592.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                                        <g transform="translate(1716.000000, 291.000000)">
+                                            <g transform="translate(4.000000, 301.000000)">
+                                            <path class="color-background" d="M39.3,0.706666667 C38.9660984,0.370464027 38.5048767,0.192278529 38.0316667,0.216666667 C14.6516667,1.43666667 6.015,22.2633333 5.93166667,22.4733333 C5.68236407,23.0926189 5.82664679,23.8009159 6.29833333,24.2733333 L15.7266667,33.7016667 C16.2013871,34.1756798 16.9140329,34.3188658 17.535,34.065 C17.7433333,33.98 38.4583333,25.2466667 39.7816667,1.97666667 C39.8087196,1.50414529 39.6335979,1.04240574 39.3,0.706666667 Z M25.69,19.0233333 C24.7367525,19.9768687 23.3029475,20.2622391 22.0572426,19.7463614 C20.8115377,19.2304837 19.9992882,18.0149658 19.9992882,16.6666667 C19.9992882,15.3183676 20.8115377,14.1028496 22.0572426,13.5869719 C23.3029475,13.0710943 24.7367525,13.3564646 25.69,14.31 C26.9912731,15.6116662 26.9912731,17.7216672 25.69,19.0233333 L25.69,19.0233333 Z"></path>
+                                            <path class="color-background" d="M1.855,31.4066667 C3.05106558,30.2024182 4.79973884,29.7296005 6.43969145,30.1670277 C8.07964407,30.6044549 9.36054508,31.8853559 9.7979723,33.5253085 C10.2353995,35.1652612 9.76258177,36.9139344 8.55833333,38.11 C6.70666667,39.9616667 0,40 0,40 C0,40 0,33.2566667 1.855,31.4066667 Z"></path>
+                                            <path class="color-background" d="M17.2616667,3.90166667 C12.4943643,3.07192755 7.62174065,4.61673894 4.20333333,8.04166667 C3.31200265,8.94126033 2.53706177,9.94913142 1.89666667,11.0416667 C1.5109569,11.6966059 1.61721591,12.5295394 2.155,13.0666667 L5.47,16.3833333 C8.55036617,11.4946947 12.5559074,7.25476565 17.2616667,3.90166667 L17.2616667,3.90166667 Z" opacity="0.598539807"></path>
+                                            <path class="color-background" d="M36.0983333,22.7383333 C36.9280725,27.5056357 35.3832611,32.3782594 31.9583333,35.7966667 C31.0587397,36.6879974 30.0508686,37.4629382 28.9583333,38.1033333 C28.3033941,38.4890431 27.4704606,38.3827841 26.9333333,37.845 L23.6166667,34.53 C28.5053053,31.4496338 32.7452344,27.4440926 36.0983333,22.7383333 L36.0983333,22.7383333 Z" opacity="0.598539807"></path>
+                                            </g>
+                                        </g>
+                                        </g>
+                                    </g>
+                                    </svg>
+                                </div>
+                                <p class="text-xs mt-1 mb-0 font-weight-bold">Clicks</p>
+                                </div>
+                                <h4 class="font-weight-bolder">2m</h4>
+                                <div class="progress w-75">
+                                <div class="progress-bar bg-dark w-90" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="col-3 py-3 ps-0">
+                                <div class="d-flex mb-2">
+                                <div class="icon icon-shape icon-xxs shadow border-radius-sm bg-gradient-warning text-center me-2 d-flex align-items-center justify-content-center">
+                                    <svg width="10px" height="10px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <title>credit-card</title>
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                                        <g transform="translate(1716.000000, 291.000000)">
+                                            <g transform="translate(453.000000, 454.000000)">
+                                            <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
+                                            <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
+                                            </g>
+                                        </g>
+                                        </g>
+                                    </g>
+                                    </svg>
+                                </div>
+                                <p class="text-xs mt-1 mb-0 font-weight-bold">Leads</p>
+                                </div>
+                                <h4 class="font-weight-bolder">435</h4>
+                                <div class="progress w-75">
+                                <div class="progress-bar bg-dark w-30" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="col-3 py-3 ps-0">
+                                <div class="d-flex mb-2">
+                                <div class="icon icon-shape icon-xxs shadow border-radius-sm bg-gradient-danger text-center me-2 d-flex align-items-center justify-content-center">
+                                    <svg width="10px" height="10px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <title>settings</title>
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g transform="translate(-2020.000000, -442.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                                        <g transform="translate(1716.000000, 291.000000)">
+                                            <g transform="translate(304.000000, 151.000000)">
+                                            <polygon class="color-background" opacity="0.596981957" points="18.0883333 15.7316667 11.1783333 8.82166667 13.3333333 6.66666667 6.66666667 0 0 6.66666667 6.66666667 13.3333333 8.82166667 11.1783333 15.315 17.6716667"></polygon>
+                                            <path class="color-background" d="M31.5666667,23.2333333 C31.0516667,23.2933333 30.53,23.3333333 30,23.3333333 C29.4916667,23.3333333 28.9866667,23.3033333 28.48,23.245 L22.4116667,30.7433333 L29.9416667,38.2733333 C32.2433333,40.575 35.9733333,40.575 38.275,38.2733333 L38.275,38.2733333 C40.5766667,35.9716667 40.5766667,32.2416667 38.275,29.94 L31.5666667,23.2333333 Z" opacity="0.596981957"></path>
+                                            <path class="color-background" d="M33.785,11.285 L28.715,6.215 L34.0616667,0.868333333 C32.82,0.315 31.4483333,0 30,0 C24.4766667,0 20,4.47666667 20,10 C20,10.99 20.1483333,11.9433333 20.4166667,12.8466667 L2.435,27.3966667 C0.95,28.7083333 0.0633333333,30.595 0.00333333333,32.5733333 C-0.0583333333,34.5533333 0.71,36.4916667 2.11,37.89 C3.47,39.2516667 5.27833333,40 7.20166667,40 C9.26666667,40 11.2366667,39.1133333 12.6033333,37.565 L27.1533333,19.5833333 C28.0566667,19.8516667 29.01,20 30,20 C35.5233333,20 40,15.5233333 40,10 C40,8.55166667 39.685,7.18 39.1316667,5.93666667 L33.785,11.285 Z"></path>
+                                            </g>
+                                        </g>
+                                        </g>
+                                    </g>
+                                    </svg>
+                                </div>
+                                <p class="text-xs mt-1 mb-0 font-weight-bold">Items</p>
+                                </div>
+                                <h4 class="font-weight-bolder">43</h4>
+                                <div class="progress w-75">
+                                <div class="progress-bar bg-dark w-50" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-lg-7">
+                <div class="card z-index-2">
+                    <div class="card-header pb-0">
+                    <h6>Sales overview</h6>
+                    <p class="text-sm">
+                        <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
+                        <span class="font-weight-bold">4% more</span> in 2021
+                    </p>
+                    </div>
+                    <div class="card-body p-3">
+                    <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                        <canvas id="chart-line" class="chart-canvas chartjs-render-monitor" height="450" width="760" style="display: block; height: 300px; width: 507px;"></canvas>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
             <div class="col-sm-4">
-              <div class="content-card">
-                <p>Safely block your cards from here.</p>
-                <button type="button" class="btn btn-warning btn-outline-secondary">Block your cards</button>
-              </div>
-            </div>
-            <div class="col-sm">
-              <div class="content-card">
-                <h2>Balance</h2>
-                <h1>$7,893.66</h1>
-                <p>Your account number 0019-0076-2727-4420</p>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm">
-              <div class="content-card">
-                <p>Compare other products with our's</p>
-              </div>
-            </div>
-            <div class="col-sm">
-              <div class="content-card">
-                <img src="../assets/analytics.jpg" width="100" height="100" alt="Profile picture" class="profile-img">
-                <p>Analytics Related to your profile</p>
-              </div>
-            </div>
-            <div class="col-sm">
-              <div class="content-card">
-                <!-- <img src="../assets/user-1.jpg" alt="Profile picture" class="profile-img"> -->
-                <div class="html">
-                  <h2>Stats</h2>
-                  <svg width="160" height="160" xmlns="http://www.w3.org/2000/svg">
-                    <g>
-                      <!-- <title>Layer 1</title> -->
-                      <circle class="circle_animation" r="69.85699" cy="81" cx="81" stroke-width="15" stroke="#ffffff" fill="none"/>
-                    </g>
-                  </svg>
+                <div class="col-sm">
+                  <div class="profile-card">
+                    <h3>My Profile</h3>
+                    <div>
+                      <img src="../assets/profile1.jpg" alt="Profile picture" class="profile-img">
+                    </div>
+                    <h2>{{loggedInUser}}</h2>
+                    <h5>{{customerDetails.emailId}}</h5>
+                    <div class="col">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">View Full Profile</button>
+                    </div>
+                    <hr style="width:75%;">
+                    <div>
+                      <h2>Team Amalgam</h2>
+                    </div>
+                  </div>
                 </div>
-              </div>
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
-            <div class="col-sm">
-              <div class="profile-card">
-                <h3>My Profile</h3>
-                <div>
-                  <img src="../assets/profile1.jpg" alt="Profile picture" class="profile-img">
-                </div>
-                <h2 v-if="this.selectedLogin === 'Customer'">Team Amalgam</h2>
-                <h5 v-if="this.selectedLogin === 'Customer'">teamamalgam@capgemini.com</h5>
-                <h2 v-if="this.selectedLogin === 'Employee'">Team Amalgam Bank</h2>
-                <h5 v-if="this.selectedLogin === 'Employee'">teamamalgambank@bank.com</h5>
-                <div class="col">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View Full Profile</button>
-                </div>
-                <hr style="width:75%;">
-                <div>
-                  <h2>Previous history</h2>
-                </div>
-              </div>
-            </div>
-        </div>
-      </div>
-      <div v-if="blockCards" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>Modal body text goes here.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Save changes</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
       </main>
     </div>    
   </div>
@@ -119,11 +294,16 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import { getPolicyDetailsWithID, getPolicyDetailsWithMobNum, postSearchValue, getLoginType, deleteSearchValue } from '@/service/service.js';
-import {isValidSession} from '@/common.js'
-
+import { getPolicyDetailsWithID, getPolicyDetailsWithMobNum, postSearchValue, getLoginType, deleteSearchValue, updateRegisteredCard, getRegisteredCards } from '@/service/service.js';
+import {isValidSession} from '@/common.js';
+import  CarouselImage  from './CarouselImage.vue';
+// import Chart from './Chart.vue';
 export default {
   name: 'Dashboard',
+  components: {
+    CarouselImage,
+    // Chart
+  },
   data() {
     return {
       username: '',
@@ -134,7 +314,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['customerDetails', 'loggedInUser','blockCards']),
+    ...mapState(['customerDetails', 'loggedInUser']),
   },
   created() {
     if(!isValidSession()){
@@ -178,37 +358,115 @@ export default {
               timer: 6000
             })
       }
-    }
+    },
+    async blockCards(status){
+      this.$swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes!'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const registeredCards =  await getRegisteredCards();
+          console.dir(registeredCards);
+          registeredCards.forEach(registeredCard => {
+            console.log(registeredCard.emailId);
+            if(registeredCard.emailId === this.customerDetails.emailId ) {
+              console.dir("Inside mapCardsToBlockWithUserID" + registeredCards);
+              registeredCard.isBlocked = status;
+              this.updateCardInformation(registeredCard);
+              console.log("Registered cards" + registeredCard.isBlocked);
+            }
+          });
+            // await addCustomerService(this.customerDetails);
+          }
+          else{
+                this.$swal({
+                  title: 'Could not Delete, Server Issue',
+                  text: "Sorry for inconvinience, please reload page",
+                  icon: 'warning',
+                  timer: 3000
+                });
+          }      
+        }
+    )},
+    async updateCardInformation(registeredCard) { 
+      const updateRegisteredCardsStatusText =  await updateRegisteredCard(registeredCard.id, registeredCard);
+      console.log("updateRegisteredCardsStatusText"+ updateRegisteredCardsStatusText);
+      if(updateRegisteredCardsStatusText==="OK"){
+        this.$swal(
+          'Blocked!',
+          'Your cards have been blocked.',
+          'success'
+        )
+      }
+      else{
+            this.$swal({
+              title: 'Could not Delete, Server Issue',
+              text: "Sorry for inconvinience, please reload page",
+              icon: 'warning',
+              timer: 3000
+            });
+    }},
   }
 }
 </script>
 
 <style scoped>
-.container {
-  max-width: 120rem;
-  margin: 5rem auto;
+html * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
-.btn-warning {
-  width: 100%;
-  margin-top: 10px;
-  font-weight: bold;
+.flex-column {
+    flex-direction: column!important;
 }
-.dashboard {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
+.font-weight-bold {
+    font-weight: 600!important;
 }
-.content-card {
-  flex-direction: column;
-  align-items: center;
-  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
-  border-radius: 10px;
-  padding: 5rem 3rem;
-  margin: 1rem;
-  color : white;
-  background-image: linear-gradient(90deg, #669dcd, #cf76f5);
-  font-family: Century Gothic;
-  font-weight: bold;
-  font-size: 2rem;
+.text-sm {
+    font-size: 2rem!important;
+}
+.text-capitalize {
+    text-transform: capitalize!important;
+}
+.mb-0 {
+    margin-bottom: 0!important;
+}
+p {
+    line-height: 1.625;
+    font-weight: 400;
+}
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+.font-weight-bolder {
+    font-weight: 700!important;
+}
+.card {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    margin: 1rem;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+    word-wrap: break-word;
+    background-color: #fff;
+    /* background-clip: border-box; */
+    /* border: 0 solid rgba(0,0,0,.125); */
+    border-radius: 1rem;
+    /* box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%); */
+    background-image: linear-gradient(90deg, #669dcd, #cf76f5);
+    flex-direction: column;
+    /* font-family: Open Sans; */
+    /* font-family: Century Gothic; */
+    font-size: 2.2rem;
+    color: white;
 }
 .profile-card {
   flex-direction: column;
@@ -233,96 +491,51 @@ export default {
   margin-bottom: 20%;
   border-radius: 50%;
 }
-
-.icon {
-    width: 3rem;
-    stroke: #80bfff;
+.p-3 {
+    padding: 1.5rem!important;
 }
-
-.item {
-    position: relative;
-    float: left;
+.h-100 {
+    height: 100%!important;
 }
-
-.item h2 {
-    text-align:center;
+.border-radius-lg {
+    border-radius: 0.75rem;
+}
+.h5, h5 {
+    font-size: 2rem;
+}
+.bg-gradient-dark {
+    background-image: linear-gradient(
+310deg,#141727,#3a416f) !important;
+}
+.border-radius-sm {
+    border-radius: 0.25rem;
+}
+.icon-xxs {
+    width: 20px;
+    height: 20px;
+}
+.chartjs-size-monitor, .chartjs-size-monitor-expand, .chartjs-size-monitor-shrink {
     position: absolute;
-    line-height: 125px;
-    width: 100%;
+    direction: ltr;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    pointer-events: none;
+    visibility: hidden;
+    z-index: -1;
 }
-
-svg {
-   -webkit-transform: rotate(-90deg);
-    transform: rotate(-90deg);
+.chartjs-render-monitor {
+    animation: chartjs-render-animation 1ms;
 }
-
-.circle_animation {
-  stroke-dasharray: 440; /* this value is the pixel circumference of the circle */
-  stroke-dashoffset: 440;
+.fa-arrow-right:before {
+    content: "\f061";
 }
-
-.html .circle_animation {
-    -webkit-animation: html 1s ease-out forwards;
-    animation: html 1s ease-out forwards;
+.icon-move-right i {
+    transition: all .2s cubic-bezier(.34,1.61,.7,1.3);
 }
-
-.css .circle_animation {
-    -webkit-animation: css 1s ease-out forwards;
-    animation: css 1s ease-out forwards;
+.maxHeightIcon {
+  max-height: 2rem;
 }
-
-@-webkit-keyframes html {
-  to {
-    stroke-dashoffset: 80; /* 50% would be 220 (half the initial value specified above) */
-  }
-}
-
-@keyframes html {
-  to {
-    stroke-dashoffset: 80;
-  }
-}
-
-@-webkit-keyframes css {
-  to {
-    stroke-dashoffset: 160;
-  }
-}
-
-@keyframes css {
-  to {
-    stroke-dashoffset: 160;
-  }
-}
-
-.search-holder {
-    display: flex;
-    margin-right: auto;
-    padding: 2px;
-    width: 500px;
-    background-color: #fff;
-    border: 1px solid #007fff;
-    border-radius: 5px;
-    box-shadow: inset 0 0 0 0.2rem #007fff;
-}
-
-.search-box {
-  font-size: 14px;
-  flex: 1;
-  min-width: 150px;
-  padding: 10px;
-  outline: none;
-  border: 0px;
-
-   &:focus {
-    outline: none;
-    border-bottom-color: rgba(#000, 1);
-  }
-
-   &:hover {
-    outline: none;
-    border-bottom-color: rgba(#000, 1);
-  }
-}
-
 </style>
