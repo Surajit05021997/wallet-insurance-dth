@@ -7,6 +7,7 @@
       "type": "platinum",
       "username": "uQSUS6yp",
       "password": "EzuW7iCF",
+      "blockCards": false,
       "id": 3
     },
     {
@@ -16,6 +17,7 @@
       "type": "platinum",
       "username": "tohqrl93",
       "password": "Zl2Aurwk",
+      "blockCards": false,
       "id": 4
     }
   ],
@@ -87,7 +89,44 @@
       "id": 1
     }
   ],
-  "registeredCards": [],
+  "registeredCards": [
+    {
+      "id": 1637157194901,
+      "cardNumber": "1234567891234678",
+      "bank": "State Bank of India",
+      "cardType": "cardTypeDebit",
+      "paymentGatewayType": "MasterCard",
+      "emailId": "rs4siddhant@gmail.com",
+      "isBlocked": true
+    },
+    {
+      "id": 1637158794755,
+      "cardNumber": "asfasf",
+      "bank": "Driving Lisence",
+      "cardType": "cardTypeIdCard",
+      "paymentGatewayType": "IdCard",
+      "emailId": "rs4siddhant@gmail.com",
+      "isBlocked": true
+    },
+    {
+      "id": 1637162673824,
+      "cardNumber": "1234567891234",
+      "bank": "Driving Lisence",
+      "cardType": "cardTypeIdCard",
+      "paymentGatewayType": "IdCard",
+      "emailId": "rs4siddhant@gmail.com",
+      "isBlocked": true
+    },
+    {
+      "id": 1637166063483,
+      "cardNumber": "1234567785678965",
+      "bank": "Axis Bank",
+      "cardType": "cardTypeDebit",
+      "paymentGatewayType": "MasterCard",
+      "emailId": "nagaramaraju@gmail.com",
+      "isBlocked": false
+    }
+  ],
   "lostWalletRecords": [],
   "claimsHistory": [],
   "familyMembers": []
