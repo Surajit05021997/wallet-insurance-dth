@@ -140,7 +140,7 @@
       "cardType": "cardTypeDebit",
       "paymentGatewayType": "MasterCard",
       "emailId": "nagaramaraju@gmail.com",
-      "isBlocked": false
+      "isBlocked": true
     }
   ],
   "lostWalletRecords": [],
