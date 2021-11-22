@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mb-5 mt-5">
-      <h1>Pending Claims</h1>
+      <h1>Pending Claims / Advances</h1>
     </div>
     <hr>
     <div class="radio-toolbar" id="option-selected">

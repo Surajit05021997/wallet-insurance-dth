@@ -66,6 +66,16 @@
             <router-link class="routerLink" to="/pendingClaims">Pending Claims</router-link>
           </a>
         </li>
+        <li class="nav-item" v-if="this.selectedLogin === 'Customer'">
+          <a class="nav-link" href="#">
+            <!-- <span data-feather="file"></span> -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"  d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd" />
+            </svg>
+            <router-link class="routerLink" to="/virtualCardPayment">VC / QR Payment</router-link>
+          </a>
+        </li>
       </ul>
     </div>
     </nav>
