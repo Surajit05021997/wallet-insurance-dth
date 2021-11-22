@@ -28,6 +28,15 @@
       "username": "YZ8D1GBS",
       "password": "E&y7$MZB",
       "id": 5
+    },
+    {
+      "name": "Surajit Maity",
+      "mobileNum": "0908349569",
+      "emailId": "surajitmaity12345@gmail.com",
+      "type": "platinum",
+      "username": "HtUfOPY9",
+      "password": "RLxdZtxR",
+      "id": 6
     }
   ],
   "employees": [
@@ -103,6 +112,13 @@
       "insuranceAmount": "150000",
       "mobileNum": "0908349569",
       "id": 2
+    },
+    {
+      "startDate": "11/22/2021",
+      "endDate": "11/22/2022",
+      "insuranceAmount": "150000",
+      "mobileNum": "0908349569",
+      "id": 3
     }
   ],
   "registeredCards": [
