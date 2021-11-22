@@ -26,18 +26,82 @@
       <div v-if="this.selectedLogin==='Customer'">
         <div v-if="latestPolicy" class="container">
           <div class="row">
-              <div class="col-lg-8">
+              <div class="col-lg-6">
                 <div class="card">
                   <h3 class="card-header">Policy Id : {{latestPolicy.id}}</h3>
+                  <!-- Start Date //Start -->
                   <div class="card-body">
-                    <h2 class="card-title">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <h2>Start Date</h2>
+                      </div>
+                      <div class="col-lg-6">
+                        <h2>{{latestPolicy.startDate}}</h2>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Start Date //End -->
+                  <!-- End Date //Start -->
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <h2>End Date</h2>
+                      </div>
+                      <div class="col-lg-6">
+                        <h2>{{latestPolicy.endDate}}</h2>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End Date //End -->
+                  <!-- Insurance Amount //Start -->
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <h2>Insuarnce Amount</h2>
+                      </div>
+                      <div class="col-lg-6">
+                        <h2>{{latestPolicy.insuranceAmount}}</h2>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Insurance Amount //End -->
+                  <!-- Remaining Days //Start -->
+                  <div v-if="!showRenewPolicyButton(latestPolicy.endDate)" class="card-body">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <h2>Remaining days</h2>
+                      </div>
+                      <div class="col-lg-6">
+                        <h2>{{getRemainingDays(latestPolicy.endDate)}}</h2>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Remaining Days //End -->
+                  <!-- policy Already Ended Days //Start -->
+                  <div v-if="showRenewPolicyButton(latestPolicy.endDate)" class="card-body">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <h2>Ended already</h2>
+                      </div>
+                      <div class="col-lg-6">
+                        <h2>{{-getRemainingDays(latestPolicy.endDate)}} days back</h2>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Policy Already Ended //End -->
+                  <!-- Renew Policy Button //Start-->
+                  <div class="card-body centered-content">
+                  <button class="btn btn-danger font-size-1_6rem width-200px" :disabled="!showRenewPolicyButton(latestPolicy.endDate)">Renew Policy</button>
+                  </div>
+                  <!-- Renew Policy Button //End -->
+                    <!-- <h2 class="card-title">
                       <span v-if="showRenewPolicyButton(latestPolicy.endDate)">Ended on: </span>
                       <span v-if="!showRenewPolicyButton(latestPolicy.endDate)">Ending on: </span>
                       {{getShortDate(latestPolicy.endDate)}}
                       </h2>
                     <h4 class="mt-5">Insuarnce Amount : {{latestPolicy.insuranceAmount}}</h4>
-                    <h5 class="card-text">Started On : {{getShortDate(latestPolicy.startDate)}}</h5>
-                  </div>
+                    <h5 class="card-text">Started On : {{getShortDate(latestPolicy.startDate)}}</h5> -->
+                  
                 </div>
                 <!-- <table class="table table-hover font-size-1_6rem">
                   <thead>
@@ -54,25 +118,25 @@
                   </tr>
                   </tbody>
                 </table> -->
-                <div class="mt-6">
+                <!-- <div class="mt-6">
                   <h1 class="card-title">{{getTitleStringForCard(getRemainingDays(latestPolicy.endDate))}}</h1>
                   <button class="btn btn-danger font-size-1_6rem" :disabled="!showRenewPolicyButton(latestPolicy.endDate)">Renew Policy</button>
-                </div>
+                </div> -->
               </div>
-              <div v-if="!showRenewPolicyButton(latestPolicy.endDate)" class="col-lg-4">
+              <div v-if="!showRenewPolicyButton(latestPolicy.endDate)" class="col-lg-6">
                 <div class="centered-content">
                   <h2 class="text-success"><b>You are Protected</b></h2>
                 </div>
                 <div class="centered-content">
-                    <img src="../assets/protection-shield.jpg" alt="Wallet Protected Image">
+                    <img width="250px" height="auto" src="../assets/protection-shield.jpg" alt="Wallet Protected Image">
                 </div>
               </div>
-              <div v-if="showRenewPolicyButton(latestPolicy.endDate)" class="col-lg-4">
+              <div v-if="showRenewPolicyButton(latestPolicy.endDate)" class="col-lg-6">
                 <div class="centered-content">
                   <h2 class="text-danger"><b>You are not insured</b></h2>
                 </div>
                 <div class="centered-content">
-                    <img src="../assets/vulnerability.png" alt="Wallet unprotected Image">
+                    <img width="250px" height="auto" src="../assets/vulnerability.png" alt="Wallet unprotected Image">
                 </div>     
               </div>
           </div>
@@ -236,5 +300,8 @@ created(){
   }
   .mt-6{
     margin-top: 6rem;
+  }
+  .width-200px{
+    width: 200px;
   }
 </style>
