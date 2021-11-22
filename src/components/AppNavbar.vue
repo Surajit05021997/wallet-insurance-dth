@@ -81,10 +81,11 @@ export default {
       this.active = false;
     },
     async getModalData() {
-      this.profileUsername = sessionStorage.getItem('loggedInUsername');
+      const username = sessionStorage.getItem('loggedInUsername');
       const customersList = await getCustomerService();
-      const loggedInCustomer = customersList.find(element => element.username === this.profileUsername);
+      const loggedInCustomer = customersList.find(element => element.username === username);
       this.profileEmail = loggedInCustomer.emailId;
+      this.profileUsername = loggedInCustomer.name;
     }
   }
 }
