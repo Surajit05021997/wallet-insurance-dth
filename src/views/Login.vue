@@ -121,7 +121,7 @@ export default {
 .radio-toolbar {
   width: 90%;
   font-size: 2rem;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 .m-1{
   margin: 8px;
