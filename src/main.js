@@ -10,7 +10,7 @@ import "@popperjs/core"
 import "bootstrap"
 import 'sweetalert2/dist/sweetalert2.min.css';
 import axios from 'axios'
-import VueAxios from 'vue-axios'
+import VueAxios from 'vue-axios';
 
 const VueSweetalert2Options = {
   confirmButtonColor: '#007fff',

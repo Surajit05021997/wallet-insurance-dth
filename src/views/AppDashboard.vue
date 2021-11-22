@@ -3,7 +3,7 @@
     <div class="sidebarContent">
       <main>
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Dashboard</h1>
+          <h1>Dashboard</h1>
         </div>
        <div class="row margin-right-0">
           <div  v-if="this.selectedLogin === 'Employee'">
@@ -17,6 +17,7 @@
             </div>
           </div>
           <div  v-if="this.selectedLogin === 'Customer'">
+            <add-lost-wallet-record></add-lost-wallet-record>
             <div class="container-fluid py-4">
               <div class="row">
                   <div class="col-xl-6 col-sm-6 mb-xl-0 mb-4">
@@ -25,10 +26,10 @@
                           <div class="row">
                               <div class="col-8">
                               <div class="numbers">
-                                  <p class="text-sm mb-0 font-weight-bold">Hey there, are you having tough time with your cards?</p>
+                                  <p class="text-sm mb-0 font-weight-bold">Hey there, have you mispaced/lost your wallet?</p>
                                   <h5 class="font-weight-bolder mb-0 p-3">
-                                    <button v-if="!customerDetails.blockCards" type="button" @click="blockCards(true)" class="btn btn-lg btn-warning btn-outline-secondary">Block your cards</button>
-                                    <button v-if="customerDetails.blockCards" type="button" @click="blockCards(false)" class="btn btn-lg btn-warning btn-outline-secondary">Enable your cards</button>
+                                    <button :disabled="customerDetails.blockCards" type="button" data-bs-toggle ="modal" data-bs-target ="#addLostWalletRecord" class="btn btn-lg btn-warning btn-outline-secondary">Block your cards</button>
+                                    <!-- <button v-if="customerDetails.blockCards" type="button" @click="blockCards(false)" class="btn btn-lg btn-warning btn-outline-secondary">Enable your cards</button> -->
                                   </h5>
                               </div>
                               </div>
@@ -107,17 +108,15 @@
                               </svg>
                               </a>
                           </div>
+                          <div class="m-3">
+                              <social-media></social-media>
+                          </div>
                         </div>
                       </div>
                       <div>
-                        <div class="bg-gradient-primary border-radius-lg h-100">
-                            <!-- <img src="../assets/img/shapes/waves-white.svg" class="position-absolute h-100 w-50 top-0 d-lg-block d-none" alt="waves"> -->
-                            <div class="m-3">
-                              <social-media></social-media>
-                            </div>
+                        <div class="bg-gradient-primary border-radius-lg h-100 mb-5">
                             <div class="position-relative d-flex justify-content-center h-100">
-                              <!-- <img class="w-100 position-relative z-index-2 pt-4" src="../assets/img/illustrations/rocket-white.png" alt="rocket"> -->
-                              <video class="carousel-video" width="320" height="240" autoplay muted loop playsinline preload="metadata" poster="http://techslides.com/demos/sample-videos/small.jpg">
+                              <video class="carousel-video" width="360" height="240" autoplay muted loop playsinline preload="metadata">
                                 <source src="../assets/video/Wallet-lost-on-Vyond.webm" type="video/webm">
                               </video>
                             </div>
@@ -144,9 +143,8 @@
                               </div>
                             <canvas id="chart-bars" class="chart-canvas chartjs-render-monitor" height="255" style="display: block; height: 170px; width: 342px;" width="513"></canvas>
                             </div>
-                            <chart-js></chart-js>
                         </div>
-                      <h6 class="ms-2 mt-4 mb-0"> Active Users </h6>
+                      <h6 class="ms-2 mt-4 mb-0"> Activity on our portal </h6>
                       <p class="text-sm ms-2"> (<span class="font-weight-bolder">+23%</span>) than last week </p>
                         <div class="container border-radius-lg">
                             <div class="row">
@@ -254,23 +252,11 @@
                       </div>
                   </div>
                 </div>
-                <!-- <div class="col-lg-5">
-                  <div class="profile-card">
-                    <h3>My Profile</h3>
-                    <div>
-                      <img src="../assets/profile1.jpg" alt="Profile picture" class="profile-img">
-                    </div>
-                    <h2>{{loggedInUser}}</h2>
-                    <h5>{{customerDetails.emailId}}</h5>
-                    <div class="col">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View Full Profile</button>
-                    </div>
-                    <hr style="width:75%;">
-                    <div>
-                      <h2>Team Amalgam</h2>
-                    </div>
+                <div class="col-lg-5">
+                  <div class="card">
+                    <chart-js></chart-js>
                   </div>
-                </div> -->
+                </div>
             </div>
           </div>
         </div>
@@ -281,9 +267,10 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import { getPolicyDetailsWithID, getPolicyDetailsWithMobNum, postSearchValue, getLoginType, deleteSearchValue, updateRegisteredCard, getRegisteredCards } from '@/service/service.js';
+import { getPolicyDetailsWithID, getPolicyDetailsWithMobNum, postSearchValue, getLoginType, deleteSearchValue } from '@/service/service.js';
 import {isValidSession} from '@/common.js';
 import  CarouselImage  from './CarouselImage.vue';
+import AddLostWalletRecord from '../components/AddLostWalletRecord.vue';
 // import Chart from './Chart.vue';
 import SocialMedia from '../components/SocialMedia.vue';
 import ChartJs from './ChartJs.vue';
@@ -293,6 +280,7 @@ export default {
     CarouselImage,
     ChartJs,
     SocialMedia,
+    AddLostWalletRecord
     // Chart
   },
   data() {
@@ -350,45 +338,6 @@ export default {
             })
       }
     },
-    async blockCards(status){
-      this.$swal({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes!'
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const registeredCards =  await getRegisteredCards();
-          registeredCards.forEach(registeredCard => {
-            if(registeredCard.emailId === this.customerDetails.emailId ) {
-              registeredCard.isBlocked = status;
-              this.updateCardInformation(registeredCard);
-            }
-          });
-            // await addCustomerService(this.customerDetails);
-        }    
-      }
-    )},
-    async updateCardInformation(registeredCard) { 
-      const updateRegisteredCardsStatusText =  await updateRegisteredCard(registeredCard.id, registeredCard);
-      if(updateRegisteredCardsStatusText==="OK"){
-        this.$swal(
-          'Blocked!',
-          'Your cards have been blocked.',
-          'success'
-        )
-      }
-      else{
-            this.$swal({
-              title: 'Could not Delete, Server Issue',
-              text: "Sorry for inconvinience, please reload page",
-              icon: 'warning',
-              timer: 3000
-            });
-    }},
   }
 }
 </script>
@@ -568,8 +517,8 @@ p {
 }
 .background-image {
   background-image: url('../assets/img/ivancik.jpg');
-  height: 21.5rem;
-  width: 50rem;
+  height: 25rem;
+  width: 55rem;
 }
 .bg-cover, .mask {
     background-size: cover;
