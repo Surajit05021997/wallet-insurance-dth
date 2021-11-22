@@ -68,4 +68,9 @@ body {
   max-width: 160rem;
   margin: 0 auto;
 }
+@media screen and (max-width: 768px) {
+  .dashboard-container {
+    grid-template-columns: 0 auto;
+  }
+}
 </style>
