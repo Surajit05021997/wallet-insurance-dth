@@ -28,7 +28,7 @@
         <div>
           <span class="d-flex">
             <h2>Policy Details for this client</h2>
-            <button class='ml-2 btn btn-outline-primary' @click="getPolicyDetailsForClient(claim.mobileNum)">See Policy for client</button>
+            <button class='ml-2 btn btn-outline-primary text-1_7rem' @click="getPolicyDetailsForClient(claim.mobileNum)">See Policy for client</button>
           </span>
           <div v-if="clientPolicyDetails">
             <p>Start Date : {{getShortDate(clientPolicyDetails.startDate)}}</p>
@@ -38,23 +38,23 @@
           <div v-if="selectedOption==='pendingClaims'">
 
               <input type="radio" class="btn-check" name="approve-or-reject" value="approveClaim" id="approveClaimButton" @change="getSelectedClaimStatusUpdate()">
-              <label class="btn btn-outline-success" for="approveClaimButton">Approve Claim</label>
-
+              <label class="btn btn-outline-success text-1_7rem" for="approveClaimButton">Approve Claim</label>
+                <span class="ml-2"></span>
               <input type="radio" class="btn-check" name="approve-or-reject" value="rejectClaim" id="rejectClaimButton" @change="getSelectedClaimStatusUpdate()">
-              <label class="btn btn-outline-danger" for="rejectClaimButton">Reject Claim</label>
+              <label class="btn btn-outline-danger text-1_7rem" for="rejectClaimButton">Reject Claim</label>
 
             <!-- <button @click="approveClaimClicked()" class="btn btn-success">Approve Claim</button>
             <button @click="rejectClaimClicked()" class="ml-2 btn btn-outline-danger">Reject Claim</button> -->
             <!-- Show approval input or rejection reason input -->
               <!-- Approval button clicked -->
             <div v-if="approveClaimSectionOpen" class="form-group">
-              <label for="pendingClaimFormApproveAmount">Enter Amount</label>
-              <input type="text" class="form-control" id="pendingClaimFormApproveAmount" placeholder="Enter Amount" v-model="pendingClaimFormApproveAmountInput">
+              <label class="text-1_7rem" for="pendingClaimFormApproveAmount">Enter Amount to Approve claim / Advance</label>
+              <input type="text" class="form-control text-1_7rem" id="pendingClaimFormApproveAmount" placeholder="Enter Amount" v-model="pendingClaimFormApproveAmountInput">
             </div>
             <!-- Rejected Button clicked -->
             <div v-if="rejectClaimSectionOpen" class="form-group">
-              <label for="pendingClaimFormRejectionReason">Enter Rejection Reason</label>
-              <input type="text" class="form-control" id="pendingClaimFormRejectionReason" placeholder="Enter Rejection Reason" v-model="pendingClaimFormRejectionReasonInput">
+              <label class="text-1_7rem" for="pendingClaimFormRejectionReason">Enter Rejection Reason</label>
+              <input type="text" class="form-control text-1_7rem" id="pendingClaimFormRejectionReason" placeholder="Enter Rejection Reason" v-model="pendingClaimFormRejectionReasonInput">
             </div>
             <p v-if="pendingClaimFormErrors.length">
               <b>Please correct the following error(s):</b>
@@ -62,7 +62,7 @@
                 <li class="text-danger" v-for="(error,index) in pendingClaimFormErrors" :key="index">{{ error }}</li>
               </ul>
             </p>
-            <button v-if="rejectClaimSectionOpen!==approveClaimSectionOpen" :disabled="submitClaimUpdateProcessing" type="button" @click="verifyFormInputsAndSubmitClaimUpdate(claim)" class="btn btn-primary">Submit</button>
+            <button v-if="rejectClaimSectionOpen!==approveClaimSectionOpen" :disabled="submitClaimUpdateProcessing" type="button" @click="verifyFormInputsAndSubmitClaimUpdate(claim)" class="btn btn-primary text-1_7rem">Submit</button>
             
           </div>
           <div v-if="selectedOption==='showAll'">
@@ -296,6 +296,10 @@ async created(){
 
 .text-1_3rem{
   font-size: 1.3rem !important; 
+}
+
+.text-1_7rem{
+  font-size: 1.7rem !important; 
 }
 
 .ml-2{
