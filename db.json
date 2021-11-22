@@ -161,5 +161,15 @@
   ],
   "lostWalletRecords": [],
   "claimsHistory": [],
-  "familyMembers": []
+  "familyMembers": [
+    {
+      "familyMemberName": "Surajit Maity",
+      "familyMemberEmail": "surajitmaity12345@gmail.com",
+      "familyMemberMobile": "9123456789",
+      "familyMemberRelation": "Mother",
+      "isAuthorised": false,
+      "familyHeadMobileNum": "0908349569",
+      "id": 1
+    }
+  ]
 }

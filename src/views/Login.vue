@@ -10,21 +10,24 @@
         <div class="login-field">
           <p class="field-des">Login Account</p>
           <form class="login-form" @submit.prevent="authenticate">
-            <div style="display-flex">
-              <div class="radio-toolbar" id="loginType">
-                <div v-for="(option, index) in loginType" :key="index" class="m-1">
-                  <input type="radio" class="form-check-input btn-text-1_5rem" name="loginType" :value="option.value" :id="option.value" v-model="selectedLoginType" @change="getSelectedLoginType()">
-                  <label class="mx-0_5rem form-check-label btn-text-1_5rem" :for="option.id">{{option.value}}</label>
-                </div>
+            <div class="radio-toolbar" id="loginType">
+              <div v-for="(option, index) in loginType" :key="index" class="m-1">
+                <input type="radio" class="form-check-input" name="loginType" :value="option.value" :id="option.value" v-model="selectedLoginType" @change="getSelectedLoginType()">
+                <label class="form-check-label" :for="option.id">{{option.value}}</label>
               </div>
             </div>
             
             <p class="invalid" v-if="isInvalid">Your username or password is incorrecct.</p>
-            <input type="text" placeholder="Username" v-model="username">
-            <input type="password" placeholder="Password" v-model="password">
-            <div class="remember-user">
-              <input type="checkbox">
-              <label>Remember username</label>
+            <input class="field" type="text" placeholder="Username" v-model="username">
+            <input class="field" type="password" placeholder="Password" v-model="password">
+            <div class="additional-option">
+              <div class="remember-user">
+                <input type="checkbox">
+                <label>Remember username</label>
+              </div>
+              <div class="forgot-password">
+                <a href="#">Forgot password?</a>
+              </div>
             </div>
             <button class="btn">LOGIN</button>
           </form>
@@ -115,6 +118,11 @@ export default {
   display: flex;
   align-items: center;
 }
+.radio-toolbar {
+  width: 90%;
+  font-size: 2rem;
+  justify-content: space-between;
+}
 .m-1{
   margin: 8px;
 }
@@ -180,6 +188,7 @@ export default {
 }
 .login-form {
   display: flex;
+  width: 90%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -197,25 +206,28 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  font-size: 1.5rem;
+  gap: 0.5rem;
+  font-size: 2rem;
+}
+.remember-user input {
+  margin-top: 0.4rem;
 }
 .btn {
     background-color: #007fff;
-    padding: 0 2rem;
+    padding: 0.8rem 2.4rem;
     margin: 2rem;
     margin-left: 0;
     text-decoration: none;
     border-style: none;
     border-radius: 20rem;
     font-size: 2rem;
+    font-weight: bold;
     color: #fff;
   }
   .btn:hover {
     cursor: pointer;
-    background-color: #fff;
-    color: #000;
-    box-shadow: inset 0 0 0 0.2rem #007fff;
+    background-color: #0062c4;
+    color: #fff;
   }
   .invalid {
     color: red;
@@ -224,7 +236,7 @@ export default {
   input[type='radio'] {
     border-radius: 50%;
     border: 2px solid #007fff;
-    margin: 0;
+    margin-right: 0.5rem;
   }
   input[type='radio']:checked {
     background: #007fff;
@@ -232,6 +244,18 @@ export default {
   .login-icon {
     width: 20rem;
     height: 20rem;
+  }
+  .field {
+    width: 90%;
+  }
+  .additional-option {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .forgot-password a {
+    text-decoration: none;
+    font-size: 2rem;
   }
 @media screen and (max-width: 768px) {
   .login-card {
