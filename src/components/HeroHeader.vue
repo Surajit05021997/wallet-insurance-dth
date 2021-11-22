@@ -5,7 +5,7 @@
         <div class="hero-text-box">
           <h1>Secure your wallet.</h1>
           <p>Wallet theft & loosing your wallet can be very stressful. A wallet protection plan offered by bank could be very helpful in such emergency situations, by providing you with the necessary financial  support at the time.</p>
-          <a href="#plans" class="btn"><strong>Protect your wallect</strong></a>
+          <a href="#plans" class="btn"><strong>Protect your wallet</strong></a>
         </div>
         <div class="hero-img-box">
           <img src="@/assets/landing-page-img.png" alt="Man holding wallet." class="hero-img">

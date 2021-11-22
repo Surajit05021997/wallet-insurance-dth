@@ -92,7 +92,7 @@ methods: {
         'Date',
         'Location',
         'Additional Details',
-        'Cards IDs'
+        'Blocked Cards'
       ];
       await this.fetchLostWalletRecords();
     },
