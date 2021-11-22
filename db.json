@@ -70,10 +70,6 @@
   "searchWith": [
     {
       "searchVal": "9989678967",
-      "id": 1
-    },
-    {
-      "searchVal": "9989678967",
       "id": 2
     },
     {
@@ -95,6 +91,10 @@
     {
       "loginType": "Customer",
       "id": 10
+    },
+    {
+      "searchVal": "9989678967",
+      "id": 11
     }
   ],
   "banks": [],
@@ -123,44 +123,45 @@
   ],
   "registeredCards": [
     {
-      "id": 1637157194901,
-      "cardNumber": "1234567891234678",
-      "bank": "State Bank of India",
-      "cardType": "cardTypeDebit",
-      "paymentGatewayType": "MasterCard",
-      "emailId": "rs4siddhant@gmail.com",
-      "isBlocked": true
-    },
-    {
-      "id": 1637158794755,
-      "cardNumber": "asfasf",
-      "bank": "Driving Lisence",
-      "cardType": "cardTypeIdCard",
-      "paymentGatewayType": "IdCard",
-      "emailId": "rs4siddhant@gmail.com",
-      "isBlocked": true
-    },
-    {
-      "id": 1637162673824,
-      "cardNumber": "1234567891234",
-      "bank": "Driving Lisence",
-      "cardType": "cardTypeIdCard",
-      "paymentGatewayType": "IdCard",
-      "emailId": "rs4siddhant@gmail.com",
-      "isBlocked": true
-    },
-    {
-      "id": 1637166063483,
-      "cardNumber": "1234567785678965",
+      "id": 1637576099447,
+      "cardNumber": "1234567891234123",
       "bank": "Axis Bank",
       "cardType": "cardTypeDebit",
-      "paymentGatewayType": "MasterCard",
-      "emailId": "nagaramaraju@gmail.com",
-      "isBlocked": true
+      "paymentGatewayType": "Visa",
+      "mobileNum": "9989678967",
+      "isBlocked": false
     }
   ],
-  "lostWalletRecords": [],
-  "claimsHistory": [],
+  "lostWalletRecords": [
+    {
+      "id": 1637576341001,
+      "howYouLostWallet": "Stolen",
+      "dateTimeOfLosingWallet": "2021-11-22T15:48",
+      "locationOfLosingWallet": "Nevada City, CA, USA",
+      "locationOfLosingWalletLatitude": 39.2615606,
+      "locationOfLosingWalletLongitude": -121.0160594,
+      "additionalDetailsOfLostWallet": "No",
+      "listOfCardsToBlock": [
+        "1637576099447"
+      ],
+      "mobileNum": "9989678967"
+    }
+  ],
+  "claimsHistory": [
+    {
+      "notifiedOn": "2021-11-22T10:19:59.742Z",
+      "dateTimeOfLosingWallet": "2021-11-22T15:48",
+      "locationOfLosingWallet": "Nevada City, CA, USA",
+      "status": "success",
+      "listOfCardsToBlock": [
+        "1637576099447"
+      ],
+      "claimAmount": "1200",
+      "claimRejectionReason": "",
+      "mobileNum": "9989678967",
+      "id": 1637576341001
+    }
+  ],
   "familyMembers": [
     {
       "familyMemberName": "Surajit Maity",

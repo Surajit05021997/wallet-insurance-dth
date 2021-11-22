@@ -5,12 +5,12 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Dashboard</h1>
         </div>
-       <div class="row">
+       <div class="row margin-right-0">
           <div  v-if="this.selectedLogin === 'Employee'">
-            <div class="search-holder">
+            <div class="form-group">
               <input
                 type="search"
-                class="search-box"
+                class="form-control"
                 placeholder="Search with MobileNo or PolicyID"
                 v-model="searchValue"
                 @keyup.enter="getCustomerPolicyDetails" />
@@ -583,5 +583,8 @@ p {
 }
 .mb-3 {
     margin-bottom: 1rem!important;
+}
+.margin-right-0{
+  margin-right: 0;
 }
 </style>
