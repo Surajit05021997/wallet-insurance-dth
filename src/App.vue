@@ -46,6 +46,7 @@ export default {
 
 html {
   font-size: 62.5%;
+  background-image:url('/assets/InsuranceImage.png')
 }
 
 body {
