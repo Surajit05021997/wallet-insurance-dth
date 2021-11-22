@@ -254,7 +254,7 @@
                       </div>
                   </div>
                 </div>
-                <div class="col-lg-5">
+                <!-- <div class="col-lg-5">
                   <div class="profile-card">
                     <h3>My Profile</h3>
                     <div>
@@ -270,7 +270,7 @@
                       <h2>Team Amalgam</h2>
                     </div>
                   </div>
-                </div>
+                </div> -->
             </div>
           </div>
         </div>
