@@ -2,12 +2,14 @@
   <div class="claims-history container-fluid">
     <div class="row">
       <div class="d-flex mb-5 mt-5">
-      <h1>Claims History</h1>
+      <h1>Claims / Advances History</h1>
       </div>
       <hr>
       <div v-for="(successfulClaim, index) in recentlySuccessfulUnnotifiedClaims" :key="index" class="alert alert-success success-notification" role="alert">
-        Congrats, your claim for wallet lost on <b>{{getShortDate(successfulClaim.dateTimeOfLosingWallet)}}</b> with claim ID <b>{{successfulClaim.id}}</b> is successful. Claim Amount is <b>{{successfulClaim.claimAmount}}</b>
-        <button @click="updateNotifiedTimestamp(successfulClaim)" class="ml-3 btn btn-success float-end">Thanks</button>
+        Congrats, your claim for wallet lost on <b>{{getShortDate(successfulClaim.dateTimeOfLosingWallet)}}</b> with claim ID <b>{{successfulClaim.id}}</b> is successful. Claim Amount is <b>{{successfulClaim.claimAmount}}</b>.
+        <br>
+        Please click the button to activate your Virtual card.
+        <button @click="updateNotifiedTimestamp(successfulClaim)" class="ml-3 btn btn-success">Thanks</button>
       </div>
     </div>
     <div v-if="claimsHistoryList">

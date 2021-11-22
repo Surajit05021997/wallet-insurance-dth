@@ -11,6 +11,7 @@ import PolicyDetails from '@/views/PolicyDetails.vue'
 import ClaimsHistory from '@/views/ClaimsHistory.vue'
 import KycAuthentication from '@/views/KycAuthentication.vue'
 import PendingClaims from '@/views/PendingClaims.vue'
+import VirtualCardPayment from '@/views/VirtualCardPayment.vue'
 
 Vue.use(VueRouter)
 
@@ -69,6 +70,11 @@ const routes = [
     path: '/kycAuthentication',
     name:'KycAuthentication',
     component: KycAuthentication,
+  },
+  {
+    path: '/virtualCardPayment',
+    name:'VirtualCardPayment',
+    component: VirtualCardPayment,
   },
   {
     path: '*',

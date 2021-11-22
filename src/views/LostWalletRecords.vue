@@ -20,7 +20,7 @@
     <div v-if="lostWalletRecords">
       <map-of-lost-wallet-records :refreshMapList="refreshMap"></map-of-lost-wallet-records>
       <hr>
-      <table v-if="lostWalletRecords.length > 0" class="table table-hover">
+      <table v-if="lostWalletRecords.length > 0" class="table table-hover text-1_5rem">
         <thead>
           <tr>
             <th v-for="(lostWalletField, index) in lostWalletFields" :key="index">{{lostWalletField}}</th>
@@ -30,7 +30,7 @@
           <tr v-for="(lostWalletRecord, index) in lostWalletRecords" :key="index">
             <td>{{lostWalletRecord.id}}</td>
             <td>{{lostWalletRecord.howYouLostWallet}}</td>
-            <td>{{lostWalletRecord.dateTimeOfLosingWallet}}</td>
+            <td>{{getShortDateTime(lostWalletRecord.dateTimeOfLosingWallet)}}</td>
             <td>{{lostWalletRecord.locationOfLosingWallet}}</td>
             <td>{{lostWalletRecord.additionalDetailsOfLostWallet}}</td>
             <td>
@@ -133,6 +133,11 @@ methods: {
       let stringForCardDetails = `${cardDetails[0].bank.slice(0, cardDetails[0].bank.length/2)} - xx ${cardDetails[0].cardNumber.slice(cardDetails[0].cardNumber.length - 4)}`;
       return stringForCardDetails;
     },
+    getShortDateTime(dateTime){
+      let dateOptions = {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+      let shortDateTime = new Date(dateTime).toLocaleDateString("en-US", dateOptions)
+      return shortDateTime;
+    },
 },
 created(){
   if(!isValidSession()){
@@ -147,7 +152,7 @@ created(){
 </script>
 
 <style scoped>
-  .btn-text-1_5rem{
+  .btn-text-1_5rem, .text-1_5rem{
   font-size: 1.5rem
 }
 .ml-1{

@@ -177,7 +177,7 @@ export default {
       // }
 
       if(!this.addFormDateTimeOfLosingWallet){
-        this.addLostWalletRecordFormErrors.push("Mention when you lost wallet")
+        this.addLostWalletRecordFormErrors.push("Select when you lost wallet using calendar icon on date")
       }
 
       if(listOfCardsToBlock.length === 0){

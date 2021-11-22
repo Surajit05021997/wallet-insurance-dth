@@ -9,7 +9,7 @@
     <hr>
     <div v-if="familyMembersList">
       <div v-if="familyMembersList.length > 0">
-        <table class="table table-hover">
+        <table class="table table-hover text-1_7rem">
           <thead>
             <tr>
               <th v-for="(field, index) in familyMembersFields" :key="index">{{field}}</th>
@@ -86,7 +86,7 @@ methods: {
         'Relation',
         'Email',
         'Mobile Number',
-        'isAuthorised',
+        'Is Authorised',
         'Action',
         'Delete'
       ];      
@@ -168,6 +168,9 @@ created(){
 <style scoped>
   .btn-text-1_5rem{
   font-size: 1.5rem
+}
+.text-1_7rem{
+  font-size: 1.7rem
 }
 .ml-1{
   margin-left:1rem;
