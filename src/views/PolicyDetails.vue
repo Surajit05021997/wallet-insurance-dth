@@ -176,7 +176,6 @@ methods: {
     async initialiseValues(){
       const response = await getLoginType();
       this.selectedLogin = response.loginType;
-      console.log(this.selectedLogin);
       if(this.selectedLogin === "Customer"){
         let customerDetails = await getCustomerDetailsService(this.loggedInUser);
         this.policyDetails =  await getPolicyDetailsWithMobNum(customerDetails[0].mobileNum);
@@ -243,7 +242,6 @@ methods: {
       let todaysDate = new Date();
       let endDate = new Date(date);
       let remainingDays = Math.round((endDate - todaysDate)/(1000*60*60*24));
-      console.log(remainingDays);
       return remainingDays;
     },
     getTitleStringForCard(remainingDays){

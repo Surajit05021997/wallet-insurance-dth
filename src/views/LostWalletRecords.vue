@@ -104,7 +104,6 @@ methods: {
       let allCards = await getRegisteredCards(this.loggedInUserMobileNum);
       this.allRegisteredCardsIncludingBlocked = allCards;
       let debitCreditCardList = allCards.filter(eachCard => !eachCard.isBlocked && (filterCardType.includes(eachCard.cardType)));
-      console.log(debitCreditCardList);
       if (debitCreditCardList.length === 0 )
         return true;
       return false
