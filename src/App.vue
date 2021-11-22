@@ -4,7 +4,7 @@
       <div style="position: sticky; top:0;background: #fff; z-index:5">
         <app-navbar></app-navbar>
       </div>
-    <div :class="isLoggedIn? 'dashboard-container' : ''">
+    <div class="set-min-height" :class="isLoggedIn? 'dashboard-container' : ''">
       <div v-if="isLoggedIn" >
         <app-sidebar></app-sidebar>
       </div>
@@ -67,6 +67,9 @@ body {
   grid-template-columns: 200px auto;
   max-width: 160rem;
   margin: 0 auto;
+}
+.set-min-height{
+  min-height: calc(100vh - 40px);
 }
 @media screen and (max-width: 768px) {
   .dashboard-container {
