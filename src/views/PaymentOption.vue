@@ -98,12 +98,17 @@
           <p>UPI</p>
         </div>
         <div class="upi" :class="visible_2 ? 'viisible' : 'not-visible'">
-          <img src="../assets/bhim.svg" alt="bhim logo" @click="upiPayment" />
-          <img src="../assets/gpay.svg" alt="gpay logo" @click="upiPayment" />
+          <div class="field">
+              <label>UPI Id</label>
+              <input type="text" v-model="upiId" @input="validateUpi()" />
+              <p class="invalid" v-if="!isUpiIdValid">Enter UPI Id</p>
+            </div>
+          <img src="../assets/bhim.svg" alt="bhim logo" @click="upiPayment()" />
+          <img src="../assets/gpay.svg" alt="gpay logo" @click="upiPayment()" />
           <img
             src="../assets/phonepe.svg"
             alt="phonepe logo"
-            @click="upiPayment"
+            @click="upiPayment()"
           />
         </div>
       </div>
@@ -173,6 +178,8 @@ export default {
       toEmail: "",
       username: '',
       password: '',
+      upiId: '',
+      isUpiIdValid: true,
       visible_1: false,
       visible_2: false,
       visible_3: false,
@@ -338,32 +345,42 @@ export default {
         this.isbankSelectedValid = false;
       }
     },
-    upiPayment() {
-      this.isModalVisible = true;
-      this.username = this.generateUsername();
-      this.password = this.generatePassword();
-      const emailData = {
-        userName: this.$route.params.name,
-        toEmail: this.$route.params.email,
-        plan: this.$route.params.type,
-        username: this.username,
-        password: this.password,
+    validateUpi() {
+      if (this.upiId) {
+        this.isUpiIdValid = true;
+      } else {
+        this.isUpiIdValid = false;
       }
-      addCustomerService({
-        name: this.$route.params.name,
-        mobileNum: this.$route.params.number,
-        emailId: this.$route.params.email,
-        type: this.$route.params.type,
-        username: this.username,
-        password: this.password,
-      });
-      this.sendEmail(emailData);
-      addPolicy({
-        startDate: this.startDate,
-        endDate: this.endDate,
-        insuranceAmount: "150000",
-        mobileNum: this.preCustomer.number,
-      });
+    },
+    upiPayment() {
+      this.validateUpi();
+      if(this.isUpiIdValid) {
+        this.isModalVisible = true;
+        this.username = this.generateUsername();
+        this.password = this.generatePassword();
+        const emailData = {
+          userName: this.$route.params.name,
+          toEmail: this.$route.params.email,
+          plan: this.$route.params.type,
+          username: this.username,
+          password: this.password,
+        }
+        addCustomerService({
+          name: this.$route.params.name,
+          mobileNum: this.$route.params.number,
+          emailId: this.$route.params.email,
+          type: this.$route.params.type,
+          username: this.username,
+          password: this.password,
+        });
+        this.sendEmail(emailData);
+        addPolicy({
+          startDate: this.startDate,
+          endDate: this.endDate,
+          insuranceAmount: "150000",
+          mobileNum: this.preCustomer.number,
+        });
+      }
     },
     closeModal() {
       this.isModalVisible = false;
