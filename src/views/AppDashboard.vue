@@ -518,7 +518,7 @@ p {
 .background-image {
   background-image: url('../assets/img/ivancik.jpg');
   height: 25rem;
-  width: 55rem;
+  /* width: 55rem; */
 }
 .bg-cover, .mask {
     background-size: cover;
