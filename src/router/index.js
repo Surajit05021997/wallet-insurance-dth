@@ -76,10 +76,10 @@ const routes = [
     name:'VirtualCardPayment',
     component: VirtualCardPayment,
   },
-  // {
-  //   path: '*',
-  //   redirect: Home
-  // },
+  {
+    path: '*',
+    redirect: Home
+  },
 ]
 
 const router = new VueRouter({
