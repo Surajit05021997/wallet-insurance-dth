@@ -2,7 +2,7 @@ import axios from 'axios'
 
 async function getCustomerService() {
   try {
-    const response = await axios.get('http://localhost:3001/customers');
+    const response = await axios.get('/api/customers');
     // console.log(response.data);
     return response.data;
   } catch(error) {
@@ -12,7 +12,7 @@ async function getCustomerService() {
 
 async function getEmployeeService() {
   try {
-    const response = await axios.get('http://localhost:3001/employees');
+    const response = await axios.get('/api/employees');
     // console.log(response.data);
     return response.data;
   } catch(error) {
@@ -22,7 +22,7 @@ async function getEmployeeService() {
 
 function addCustomerService(customer) {
   try {
-    axios.post('http://localhost:3001/customers', customer);
+    axios.post('/api/customers', customer);
   } catch(error) {
     console.log(error);
   }
@@ -30,7 +30,7 @@ function addCustomerService(customer) {
 
 async function getCustomerDetailsService(username) {
   try {
-    const response = await axios.get(`http://localhost:3001/customers?username=${username}`);
+    const response = await axios.get(`/api/customers?username=${username}`);
     return response.data;
   } catch(error) {
     console.log(error);
@@ -39,7 +39,7 @@ async function getCustomerDetailsService(username) {
 
 async function getPolicyDetailsWithMobNum(id) {
   try {
-    const response = await axios.get(`http://localhost:3001/policies?mobileNum=${id}`);
+    const response = await axios.get(`/api/policies?mobileNum=${id}`);
     return response.data;
   } catch(error) {
     console.log(error);
@@ -48,7 +48,7 @@ async function getPolicyDetailsWithMobNum(id) {
 
 async function getPolicyDetailsWithID(id) {
   try {
-    const response = await axios.get(`http://localhost:3001/policies?policyId=${id}`);
+    const response = await axios.get(`/api/policies?policyId=${id}`);
     return response.data;
   } catch(error) {
     console.log(error);
@@ -57,7 +57,7 @@ async function getPolicyDetailsWithID(id) {
 
 async function postLoginType(loginType) {
   try {
-    const response = await axios.post(`http://localhost:3001/loginWith`, loginType)
+    const response = await axios.post(`/api/loginWith`, loginType)
     return response.data;
   } catch(error) {
     console.log(error);
@@ -66,7 +66,7 @@ async function postLoginType(loginType) {
 
 async function getLoginType() {
   try {
-    const response = await axios.get(`http://localhost:3001/loginWith`)
+    const response = await axios.get(`/api/loginWith`)
     return response.data;
   } catch(error) {
     console.log(error);
@@ -75,7 +75,7 @@ async function getLoginType() {
 
 async function deleteLoginType(id){
   try{
-    const response = await axios.delete(`http://localhost:3001/loginWith/${id}`)
+    const response = await axios.delete(`/api/loginWith/${id}`)
     return response.statusText;
   }catch(error){
     console.log(error);
@@ -84,7 +84,7 @@ async function deleteLoginType(id){
 
 async function postSearchValue(searchVal) {
   try {
-    const response = await axios.post(`http://localhost:3001/searchWith`, searchVal)
+    const response = await axios.post(`/api/searchWith`, searchVal)
     return response.statusText;
   } catch(error) {
     console.log(error);
@@ -93,7 +93,7 @@ async function postSearchValue(searchVal) {
 
 async function getSearchValue() {
   try {
-    const response = await axios.get(`http://localhost:3001/searchWith`)
+    const response = await axios.get(`/api/searchWith`)
     return response.data;
   } catch(error) {
     console.log(error);
@@ -102,7 +102,7 @@ async function getSearchValue() {
 
 async function deleteSearchValue(id){
   try{
-    const response = await axios.delete(`http://localhost:3001/searchWith/${id}`)
+    const response = await axios.delete(`/api/searchWith/${id}`)
     return response.statusText;
   }catch(error){
     console.log(error);
@@ -111,7 +111,7 @@ async function deleteSearchValue(id){
 
 async function getRegisteredCards(mobileNum){
   try {
-    const response = await axios.get(`http://localhost:3001/registeredCards?mobileNum=${mobileNum}`);
+    const response = await axios.get(`/api/registeredCards?mobileNum=${mobileNum}`);
     return response.data;
   } catch(error){
     console.log(error);
@@ -120,7 +120,7 @@ async function getRegisteredCards(mobileNum){
 
 async function getRegisteredCardWithId(id){
   try {
-    const response = await axios.get(`http://localhost:3001/registeredCards/${id}`);
+    const response = await axios.get(`/api/registeredCards/${id}`);
     return response.data;
   } catch(error){
     console.log(error);
@@ -129,7 +129,7 @@ async function getRegisteredCardWithId(id){
 
 async function getLostWalletRecords(mobileNum){
   try {
-    const response = await axios.get(`http://localhost:3001/lostWalletRecords?mobileNum=${mobileNum}`);
+    const response = await axios.get(`/api/lostWalletRecords?mobileNum=${mobileNum}`);
     return response.data;
   } catch(error){
     console.log(error);
@@ -138,7 +138,7 @@ async function getLostWalletRecords(mobileNum){
 
 async function getPolicies(){
   try{
-    const response = await axios.get(`http://localhost:3001/policies`);
+    const response = await axios.get(`/api/policies`);
     return response.data;
   } catch(error){
     console.log(error);
@@ -147,7 +147,7 @@ async function getPolicies(){
 
 async function getAllClaims(){
   try {
-    const response = await axios.get(`http://localhost:3001/claimsHistory`);
+    const response = await axios.get(`/api/claimsHistory`);
     return response.data;
   } catch(error){
     console.log(error);
@@ -156,7 +156,7 @@ async function getAllClaims(){
 
 async function getClaimsHistory(mobileNum){
   try {
-    const response = await axios.get(`http://localhost:3001/claimsHistory?mobileNum=${mobileNum}`);
+    const response = await axios.get(`/api/claimsHistory?mobileNum=${mobileNum}`);
     return response.data;
   } catch(error){
     console.log(error);
@@ -165,7 +165,7 @@ async function getClaimsHistory(mobileNum){
 
 async function getFamilyMembers(mobileNum){
   try {
-    const response = await axios.get(`http://localhost:3001/familyMembers?familyHeadMobileNum=${mobileNum}`);
+    const response = await axios.get(`/api/familyMembers?familyHeadMobileNum=${mobileNum}`);
     return response.data;
   }catch(error){
     console.log(error);
@@ -174,7 +174,7 @@ async function getFamilyMembers(mobileNum){
 
 async function deleteRegisteredCard(id){
   try{
-    const response = await axios.delete(`http://localhost:3001/registeredCards/${id}`)
+    const response = await axios.delete(`/api/registeredCards/${id}`)
     return response.statusText;
   }catch(error){
     console.log(error);
@@ -183,7 +183,7 @@ async function deleteRegisteredCard(id){
 
 async function deleteFamilyMember(id){
   try{
-    const response = await axios.delete(`http://localhost:3001/familyMembers/${id}`)
+    const response = await axios.delete(`/api/familyMembers/${id}`)
     return response.statusText;
   }catch(error){
     console.log(error);
@@ -192,7 +192,7 @@ async function deleteFamilyMember(id){
 
 async function updateRegisteredCard(id , updatedRegisteredCard){
   try{
-    const response = await axios.put(`http://localhost:3001/registeredCards/${id}`, updatedRegisteredCard)
+    const response = await axios.put(`/api/registeredCards/${id}`, updatedRegisteredCard)
     return response.statusText;
   }catch(error){
     console.log(error);
@@ -201,7 +201,7 @@ async function updateRegisteredCard(id , updatedRegisteredCard){
 
 async function updateFamilyMember(id, updatedFamilyMember){
   try{
-    const response = await axios.put(`http://localhost:3001/familyMembers/${id}`, updatedFamilyMember)
+    const response = await axios.put(`/api/familyMembers/${id}`, updatedFamilyMember)
     return response.statusText;
   }catch(error){
     console.log(error);
@@ -210,7 +210,7 @@ async function updateFamilyMember(id, updatedFamilyMember){
 
 async function updateNotifiedTimestampForClaim(id, updatedClaim){
   try {
-    const response = await axios.put(`http://localhost:3001/claimsHistory/${id}`, updatedClaim);
+    const response = await axios.put(`/api/claimsHistory/${id}`, updatedClaim);
     return response.statusText;
   }catch(error){
     console.log(error);
@@ -219,7 +219,7 @@ async function updateNotifiedTimestampForClaim(id, updatedClaim){
 
 async function updateClaimStatus(id, updatedClaim){
   try {
-    const response = await axios.put(`http://localhost:3001/claimsHistory/${id}`, updatedClaim);
+    const response = await axios.put(`/api/claimsHistory/${id}`, updatedClaim);
     return response.statusText;
   }catch(error){
     console.log(error);
@@ -228,7 +228,7 @@ async function updateClaimStatus(id, updatedClaim){
 
 async function addRegisteredCard(newCardToAdd) {
   try {
-    const response = await axios.post(`http://localhost:3001/registeredCards`, newCardToAdd)
+    const response = await axios.post(`/api/registeredCards`, newCardToAdd)
     return response.statusText;
   } catch(error) {
     console.log(error);
@@ -237,7 +237,7 @@ async function addRegisteredCard(newCardToAdd) {
 
 async function addFamilyMember(newFamilyMember) {
   try {
-    const response = await axios.post(`http://localhost:3001/familyMembers`, newFamilyMember)
+    const response = await axios.post(`/api/familyMembers`, newFamilyMember)
     return response.statusText;
   } catch(error) {
     console.log(error);
@@ -246,7 +246,7 @@ async function addFamilyMember(newFamilyMember) {
 
 async function addLostWalletRecord(newLostWalletRecord) {
   try {
-    const response = await axios.post(`http://localhost:3001/lostWalletRecords`, newLostWalletRecord)
+    const response = await axios.post(`/api/lostWalletRecords`, newLostWalletRecord)
     return response;
   } catch(error) {
     console.log(error);
@@ -255,7 +255,7 @@ async function addLostWalletRecord(newLostWalletRecord) {
 
 async function addClaim(newClaim) {
   try {
-    const response = await axios.post(`http://localhost:3001/claimsHistory`, newClaim)
+    const response = await axios.post(`/api/claimsHistory`, newClaim)
     return response;
   } catch(error) {
     console.log(error);
@@ -264,7 +264,7 @@ async function addClaim(newClaim) {
 
 function addPreCustomer(customer) {
   try {
-    axios.post('http://localhost:3001/preCustomer', customer);
+    axios.post('/api/preCustomer', customer);
   } catch(error) {
     console.log(error);
   }
@@ -272,7 +272,7 @@ function addPreCustomer(customer) {
 
 async function getPreCustomer() {
   try {
-    const response = await axios.get('http://localhost:3001/preCustomer');
+    const response = await axios.get('/api/preCustomer');
     return response.data;
   } catch(error) {
     console.log(error);
@@ -281,7 +281,7 @@ async function getPreCustomer() {
 
 async function addPolicy(policy) {
   try {
-    await axios.post('http://localhost:3001/policies', policy);
+    await axios.post('/api/policies', policy);
   } catch(error) {
     console.log(error);
   }
