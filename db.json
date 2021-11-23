@@ -1,176 +1,38 @@
 {
-  "customers": [
-    {
-      "name": "Siddhant",
-      "mobileNum": "9989678967",
-      "emailId": "rs4siddhant@gmail.com",
-      "type": "platinum",
-      "username": "uQSUS6yp",
-      "password": "EzuW7iCF",
-      "blockCards": false,
-      "id": 3
-    },
-    {
-      "name": "Raju",
-      "mobileNum": "1234567890",
-      "emailId": "nagaramaraju@gmail.com",
-      "type": "platinum",
-      "username": "tohqrl93",
-      "password": "Zl2Aurwk",
-      "blockCards": false,
-      "id": 4
-    },
-    {
-      "name": "Surajit Maity",
-      "mobileNum": "0908349569",
-      "emailId": "fsdfs@sdsada.com",
-      "type": "platinum",
-      "username": "YZ8D1GBS",
-      "password": "E&y7$MZB",
-      "id": 5
-    },
-    {
-      "name": "Surajit Maity",
-      "mobileNum": "0908349569",
-      "emailId": "surajitmaity12345@gmail.com",
-      "type": "platinum",
-      "username": "HtUfOPY9",
-      "password": "RLxdZtxR",
-      "id": 6
-    }
-  ],
+  "customers": [],
   "employees": [
     {
       "id": 1,
       "name": "BankEmployee",
-      "username": "testEmp",
-      "password": "testEmp"
+      "username": "admin",
+      "password": "admin"
     },
     {
       "id": 2,
       "name": "AmalgamEmployee",
       "username": "amalgam",
-      "password": "Amalgam"
+      "password": "amalgam"
     }
   ],
-  "preCustomer": {
-    "name": "Surajit Maity",
-    "number": "0908349569",
-    "email": "surajitmaity12345@gmail.com",
-    "type": "platinum",
-    "isTravelInsTaken": false,
-    "isMobileInsTaken": false,
-    "isCyberInsTaken": false,
-    "totalPrice": 2400,
-    "priceWithoutDiscount": 2400
-  },
+  "preCustomer": {},
   "loginWith": {
-    "loginType": "Customer"
+    
   },
-  "searchWith": [
-    {
-      "searchVal": "9989678967",
-      "id": 2
-    },
-    {
-      "loginType": "Customer",
-      "id": 6
-    },
-    {
-      "loginType": "Customer",
-      "id": 7
-    },
-    {
-      "loginType": "Customer",
-      "id": 8
-    },
-    {
-      "loginType": "Customer",
-      "id": 9
-    },
-    {
-      "loginType": "Customer",
-      "id": 10
-    },
-    {
-      "searchVal": "9989678967",
-      "id": 11
-    }
-  ],
+  "searchWith": [],
   "banks": [],
   "policies": [
-    {
-      "startDate": "11/20/2021",
-      "endDate": "11/20/2022",
-      "insuranceAmount": "150000",
-      "mobileNum": "9989678967",
-      "id": 1
-    },
-    {
-      "startDate": "11/20/2021",
-      "endDate": "11/20/2022",
-      "insuranceAmount": "150000",
-      "mobileNum": "0908349569",
-      "id": 2
-    },
-    {
-      "startDate": "11/22/2021",
-      "endDate": "11/22/2022",
-      "insuranceAmount": "150000",
-      "mobileNum": "0908349569",
-      "id": 3
-    }
+    
   ],
   "registeredCards": [
-    {
-      "id": 1637576099447,
-      "cardNumber": "1234567891234123",
-      "bank": "Axis Bank",
-      "cardType": "cardTypeDebit",
-      "paymentGatewayType": "Visa",
-      "mobileNum": "9989678967",
-      "isBlocked": false
-    }
+    
   ],
   "lostWalletRecords": [
-    {
-      "id": 1637576341001,
-      "howYouLostWallet": "Stolen",
-      "dateTimeOfLosingWallet": "2021-11-22T15:48",
-      "locationOfLosingWallet": "Nevada City, CA, USA",
-      "locationOfLosingWalletLatitude": 39.2615606,
-      "locationOfLosingWalletLongitude": -121.0160594,
-      "additionalDetailsOfLostWallet": "No",
-      "listOfCardsToBlock": [
-        "1637576099447"
-      ],
-      "mobileNum": "9989678967"
-    }
+    
   ],
   "claimsHistory": [
-    {
-      "notifiedOn": "2021-11-22T10:19:59.742Z",
-      "dateTimeOfLosingWallet": "2021-11-22T15:48",
-      "locationOfLosingWallet": "Nevada City, CA, USA",
-      "status": "success",
-      "listOfCardsToBlock": [
-        "1637576099447"
-      ],
-      "claimAmount": "1200",
-      "claimRejectionReason": "",
-      "mobileNum": "9989678967",
-      "id": 1637576341001
-    }
+    
   ],
   "familyMembers": [
-    {
-      "familyMemberName": "Surajit Maity",
-      "familyMemberEmail": "surajitmaity12345@gmail.com",
-      "familyMemberMobile": "9123456789",
-      "familyMemberRelation": "Mother",
-      "isAuthorised": false,
-      "familyHeadMobileNum": "0908349569",
-      "id": 1
-    }
+    
   ]
 }
