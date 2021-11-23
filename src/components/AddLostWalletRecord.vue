@@ -65,302 +65,274 @@
 </template>
 
 <script>
-import { getRegisteredCards, addLostWalletRecord, addClaim, getCustomerDetailsService } from '@/service/service.js'
-import { mapState, mapActions } from 'vuex';
+import {
+  getRegisteredCards,
+  addLostWalletRecord,
+  addClaim,
+  getCustomerDetailsService,
+} from "@/service/service.js";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "AddLostWalletRecord",
-  data(){
+  data() {
     return {
-      addLostWalletRecordProcessing : false,
+      addLostWalletRecordProcessing: false,
       // Setting this variable to restrict the user to choose location from the google places only
-      addFormLocationOfLosingWalletValid : false,
-      listOfAllPlaces : [],
-      listOfRegisteredCards : [],
+      addFormLocationOfLosingWalletValid: false,
+      listOfAllPlaces: [],
+      listOfRegisteredCards: [],
 
       // Setting Google Maps Service
       googleMapPlacesAutocompleteService: null,
       googleMapGeocodeService: null,
 
-      addLostWalletRecordFormErrors : [],
-      addFormHowYouLostWallet : '',
-      addFormLocationOfLosingWallet : '',
-      addFormLocationOfLosingWalletLatitude : '',
-      addFormLocationOfLosingWalletLongitude : '',
-      addFormDateTimeOfLosingWallet : '',
-      addFormAdditionalDetailsOfLostWallet : '',
-      addFormListOfCardsToBlock : [],
+      addLostWalletRecordFormErrors: [],
+      addFormHowYouLostWallet: "",
+      addFormLocationOfLosingWallet: "",
+      addFormLocationOfLosingWalletLatitude: "",
+      addFormLocationOfLosingWalletLongitude: "",
+      addFormDateTimeOfLosingWallet: "",
+      addFormAdditionalDetailsOfLostWallet: "",
+      addFormListOfCardsToBlock: [],
       // checkIfPolicyExpired : null
 
-      loggedInUserMobileNum : ''
-      
-    }
+      loggedInUserMobileNum: "",
+    };
   },
   computed: {
-    ...mapState(['loggedInUser']),
+    ...mapState(["loggedInUser"]),
   },
-  created(){
+  created() {
     this.getCustomerDetailsAction(this.loggedInUser);
-    // this.checkIfPolicyExpired =  await this.isPolicyExpired();
-    // if(this.checkIfPolicyExpired)
-    // {
-    //   this.$swal({
-    //           title: 'Policy Expired',
-    //           html : `The Policy has been expired. Please renew policy`,
-    //           icon : 'warning'
-    //           });
-    // }
-    // else
     this.initialiseValues();
   },
-  metaInfo () {
-    const API_KEY = `AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg`;
-      return {
-        script: [
-          // {
-          // src: `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places`,
-          // async: true,
-          // defer: true,
-          // callback: () => this.googleMapPlacesAutocompleteServiceInit() // will declare it in methods
-          // },
-          {
+  metaInfo() {
+    const API_KEY = `AIzaSyAmniXK3tFGb8t4TV1UMGDqQs3A-z8MeRY`;
+    return {
+      script: [
+        {
           src: `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`,
           async: true,
           defer: true,
-          callback: () => this.googleMapGeocoderServiceInit() // will declare it in methods
-          },
-        ]
-      }
-    },
+          callback: () => this.googleMapGeocoderServiceInit(), // will declare it in methods
+        },
+      ],
+    };
+  },
   methods: {
-    ...mapActions(['getCustomerDetailsAction']),
-    async initialiseValues(){
+    ...mapActions(["getCustomerDetailsAction"]),
+    async initialiseValues() {
       let customerDetails = await getCustomerDetailsService(this.loggedInUser);
       // Add the Customer mobile number to fetch the cards registered with the logged in user
       this.loggedInUserMobileNum = customerDetails[0].mobileNum;
 
       this.listOfRegisteredCards = await this.getAllCardsList();
     },
-    getCheckboxButtonForCards(card){
-      let checkboxButtonForCards = `${card.bank.slice(0, card.bank.length/2)} - xx ${card.cardNumber.slice(card.cardNumber.length - 4)}`;
+    getCheckboxButtonForCards(card) {
+      let checkboxButtonForCards = `${card.bank.slice(
+        0,
+        card.bank.length / 2
+      )} - xx ${card.cardNumber.slice(card.cardNumber.length - 4)}`;
       return checkboxButtonForCards;
     },
-    async getAllCardsList(){
-      let filterCardType = [
-        'cardTypeDebit',
-        'cardTypeCredit'
-      ];
+    async getAllCardsList() {
+      let filterCardType = ["cardTypeDebit", "cardTypeCredit"];
       let allCards = await getRegisteredCards(this.loggedInUserMobileNum);
-      let debitCreditCardList = allCards.filter(eachCard => !eachCard.isBlocked && (filterCardType.includes(eachCard.cardType)));
-    return debitCreditCardList;
-  },
-    async verifyFormInputsAndAddLostWalletRecord(){
+      let debitCreditCardList = allCards.filter(
+        (eachCard) =>
+          !eachCard.isBlocked && filterCardType.includes(eachCard.cardType)
+      );
+      return debitCreditCardList;
+    },
+    async verifyFormInputsAndAddLostWalletRecord() {
       this.addLostWalletRecordFormErrors = [];
       // Empty the Checkbox selected list first to fill in new Record
       this.addFormListOfCardsToBlock = [];
 
       // get List of all cards which are selected to block
-      let listOfCardsToBlock = document.querySelectorAll('input.listOfCardsToBlock:checked');      
-      listOfCardsToBlock.forEach(element => this.addFormListOfCardsToBlock.push(element.value));
+      let listOfCardsToBlock = document.querySelectorAll(
+        "input.listOfCardsToBlock:checked"
+      );
+      listOfCardsToBlock.forEach((element) =>
+        this.addFormListOfCardsToBlock.push(element.value)
+      );
 
-      if(!this.addFormHowYouLostWallet){
-        this.addLostWalletRecordFormErrors.push("Mention how you lost wallet")
+      if (!this.addFormHowYouLostWallet) {
+        this.addLostWalletRecordFormErrors.push("Mention how you lost wallet");
       }
 
-      if(!this.addFormLocationOfLosingWallet){
-        this.addLostWalletRecordFormErrors.push("Mention where you lost wallet")
+      if (!this.addFormLocationOfLosingWallet) {
+        this.addLostWalletRecordFormErrors.push(
+          "Mention where you lost wallet"
+        );
       }
 
-      // if(this.addFormLocationOfLosingWallet && !this.addFormLocationOfLosingWalletValid)
-      // {
-      //   this.addLostWalletRecordFormErrors.push("Please select location from Dropdown");
-      // }
-
-      if(!this.addFormDateTimeOfLosingWallet){
-        this.addLostWalletRecordFormErrors.push("Select when you lost wallet using calendar icon on date")
+      if (!this.addFormDateTimeOfLosingWallet) {
+        this.addLostWalletRecordFormErrors.push(
+          "Select when you lost wallet using calendar icon on date"
+        );
       }
 
-      if(listOfCardsToBlock.length === 0){
-        this.addLostWalletRecordFormErrors.push("Select cards you want to block")
+      if (listOfCardsToBlock.length === 0) {
+        this.addLostWalletRecordFormErrors.push(
+          "Select cards you want to block"
+        );
       }
 
-      if(this.addLostWalletRecordFormErrors.length === 0){
+      if (this.addLostWalletRecordFormErrors.length === 0) {
         this.addLostWalletRecordFormErrors = [];
         await this.addLostWalletRecord();
       }
     },
-    async getLocationLatLong(addressOfLocation){
-      let locationObject = await this.googleMapGeocodeService.geocode({'address' : addressOfLocation})
-                            .then((locObject) => locObject).catch(()=>{
-                              // If we could not find any result, that may be due to bad internet connectio, Wrong API key, or no such Address
-                              this.$swal({
-                                title: 'Address not found !',
-                                html: "<h4>The mentioned address is not found, Please enter correct address</h4><br><h6><u>Note: Address search requires internet connection.</u> Please check and try again.<h6>",
-                                icon: 'warning',
-                              })
-                            });
+    async getLocationLatLong(addressOfLocation) {
+      let locationObject = await this.googleMapGeocodeService
+        .geocode({ address: addressOfLocation })
+        .then((locObject) => locObject)
+        .catch(() => {
+          // If we could not find any result, that may be due to bad internet connectio, Wrong API key, or no such Address
+          this.$swal({
+            title: "Address not found !",
+            html: "<h4>The mentioned address is not found, Please enter correct address</h4><br><h6><u>Note: Address search requires internet connection.</u> Please check and try again.<h6>",
+            icon: "warning",
+          });
+        });
       let locationLatitude = locationObject.results[0].geometry.location.lat();
       let locationLongitude = locationObject.results[0].geometry.location.lng();
-      return { latitude : locationLatitude, longitude : locationLongitude };
+      return { latitude: locationLatitude, longitude: locationLongitude };
     },
-    async addLostWalletRecord(){
-      let latLongObject = await this.getLocationLatLong(this.addFormLocationOfLosingWallet);
+    async addLostWalletRecord() {
+      let latLongObject = await this.getLocationLatLong(
+        this.addFormLocationOfLosingWallet
+      );
       this.addFormLocationOfLosingWalletLatitude = latLongObject.latitude;
       this.addFormLocationOfLosingWalletLongitude = latLongObject.longitude;
       // The claims object that needs to be added for this lost wallet record
       let addClaimInClaimsHistoryFields = {
-        notifiedOn : '',
-        dateTimeOfLosingWallet : this.addFormDateTimeOfLosingWallet,
-        locationOfLosingWallet : this.addFormLocationOfLosingWallet,
-        status : 'Processing',
-        listOfCardsToBlock : this.addFormListOfCardsToBlock,
-        claimAmount : '',
-        claimRejectionReason : '',
-        mobileNum : this.loggedInUserMobileNum
-      }
+        notifiedOn: "",
+        dateTimeOfLosingWallet: this.addFormDateTimeOfLosingWallet,
+        locationOfLosingWallet: this.addFormLocationOfLosingWallet,
+        status: "Processing",
+        listOfCardsToBlock: this.addFormListOfCardsToBlock,
+        claimAmount: "",
+        claimRejectionReason: "",
+        mobileNum: this.loggedInUserMobileNum,
+      };
       let addLostWalletRecordFields = {
-        id : Date.now(),
-        howYouLostWallet : this.addFormHowYouLostWallet,
-        dateTimeOfLosingWallet : this.addFormDateTimeOfLosingWallet,
-        locationOfLosingWallet : this.addFormLocationOfLosingWallet,
-        locationOfLosingWalletLatitude : this.addFormLocationOfLosingWalletLatitude,
-        locationOfLosingWalletLongitude : this.addFormLocationOfLosingWalletLongitude,
-        additionalDetailsOfLostWallet : this.addFormAdditionalDetailsOfLostWallet,
-        listOfCardsToBlock : this.addFormListOfCardsToBlock,
-        mobileNum : this.loggedInUserMobileNum
+        id: Date.now(),
+        howYouLostWallet: this.addFormHowYouLostWallet,
+        dateTimeOfLosingWallet: this.addFormDateTimeOfLosingWallet,
+        locationOfLosingWallet: this.addFormLocationOfLosingWallet,
+        locationOfLosingWalletLatitude:
+          this.addFormLocationOfLosingWalletLatitude,
+        locationOfLosingWalletLongitude:
+          this.addFormLocationOfLosingWalletLongitude,
+        additionalDetailsOfLostWallet:
+          this.addFormAdditionalDetailsOfLostWallet,
+        listOfCardsToBlock: this.addFormListOfCardsToBlock,
+        mobileNum: this.loggedInUserMobileNum,
       };
       this.$swal({
-              title: 'Are you sure?',
-              text: "These cards will be blocked on your behalf!",
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Yes, Agree, and create claim!'
-            }).then(async (result) => {
-              if (result.isConfirmed) {
-                this.addLostWalletRecordProcessing = true;
-                let newlyAddedLostWalletRecord = await addLostWalletRecord(addLostWalletRecordFields);
-                let newlyAddedLostWalletRecordData = newlyAddedLostWalletRecord.data;
-                if(newlyAddedLostWalletRecord && newlyAddedLostWalletRecord.statusText==="Created"){
-                        // Once the Lost wallet record is added, create a claim and notify user
-                    addClaimInClaimsHistoryFields["id"] = newlyAddedLostWalletRecordData.id; // Assign the same ID which is being used for lost wallet
-                    let newlyAddedClaim = await addClaim(addClaimInClaimsHistoryFields)
-                      if(newlyAddedClaim && newlyAddedClaim.statusText==="Created"){
-                        let claimId = newlyAddedClaim.data.id;
-                        this.resetFormFields();
-                          this.$swal({
-                          title: 'Record added',
-                          html : `The Lost Wallet Record added and Claim created. Note below claim ID for reference.<br>Claim ID <br><b><a href="/claimsHistory">${claimId}</b></a>`,
-                          icon : 'success'
-                          });
-                        this.$emit('lost-wallet-record-added');
-                        }
-                      else{
-                        this.$swal({
-                          title: 'Could not create claim, Server Issue',
-                          text: "Sorry for inconvinience, please reload page",
-                          icon: 'warning',
-                          timer: 3000
-                          })
-                      }
-                }
-                else{
-                  this.$swal({
-                    title: 'Could not Add Record, Server Issue',
-                    text: "Sorry for inconvinience, please reload page",
-                    icon: 'warning',
-                    timer: 3000
-                  })
-                }
-                this.addLostWalletRecordProcessing = false;
-                let addLostWalletRecordModalCloseButton = document.querySelector("#addLostWalletRecord [data-bs-dismiss=modal]");
-                addLostWalletRecordModalCloseButton.click();
-              }
-          })
+        title: "Are you sure?",
+        text: "These cards will be blocked on your behalf!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Agree, and create claim!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          this.addLostWalletRecordProcessing = true;
+          let newlyAddedLostWalletRecord = await addLostWalletRecord(
+            addLostWalletRecordFields
+          );
+          let newlyAddedLostWalletRecordData = newlyAddedLostWalletRecord.data;
+          if (
+            newlyAddedLostWalletRecord &&
+            newlyAddedLostWalletRecord.statusText === "Created"
+          ) {
+            // Once the Lost wallet record is added, create a claim and notify user
+            addClaimInClaimsHistoryFields["id"] =
+              newlyAddedLostWalletRecordData.id; // Assign the same ID which is being used for lost wallet
+            let newlyAddedClaim = await addClaim(addClaimInClaimsHistoryFields);
+            if (newlyAddedClaim && newlyAddedClaim.statusText === "Created") {
+              let claimId = newlyAddedClaim.data.id;
+              this.resetFormFields();
+              this.$swal({
+                title: "Record added",
+                html: `The Lost Wallet Record added and Claim created. Note below claim ID for reference.<br>Claim ID <br><b><a href="/claimsHistory">${claimId}</b></a>`,
+                icon: "success",
+              });
+              this.$emit("lost-wallet-record-added");
+            } else {
+              this.$swal({
+                title: "Could not create claim, Server Issue",
+                text: "Sorry for inconvinience, please reload page",
+                icon: "warning",
+                timer: 3000,
+              });
+            }
+          } else {
+            this.$swal({
+              title: "Could not Add Record, Server Issue",
+              text: "Sorry for inconvinience, please reload page",
+              icon: "warning",
+              timer: 3000,
+            });
+          }
+          this.addLostWalletRecordProcessing = false;
+          let addLostWalletRecordModalCloseButton = document.querySelector(
+            "#addLostWalletRecord [data-bs-dismiss=modal]"
+          );
+          addLostWalletRecordModalCloseButton.click();
+        }
+      });
     },
-    selectLocation(selectedPlace){
+    selectLocation(selectedPlace) {
       // This makes sure the user have clicked the location from Google places only
       this.addFormLocationOfLosingWalletValid = true;
       // update this selected place in place of form input of location
       this.addFormLocationOfLosingWallet = selectedPlace;
-      this.listOfAllPlaces = [];      
+      this.listOfAllPlaces = [];
     },
-    resetFormFields(){
-        this.addFormLocationOfLosingWalletValid = false;
-        this.addFormHowYouLostWallet = '';
-        this.addFormLocationOfLosingWallet = '';
-        this.addFormDateTimeOfLosingWallet = '';
-        this.addFormAdditionalDetailsOfLostWallet = '';
-        this.addFormListOfCardsToBlock = [];
-        this.addLostWalletRecordFormErrors = [];
+    resetFormFields() {
+      this.addFormLocationOfLosingWalletValid = false;
+      this.addFormHowYouLostWallet = "";
+      this.addFormLocationOfLosingWallet = "";
+      this.addFormDateTimeOfLosingWallet = "";
+      this.addFormAdditionalDetailsOfLostWallet = "";
+      this.addFormListOfCardsToBlock = [];
+      this.addLostWalletRecordFormErrors = [];
 
-        // Reset the Checkboxes back to original state of unchecked
-        let listOfCardsToBlock = document.querySelectorAll('input.listOfCardsToBlock:checked');      
-        listOfCardsToBlock.forEach(element => element.checked = false);
+      // Reset the Checkboxes back to original state of unchecked
+      let listOfCardsToBlock = document.querySelectorAll(
+        "input.listOfCardsToBlock:checked"
+      );
+      listOfCardsToBlock.forEach((element) => (element.checked = false));
     },
     // googleMapPlacesAutocompleteServiceInit () {
     //     this.googleMapPlacesAutocompleteService = new window.google.maps.places.AutocompleteService();
     //   },
-    googleMapGeocoderServiceInit () {
+    googleMapGeocoderServiceInit() {
       this.googleMapGeocodeService = new window.google.maps.Geocoder();
     },
-    displaySuggestions (predictions, status) {
+    displaySuggestions(predictions, status) {
       this.addFormLocationOfLosingWalletValid = false;
       if (status !== window.google.maps.places.PlacesServiceStatus.OK) {
-        this.listOfAllPlaces = []
-        return
+        this.listOfAllPlaces = [];
+        return;
       }
-      this.listOfAllPlaces = predictions.map(prediction => prediction.description)
+      this.listOfAllPlaces = predictions.map(
+        (prediction) => prediction.description
+      );
     },
-    checkBrowseSupportForGeoLocation(){
-      if(navigator.geolocation)
-        return true;
+    checkBrowseSupportForGeoLocation() {
+      if (navigator.geolocation) return true;
       return false;
     },
-    // fetchDeviceLocation(){
-    //       function successCallback () {              
-    //       }
-    //       function errorCallback (error) {
-    //           console.log(error.message);
-    //       }
-    //       navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-    // },
-
-    // async isPolicyExpired(){
-    //   let policy = await getPolicies();
-    //   let todaysDate = new Date();
-    //   let endDate = new Date(policy.endDate);
-    //   let remainingDays = Math.round((endDate - todaysDate)/(1000*60*60*24));
-    //   if(remainingDays < 0)
-    //     return true;
-    //   return false;
-      
-    // }
   },
-  // watch: {
-  //     async addFormLocationOfLosingWallet(newValue) {
-  //       // If the location is not a valid selected one from google Places, then only search for more results
-  //       this.addFormLocationOfLosingWalletValid = false;        
-  //         if (newValue) {
-  //                 await this.googleMapPlacesAutocompleteService.getPlacePredictions({
-  //                 input: this.addFormLocationOfLosingWallet,
-  //                 types: ['geocode']
-  //                  }, (predictions, status) => {
-  //                     this.addFormLocationOfLosingWalletValid = false;
-  //                     if (status !== window.google.maps.places.PlacesServiceStatus.OK) {
-  //                       this.listOfAllPlaces = []
-  //                       console.error("No Place found");
-  //                       return;
-  //                     }
-  //                     this.listOfAllPlaces = predictions.map(prediction => prediction.description)
-  //                   })
-  //             }                
-  //       }
-  //     }
-}
+};
 </script>
 
 <style scoped>
-
 </style>

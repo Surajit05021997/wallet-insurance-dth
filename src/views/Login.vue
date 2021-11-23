@@ -70,7 +70,6 @@ export default {
     ...mapActions(['setLoginStatusAction', 'setLoggedInUserAction']),
     async authenticate() {
       let customerList;
-      // await deleteLoginType(1);
       await postLoginType({"loginType": this.selectedLoginType});
       if (this.selectedLoginType === 'Employee') {
         customerList = await getEmployeeService();

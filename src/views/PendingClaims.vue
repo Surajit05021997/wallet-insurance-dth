@@ -43,9 +43,6 @@
                 <span class="ml-2"></span>
               <input type="radio" class="btn-check" name="approve-or-reject" value="rejectClaim" id="rejectClaimButton" @change="getSelectedClaimStatusUpdate()">
               <label class="btn btn-outline-danger text-1_7rem" for="rejectClaimButton">Reject Claim</label>
-
-            <!-- <button @click="approveClaimClicked()" class="btn btn-success">Approve Claim</button>
-            <button @click="rejectClaimClicked()" class="ml-2 btn btn-outline-danger">Reject Claim</button> -->
             <!-- Show approval input or rejection reason input -->
               <!-- Approval button clicked -->
             <div v-if="approveClaimSectionOpen" class="form-group">
@@ -85,229 +82,261 @@
 </template>
 
 <script>
-import { getLoginType, getAllClaims, getPolicyDetailsWithMobNum, updateClaimStatus } from '@/service/service.js';
-import { mapState } from 'vuex';
-import { isValidSession } from '@/common.js';
+import {
+  getLoginType,
+  getAllClaims,
+  getPolicyDetailsWithMobNum,
+  updateClaimStatus,
+} from "@/service/service.js";
+import { mapState } from "vuex";
+import { isValidSession } from "@/common.js";
 
 export default {
-name: 'PendingClaims',
-data(){
+  name: "PendingClaims",
+  data() {
     return {
-        claimsHistoryList : null,
-        filteredClaimsHistoryList : null,
-        selectedOption : '',
-        selectionOptions : [],
-        clientPolicyDetails : null,
-        pendingClaimFormApproveAmountInput : '',
-        pendingClaimFormRejectionReasonInput : '',
-        approveClaimSectionOpen : false,
-        rejectClaimSectionOpen : false,
-        submitClaimUpdateProcessing : false,
-        pendingClaimFormErrors : []
-    }
-},
-computed: {
-    ...mapState(['loggedInUser']),
+      claimsHistoryList: null,
+      filteredClaimsHistoryList: null,
+      selectedOption: "",
+      selectionOptions: [],
+      clientPolicyDetails: null,
+      pendingClaimFormApproveAmountInput: "",
+      pendingClaimFormRejectionReasonInput: "",
+      approveClaimSectionOpen: false,
+      rejectClaimSectionOpen: false,
+      submitClaimUpdateProcessing: false,
+      pendingClaimFormErrors: [],
+    };
   },
-methods: {
-    async initialiseValues(){
-        this.selectedOption = 'pendingClaims',
-        await this.fetchClaims();
-        this.getFilteredClaims();      
-      
+  computed: {
+    ...mapState(["loggedInUser"]),
+  },
+  methods: {
+    async initialiseValues() {
+      (this.selectedOption = "pendingClaims"), await this.fetchClaims();
+      this.getFilteredClaims();
+
       this.selectionOptions = [
-          {
-          'option' : 'Show All',
-          'value' : 'Show All',
-          'type' : 'showAll'
-          },
-          {
-          'option' : 'Only Pending Claims',
-          'value' : 'Pending Claims',
-          'type' : 'pendingClaims'
-          },
-        ]
+        {
+          option: "Show All",
+          value: "Show All",
+          type: "showAll",
+        },
+        {
+          option: "Only Pending Claims",
+          value: "Pending Claims",
+          type: "pendingClaims",
+        },
+      ];
     },
-    getSelectedOption(){
-    let selectedMenu = document.querySelector('input[name="filter-selection-option"]:checked').value;
-    this.selectedOption = selectedMenu;
-    this.resetClientPolicyDetails();
-    this.getFilteredClaims();
-    
-  },
-  getSelectedClaimStatusUpdate(){
-    let selectedClaimStatusUpdate = document.querySelector('input[name="approve-or-reject"]:checked').value;
-    if(selectedClaimStatusUpdate==="approveClaim"){
-      this.approveClaimClicked();
-    }
-    if(selectedClaimStatusUpdate==="rejectClaim"){
-      this.rejectClaimClicked();
-    }
-  },
-  async fetchClaims(){
-    this.claimsHistoryList = await getAllClaims();
-  },
-  getFilteredClaims(){
-    if(this.selectedOption==="pendingClaims")
-    {
-      this.filteredClaimsHistoryList = this.claimsHistoryList.filter(claim => claim.status.toLowerCase()==="processing")
-    }
-    else {
-      this.filteredClaimsHistoryList = this.claimsHistoryList
-    }
-  },
-  getShortDateTime(dateTime){
-      let dateOptions = {weekday: 'short', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-      let shortDateTime = new Date(dateTime).toLocaleDateString("en-US", dateOptions)
+    getSelectedOption() {
+      let selectedMenu = document.querySelector(
+        'input[name="filter-selection-option"]:checked'
+      ).value;
+      this.selectedOption = selectedMenu;
+      this.resetClientPolicyDetails();
+      this.getFilteredClaims();
+    },
+    getSelectedClaimStatusUpdate() {
+      let selectedClaimStatusUpdate = document.querySelector(
+        'input[name="approve-or-reject"]:checked'
+      ).value;
+      if (selectedClaimStatusUpdate === "approveClaim") {
+        this.approveClaimClicked();
+      }
+      if (selectedClaimStatusUpdate === "rejectClaim") {
+        this.rejectClaimClicked();
+      }
+    },
+    async fetchClaims() {
+      this.claimsHistoryList = await getAllClaims();
+    },
+    getFilteredClaims() {
+      if (this.selectedOption === "pendingClaims") {
+        this.filteredClaimsHistoryList = this.claimsHistoryList.filter(
+          (claim) => claim.status.toLowerCase() === "processing"
+        );
+      } else {
+        this.filteredClaimsHistoryList = this.claimsHistoryList;
+      }
+    },
+    getShortDateTime(dateTime) {
+      let dateOptions = {
+        weekday: "short",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+      };
+      let shortDateTime = new Date(dateTime).toLocaleDateString(
+        "en-US",
+        dateOptions
+      );
       return shortDateTime;
     },
 
-  getShortDate(date){
-    let dateOptions = { year: 'numeric', month: 'long', day: 'numeric',};
-    let shortDate = new Date(date).toLocaleDateString("en-US", dateOptions)
-    return shortDate;
-  },
-  async getPolicyDetailsForClient(mobileNum){
-    if(!this.clientPolicyDetails)
-    {
-      const response = await getPolicyDetailsWithMobNum(mobileNum);
-      this.clientPolicyDetails = response[0];
-    }
-    else
-      this.resetClientPolicyDetails();
-
-    // client POlicy details will be nullfied after 5 seconds
-    // setTimeout(()=>{
-    //   this.clientPolicyDetails = null;
-    // }, 3000)
-  },
-  resetClientPolicyDetails(){
-    this.clientPolicyDetails = null;
-  },
-  getStatusAttributes(claim){
-    // The logic is currently working only for Successful or Pending claims
-      let statusClass = (claim.status.toLowerCase() === "processing") ? 'text-warning' : 'text-success';
-      let statusProgress = (claim.status.toLowerCase() === "processing");
-      let statusText = (claim.status.toLowerCase() === "processing" ? 'Claim in Process' : 'Successful Claim');
-      return {statusClass, statusProgress, statusText};
+    getShortDate(date) {
+      let dateOptions = { year: "numeric", month: "long", day: "numeric" };
+      let shortDate = new Date(date).toLocaleDateString("en-US", dateOptions);
+      return shortDate;
     },
-  approveClaimClicked(){
-    this.rejectClaimSectionOpen = false;
-    this.approveClaimSectionOpen = true;
-  },
-  rejectClaimClicked(){
-    this.approveClaimSectionOpen = false;
-    this.rejectClaimSectionOpen = true;
-  },
-  async verifyFormInputsAndSubmitClaimUpdate(claim){
-    this.pendingClaimFormErrors = []
-    if(this.approveClaimSectionOpen && !this.pendingClaimFormApproveAmountInput)
-    {
-      this.pendingClaimFormErrors.push("Please enter Approval Amount")
-    }
-
-    if(this.rejectClaimSectionOpen && !this.pendingClaimFormRejectionReasonInput)
-    {
-      this.pendingClaimFormErrors.push("Please enter Rejection Reason")
-    }
-
-    if(this.approveClaimSectionOpen && this.pendingClaimFormApproveAmountInput){
-      const approvalAmountRegEx = '^[1-9][0-9]{1,5}$';
-      if(!this.pendingClaimFormApproveAmountInput.match(approvalAmountRegEx))
-      {
-        this.pendingClaimFormErrors.push("Please enter Valid amount")
+    async getPolicyDetailsForClient(mobileNum) {
+      if (!this.clientPolicyDetails) {
+        const response = await getPolicyDetailsWithMobNum(mobileNum);
+        this.clientPolicyDetails = response[0];
+      } else this.resetClientPolicyDetails();
+    },
+    resetClientPolicyDetails() {
+      this.clientPolicyDetails = null;
+    },
+    getStatusAttributes(claim) {
+      // The logic is currently working only for Successful or Pending claims
+      let statusClass =
+        claim.status.toLowerCase() === "processing"
+          ? "text-warning"
+          : "text-success";
+      let statusProgress = claim.status.toLowerCase() === "processing";
+      let statusText =
+        claim.status.toLowerCase() === "processing"
+          ? "Claim in Process"
+          : "Successful Claim";
+      return { statusClass, statusProgress, statusText };
+    },
+    approveClaimClicked() {
+      this.rejectClaimSectionOpen = false;
+      this.approveClaimSectionOpen = true;
+    },
+    rejectClaimClicked() {
+      this.approveClaimSectionOpen = false;
+      this.rejectClaimSectionOpen = true;
+    },
+    async verifyFormInputsAndSubmitClaimUpdate(claim) {
+      this.pendingClaimFormErrors = [];
+      if (
+        this.approveClaimSectionOpen &&
+        !this.pendingClaimFormApproveAmountInput
+      ) {
+        this.pendingClaimFormErrors.push("Please enter Approval Amount");
       }
-    }
 
-    if(this.pendingClaimFormErrors.length === 0){
+      if (
+        this.rejectClaimSectionOpen &&
+        !this.pendingClaimFormRejectionReasonInput
+      ) {
+        this.pendingClaimFormErrors.push("Please enter Rejection Reason");
+      }
+
+      if (
+        this.approveClaimSectionOpen &&
+        this.pendingClaimFormApproveAmountInput
+      ) {
+        const approvalAmountRegEx = "^[1-9][0-9]{1,5}$";
+        if (
+          !this.pendingClaimFormApproveAmountInput.match(approvalAmountRegEx)
+        ) {
+          this.pendingClaimFormErrors.push("Please enter Valid amount");
+        }
+      }
+
+      if (this.pendingClaimFormErrors.length === 0) {
         this.pendingClaimFormErrors = [];
         await this.submitClaimUpdate(claim);
       }
-  },
-  async submitClaimUpdate(claim){
-      let submitClaimUpdateFormFields = {...claim};
-      if(this.approveClaimSectionOpen){
+    },
+    async submitClaimUpdate(claim) {
+      let submitClaimUpdateFormFields = { ...claim };
+      if (this.approveClaimSectionOpen) {
         submitClaimUpdateFormFields.status = "success";
-        submitClaimUpdateFormFields.claimAmount = this.pendingClaimFormApproveAmountInput;
-        submitClaimUpdateFormFields.claimRejectionReason = ""
+        submitClaimUpdateFormFields.claimAmount =
+          this.pendingClaimFormApproveAmountInput;
+        submitClaimUpdateFormFields.claimRejectionReason = "";
       }
-      if(this.rejectClaimSectionOpen){
+      if (this.rejectClaimSectionOpen) {
         submitClaimUpdateFormFields.status = "rejected";
         submitClaimUpdateFormFields.claimAmount = "";
-        submitClaimUpdateFormFields.claimRejectionReason = this.pendingClaimFormRejectionReasonInput;
+        submitClaimUpdateFormFields.claimRejectionReason =
+          this.pendingClaimFormRejectionReasonInput;
       }
       this.submitClaimUpdateProcessing = true;
-      const submitClaimUpdateStatusText = await updateClaimStatus(claim.id, submitClaimUpdateFormFields)
-      if(submitClaimUpdateStatusText==="OK"){
+      const submitClaimUpdateStatusText = await updateClaimStatus(
+        claim.id,
+        submitClaimUpdateFormFields
+      );
+      if (submitClaimUpdateStatusText === "OK") {
         this.resetFormFields();
-                this.$swal({
-                  title: 'Updated',
-                  text: "Claim status updated",
-                  icon: 'success',
-                  timer: 2000
-              });
-        }
-        else{
-            this.$swal({
-              title: 'Server Issue',
-              text: "Could not update claim. Sorry for inconvinience, please reload page",
-              icon: 'warning',
-              timer: 3000
-            });
-        }
-        this.submitClaimUpdateProcessing = false;
-        this.collapseAllAccordians();
-        await this.fetchClaims();
-        this.getFilteredClaims();
-  },
-  resetFormFields(){
-    this.pendingClaimFormApproveAmountInput = '';
-    this.pendingClaimFormRejectionReasonInput = '';
-  },
-  collapseAllAccordians(){
-    let collapsedAccordian = document.querySelector('#accordionAllClaimsHistoryList .accordion-item .accordion-collapse.collapse.show');
-    let collapseAccordianButtons = document.querySelectorAll('#accordionAllClaimsHistoryList .accordion-item .accordion-button');
-    if(collapsedAccordian){
-      collapsedAccordian.classList.remove('show'); // Remove the 'show' class so that the accordian will not be visible
-    }
-    collapseAccordianButtons.forEach(button => {
-      if(!button.classList.contains('collapsed')){
-        button.classList.add('collapsed')
+        this.$swal({
+          title: "Updated",
+          text: "Claim status updated",
+          icon: "success",
+          timer: 2000,
+        });
+      } else {
+        this.$swal({
+          title: "Server Issue",
+          text: "Could not update claim. Sorry for inconvinience, please reload page",
+          icon: "warning",
+          timer: 3000,
+        });
       }
-    });
-  }
-},
-async created(){
-      const response = await getLoginType();
-      this.selectedLogin = response.loginType;
-      if(!isValidSession() || (this.selectedLogin !== "Employee")){
-          this.$router.push({
-            name: 'Login'
-          })
+      this.submitClaimUpdateProcessing = false;
+      this.collapseAllAccordians();
+      await this.fetchClaims();
+      this.getFilteredClaims();
+    },
+    resetFormFields() {
+      this.pendingClaimFormApproveAmountInput = "";
+      this.pendingClaimFormRejectionReasonInput = "";
+    },
+    collapseAllAccordians() {
+      let collapsedAccordian = document.querySelector(
+        "#accordionAllClaimsHistoryList .accordion-item .accordion-collapse.collapse.show"
+      );
+      let collapseAccordianButtons = document.querySelectorAll(
+        "#accordionAllClaimsHistoryList .accordion-item .accordion-button"
+      );
+      if (collapsedAccordian) {
+        collapsedAccordian.classList.remove("show"); // Remove the 'show' class so that the accordian will not be visible
+      }
+      collapseAccordianButtons.forEach((button) => {
+        if (!button.classList.contains("collapsed")) {
+          button.classList.add("collapsed");
         }
-      this.initialiseValues();
+      });
+    },
   },
-}
+  async created() {
+    const response = await getLoginType();
+    this.selectedLogin = response.loginType;
+    if (!isValidSession() || this.selectedLogin !== "Employee") {
+      this.$router.push({
+        name: "Login",
+      });
+    }
+    this.initialiseValues();
+  },
+};
 </script>
 
 <style scoped>
-  .btn-text-1_5rem{
-  font-size: 1.5rem !important; 
+.btn-text-1_5rem {
+  font-size: 1.5rem !important;
 }
 
-.text-1_3rem{
-  font-size: 1.3rem !important; 
+.text-1_3rem {
+  font-size: 1.3rem !important;
 }
 
-.text-1_7rem{
-  font-size: 1.7rem !important; 
+.text-1_7rem {
+  font-size: 1.7rem !important;
 }
 
-.ml-2{
+.ml-2 {
   margin-left: 2rem;
 }
 
- .radio-toolbar, .d-flex {
+.radio-toolbar,
+.d-flex {
   display: flex;
 }
 </style>

@@ -29,7 +29,6 @@
                                   <p class="text-sm mb-0 font-weight-bold">Hey there, have you mispaced/lost your wallet?</p>
                                   <h5 class="font-weight-bolder mb-0 p-3">
                                     <button :disabled="customerDetails.blockCards" type="button" data-bs-toggle ="modal" data-bs-target ="#addLostWalletRecord" class="btn btn-lg btn-warning btn-outline-secondary">Block your cards</button>
-                                    <!-- <button v-if="customerDetails.blockCards" type="button" @click="blockCards(false)" class="btn btn-lg btn-warning btn-outline-secondary">Enable your cards</button> -->
                                   </h5>
                               </div>
                               </div>
@@ -271,7 +270,6 @@ import { getPolicyDetailsWithID, getPolicyDetailsWithMobNum, postSearchValue, ge
 import {isValidSession} from '@/common.js';
 import  CarouselImage  from './CarouselImage.vue';
 import AddLostWalletRecord from '../components/AddLostWalletRecord.vue';
-// import Chart from './Chart.vue';
 import SocialMedia from '../components/SocialMedia.vue';
 import ChartJs from './ChartJs.vue';
 export default {
@@ -281,7 +279,6 @@ export default {
     ChartJs,
     SocialMedia,
     AddLostWalletRecord
-    // Chart
   },
   data() {
     return {
@@ -320,9 +317,7 @@ export default {
 
       if(customerPolicyDetails.length !== 0) {
         await deleteSearchValue(1);
-        // if(deletedStatusText === "OK"){
-          await postSearchValue({"searchVal": this.searchValue});
-        // }
+        await postSearchValue({"searchVal": this.searchValue});
         this.$router.push({
           name: 'PolicyDetails',
           params: {
@@ -389,14 +384,8 @@ p {
     box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
     word-wrap: break-word;
     background-color: #fff;
-    /* background-clip: border-box; */
-    /* border: 0 solid rgba(0,0,0,.125); */
     border-radius: 1rem;
-    /* box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%); */
-    /* background-image: linear-gradient(90deg, #669dcd, #cf76f5); */
     flex-direction: column;
-    /* font-family: Open Sans; */
-    /* font-family: Century Gothic; */
     font-size: 2.2rem;
     color: black;
 }
@@ -415,7 +404,6 @@ p {
   background-size: cover;
   font-weight: bold;
   font-size: 2rem;
-  /* background-image: linear-gradient(90deg, #eee, #eee); */
 }
 .profile-img {
   width: 13rem;
@@ -518,7 +506,6 @@ p {
 .background-image {
   background-image: url('../assets/img/ivancik.jpg');
   height: 25rem;
-  /* width: 55rem; */
 }
 .bg-cover, .mask {
     background-size: cover;

@@ -5,7 +5,6 @@
       <ul class="nav flex-column">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">
-            <!-- <span data-feather="home"></span> -->
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
             </svg>
@@ -22,7 +21,6 @@
         </li>
         <li class="nav-item" v-if="this.selectedLogin === 'Customer'">
           <a class="nav-link" href="#">
-            <!-- <span data-feather="file"></span> -->
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"  d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd" />
@@ -48,7 +46,6 @@
         </li>
         <li class="nav-item" v-if="this.selectedLogin === 'Customer'">
           <a class="nav-link" href="#">
-            <!-- <span data-feather="file"></span> -->
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"  d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd" />
@@ -58,7 +55,6 @@
         </li>
         <li class="nav-item" v-if="this.selectedLogin === 'Employee'">
           <a class="nav-link" href="#">
-            <!-- <span data-feather="file"></span> -->
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"  d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd" />
@@ -68,7 +64,6 @@
         </li>
         <li class="nav-item" v-if="this.selectedLogin === 'Customer'">
           <a class="nav-link" href="#">
-            <!-- <span data-feather="file"></span> -->
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"  d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd" />
@@ -172,11 +167,7 @@ body {
 
 .sidebar {
   top: 0;
-  /* rtl:raw:
-  right: 0;
-  */
   bottom: 0;
-  /* rtl:remove */
   left: 0;
   z-index: 100; /* Behind the navbar */
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
@@ -277,11 +268,4 @@ body {
   background-color: #e5d9f8;
   border-radius: 20px 20px 20px 20px;
 }
-/* .profile-number::after {
-  content: "";
-  display: block;
-  width:100%;
-  height: 1px;
-  border: 2px solid black;
-} */
 </style>

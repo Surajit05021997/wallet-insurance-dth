@@ -1,5 +1,24 @@
 {
-  "customers": [],
+  "customers": [
+    {
+      "name": "Raju",
+      "mobileNum": "9248004415",
+      "emailId": "nagaramaraju@gmail.com",
+      "type": "platinum",
+      "username": "raju",
+      "password": "raju",
+      "id": 1
+    },
+    {
+      "name": "Anusha",
+      "mobileNum": "9553805468",
+      "emailId": "anusha@testmail.com",
+      "type": "gold",
+      "username": "anusha",
+      "password": "anusha",
+      "id": 2
+    }
+  ],
   "employees": [
     {
       "id": 1,
@@ -15,24 +34,27 @@
     }
   ],
   "preCustomer": {},
-  "loginWith": {
-    
-  },
+  "loginWith": {},
   "searchWith": [],
   "banks": [],
   "policies": [
-    
+    {
+      "startDate": "11/23/2021",
+      "endDate": "11/23/2022",
+      "insuranceAmount": "150000",
+      "mobileNum": "9248004415",
+      "id": 1
+    },
+    {
+      "startDate": "11/23/2020",
+      "endDate": "11/23/2021",
+      "insuranceAmount": "150000",
+      "mobileNum": "9553805468",
+      "id": 2
+    }
   ],
-  "registeredCards": [
-    
-  ],
-  "lostWalletRecords": [
-    
-  ],
-  "claimsHistory": [
-    
-  ],
-  "familyMembers": [
-    
-  ]
+  "registeredCards": [],
+  "lostWalletRecords": [],
+  "claimsHistory": [],
+  "familyMembers": []
 }
