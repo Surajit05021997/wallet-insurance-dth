@@ -10,6 +10,7 @@
         <label class="mx-0_5rem form-check-label btn-text-1_5rem" :for="eachOption.option">{{eachOption.option}}</label>
       </div>
     </div>
+    <h3>Click on a claim for more information</h3>
     <div>
       <!-- Accordian Start -->
 

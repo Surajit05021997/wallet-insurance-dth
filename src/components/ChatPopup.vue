@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="increase-z-index" v-if="this.selectedLogin!=='Employee'">
   <input type="checkbox" id="check"> 
   <label class="chat-btn" for="check">
   <close-icon-svg class="close"></close-icon-svg>
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { getLoginType } from '@/service/service.js';
 import ChatIconSvg from './ChatIconSvg.vue';
 import CloseIconSvg from './CloseIconSvg.vue';
 export default {
@@ -23,12 +24,20 @@ export default {
   name : 'ChatPopup',
   data(){
     return {
+        selectedLogin : ''
     }
-  }
+  },
+  async created(){
+      const response = await getLoginType();
+      this.selectedLogin = response.loginType;
+  },
 }
 </script>
 
 <style scoped>
+.increase-z-index{
+    z-index: -1;
+}
 .chat-btn {
     position: fixed;
     right: 14px;
@@ -55,7 +64,7 @@ export default {
     justify-content: center;
     align-items: center;
     border-radius: 50px;
-    background-color: #fff;
+    background-color: transparent;
     color: #fff;
     font-size: 22px;
     border: none

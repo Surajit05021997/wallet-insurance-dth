@@ -6,7 +6,7 @@
     <hr>
     <div v-if="policyDetails">
       <div v-if="this.selectedLogin==='Employee'">
-          <table class="table table-hover">
+          <table class="table table-hover font-size-1_6rem">
             <thead>
             <tr>
               <th v-for="(policyDetailsField, index) in policyDetailsFields" :key="index">{{policyDetailsField}}</th>

@@ -10,8 +10,8 @@
             <div class="form-group">
               <input
                 type="search"
-                class="form-control"
-                placeholder="Search with MobileNo or PolicyID"
+                class="form-control text-1_8rem"
+                placeholder="Search with MobileNo"
                 v-model="searchValue"
                 @keyup.enter="getCustomerPolicyDetails" />
             </div>
@@ -535,5 +535,8 @@ p {
 }
 .margin-right-0{
   margin-right: 0;
+}
+.text-1_8rem{
+  font-size: 1.8rem
 }
 </style>
