@@ -77,13 +77,13 @@ export default {
     width: 300px;
     background-color: #fff;
     border-radius: 5px;
-    opacity: 0;
+    display: none;
     transition: all 0.4s;
     border: black 1px solid;
 }
 
 #check:checked~.wrapper {
-    opacity: 1
+    display: block;
 }
 
 .header {

@@ -5,7 +5,7 @@ const httpProxy = require('http-proxy');
 
 const { spawn } = require('child_process');
 const jsonServer = spawn('node', ['node_modules/json-server/lib/cli/bin.js', '--watch', 'db.json', '--port=3001', '--routes', 'route.json']);
-const vueServer = spawn('node', ['node_modules/@vue/cli-service/bin/vue-cli-service.js', 'serve', '--port', '8080']);
+const vueServer = spawn('node', ['node_modules/@vue/cli-service/bin/vue-cli-service.js', 'serve', '--port', '8081']);
 jsonServer.stdout.on('data', (data) => {
     console.log(data.toString('utf-8'));
     });
@@ -34,7 +34,7 @@ app.use('/api', function (req, res, next) {
 });
 
 app.use(function (req, res, next) {
-    proxy.web(req, res, { target: { host: 'localhost', port: 8080} });
+    proxy.web(req, res, { target: { host: 'localhost', port: 8081} });
 });
 
 console.log('process.env.PORT', process.env.PORT);
