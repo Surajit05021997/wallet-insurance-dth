@@ -18,8 +18,6 @@
     </div>
     <hr>
     <div v-if="lostWalletRecords">
-      <map-of-lost-wallet-records :refreshMapList="refreshMap"></map-of-lost-wallet-records>
-      <hr>
       <table v-if="lostWalletRecords.length > 0" class="table table-hover text-1_5rem">
         <thead>
           <tr>
@@ -41,6 +39,8 @@
           </tr>
         </tbody>
       </table>
+      <hr>
+      <map-of-lost-wallet-records :refreshMapList="refreshMap"></map-of-lost-wallet-records>
     </div>
     <div v-if="!lostWalletRecords" class="container">
       <h2 class="text-muted">Unable to load lost wallet records.</h2>

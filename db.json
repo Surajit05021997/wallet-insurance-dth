@@ -17,24 +17,6 @@
       "username": "anusha",
       "password": "anusha",
       "id": 2
-    },
-    {
-      "name": "Surajit Maity",
-      "mobileNum": "9083495694",
-      "emailId": "surajitmaity12345@gmail.com",
-      "type": "platinum",
-      "username": "jYXFwH23",
-      "password": "KSu#D&#@",
-      "id": 3
-    },
-    {
-      "name": "Test",
-      "mobileNum": "1234567890",
-      "emailId": "test@test.com",
-      "type": "gold",
-      "username": "kUMMhJAV",
-      "password": "H0Ow9%TA",
-      "id": 4
     }
   ],
   "employees": [
@@ -43,12 +25,6 @@
       "name": "BankEmployee",
       "username": "admin",
       "password": "admin"
-    },
-    {
-      "id": 2,
-      "name": "AmalgamEmployee",
-      "username": "amalgam",
-      "password": "amalgam"
     }
   ],
   "preCustomer": {},
@@ -69,92 +45,10 @@
       "insuranceAmount": "150000",
       "mobileNum": "9553805468",
       "id": 2
-    },
-    {
-      "startDate": "11/23/2021",
-      "endDate": "11/23/2022",
-      "insuranceAmount": "150000",
-      "mobileNum": "9083495694",
-      "id": 3
-    },
-    {
-      "startDate": "11/23/2021",
-      "endDate": "11/23/2022",
-      "insuranceAmount": "150000",
-      "mobileNum": "1234567890",
-      "id": 4
     }
   ],
-  "registeredCards": [
-    {
-      "id": 1637685479882,
-      "cardNumber": "1234567890123456",
-      "bank": "ICICI Bank",
-      "cardType": "cardTypeDebit",
-      "paymentGatewayType": "MasterCard",
-      "mobileNum": "9083495694",
-      "isBlocked": false
-    },
-    {
-      "id": 1637685499850,
-      "cardNumber": "12345",
-      "bank": "Aadhaar Card",
-      "cardType": "cardTypeIdCard",
-      "paymentGatewayType": "IdCard",
-      "mobileNum": "9083495694",
-      "isBlocked": false
-    },
-    {
-      "id": 1637685516980,
-      "cardNumber": "1234567890123456",
-      "bank": "Axis Bank",
-      "cardType": "cardTypeCredit",
-      "paymentGatewayType": "Visa",
-      "mobileNum": "9083495694",
-      "isBlocked": false
-    }
-  ],
-  "lostWalletRecords": [
-    {
-      "id": 1637687086578,
-      "howYouLostWallet": "dasd",
-      "dateTimeOfLosingWallet": "2021-11-05T22:34",
-      "locationOfLosingWallet": "cxvcx",
-      "locationOfLosingWalletLatitude": "",
-      "locationOfLosingWalletLongitude": "",
-      "additionalDetailsOfLostWallet": "cxvxc",
-      "listOfCardsToBlock": [
-        "1637685479882",
-        "1637685516980"
-      ],
-      "mobileNum": "9083495694"
-    }
-  ],
-  "claimsHistory": [
-    {
-      "notifiedOn": "",
-      "dateTimeOfLosingWallet": "2021-11-05T22:34",
-      "locationOfLosingWallet": "cxvcx",
-      "status": "Processing",
-      "listOfCardsToBlock": [
-        "1637685479882",
-        "1637685516980"
-      ],
-      "claimAmount": "",
-      "claimRejectionReason": "",
-      "mobileNum": "9083495694",
-      "id": 1637687086578
-    }
-  ],
-  "familyMembers": [
-    {
-      "familyMemberName": "Surajit Maity",
-      "familyMemberEmail": "surajitmaity12345@gmail.com",
-      "familyMemberMobile": "8123456789",
-      "familyMemberRelation": "Brother",
-      "isAuthorised": true,
-      "familyHeadMobileNum": "9083495694",
-      "id": 1
-    }
-  ]
+  "registeredCards": [],
+  "lostWalletRecords": [],
+  "claimsHistory": [],
+  "familyMembers": []
 }
