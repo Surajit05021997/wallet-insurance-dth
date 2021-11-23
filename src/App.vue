@@ -12,6 +12,9 @@
         <router-view></router-view>
       </div>
     </div>
+    <div v-if="isLoggedIn">
+      <chat-popup></chat-popup>
+    </div>
     <app-footer></app-footer>
     
     </div>
@@ -23,13 +26,15 @@ import AppNavbar from '@/components/AppNavbar.vue';
 import AppFooter from '@/components/AppFooter.vue';
 import AppSidebar from './views/AppSidebar.vue';
 import { mapState } from 'vuex';
+import ChatPopup from './components/ChatPopup.vue';
 
 export default {
   name: 'App',
   components: {
     AppNavbar,
     AppFooter,
-    AppSidebar
+    AppSidebar,
+    ChatPopup
   },
   computed: {
     ...mapState(['isLoggedIn']),
