@@ -17,7 +17,6 @@
             </div>
           </div>
           <div  v-if="this.selectedLogin === 'Customer'">
-            <add-lost-wallet-record></add-lost-wallet-record>
             <div class="container-fluid py-4">
               <div class="row">
                   <div class="col-xl-6 col-sm-6 mb-xl-0 mb-4">
@@ -28,7 +27,8 @@
                               <div class="numbers">
                                   <p class="text-sm mb-0 font-weight-bold">Hey there, have you mispaced/lost your wallet?</p>
                                   <h5 class="font-weight-bolder mb-0 p-3">
-                                    <button :disabled="customerDetails.blockCards" type="button" data-bs-toggle ="modal" data-bs-target ="#addLostWalletRecord" class="btn btn-lg btn-warning btn-outline-secondary">Block your cards</button>
+                                    <button @click="confirmBlockAllCards()" type="button" class="btn btn-lg btn-warning btn-outline-secondary">Block your cards</button>
+                                    <!-- <button v-if="customerDetails.blockCards" type="button" @click="blockCards(false)" class="btn btn-lg btn-warning btn-outline-secondary">Enable your cards</button> -->
                                   </h5>
                               </div>
                               </div>
@@ -266,10 +266,10 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import { getPolicyDetailsWithID, getPolicyDetailsWithMobNum, postSearchValue, getLoginType, deleteSearchValue } from '@/service/service.js';
+import { getPolicyDetailsWithID, updateRegisteredCard, getRegisteredCards, getPolicyDetailsWithMobNum, postSearchValue, getLoginType, deleteSearchValue, addLostWalletRecord, getCustomerDetailsService } from '@/service/service.js';
 import {isValidSession} from '@/common.js';
 import  CarouselImage  from './CarouselImage.vue';
-import AddLostWalletRecord from '../components/AddLostWalletRecord.vue';
+// import Chart from './Chart.vue';
 import SocialMedia from '../components/SocialMedia.vue';
 import ChartJs from './ChartJs.vue';
 export default {
@@ -277,8 +277,8 @@ export default {
   components: {
     CarouselImage,
     ChartJs,
-    SocialMedia,
-    AddLostWalletRecord
+    SocialMedia
+    // Chart
   },
   data() {
     return {
@@ -299,13 +299,16 @@ export default {
       })
     }
     this.initialize();
-    this.getCustomerDetailsAction(this.loggedInUser);
   },
   methods: {
     ...mapActions(['getCustomerDetailsAction']),
     async initialize() {
       const response = await getLoginType();
       this.selectedLogin = response.loginType;
+      if(this.selectedLogin === 'Customer'){
+        let customerDetails = await getCustomerDetailsService(this.loggedInUser);
+        this.loggedInUserMobileNum = customerDetails[0].mobileNum;
+      }
     },
     async getCustomerPolicyDetails() {
       let customerPolicyDetails = '';
@@ -333,6 +336,76 @@ export default {
             })
       }
     },
+    async blockAllCards(debitCreditCardListIds){
+      let today= new Date();
+      let addLostWalletRecordFields = {
+        id: Date.now(),
+        howYouLostWallet : '',
+        dateTimeOfLosingWallet : today,
+        locationOfLosingWallet : '',
+        locationOfLosingWalletLatitude : '',
+        locationOfLosingWalletLongitude : '',
+        additionalDetailsOfLostWallet : 'Blocked instantly',
+        listOfCardsToBlock : debitCreditCardListIds,
+        mobileNum : this.loggedInUserMobileNum
+      }
+      return await addLostWalletRecord(addLostWalletRecordFields);
+    },
+    async confirmBlockAllCards(){
+            this.$swal({
+              title: 'Are you sure?',
+              text: "This will block all your cards ?",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, Block all cards!'
+            }).then(async (result) => {
+              if (result.isConfirmed) {
+
+                let filterCardType = [
+                  'cardTypeDebit',
+                  'cardTypeCredit'
+                ];
+                let allCards = await getRegisteredCards(this.loggedInUserMobileNum);
+                let debitCreditCardList = allCards.filter(eachCard => !eachCard.isBlocked && (filterCardType.includes(eachCard.cardType)));
+                let debitCreditCardListIds = debitCreditCardList.map(card=>card.id + '');
+                if(debitCreditCardList.length === 0){
+                    this.$swal({
+                      title: 'No Registered Cards Found',
+                      html: "Please register Cards <a href='/registeredCards'>here</a>",
+                      icon: 'warning',
+                      })
+                return;
+                }
+
+                else{
+                const response = await this.blockAllCards(debitCreditCardListIds);
+                let blockStatusText = response.statusText;
+                if(blockStatusText === "Created"){
+                    debitCreditCardList.forEach(async debitCreditCard => {
+                      let newDebitCreditCard = {...debitCreditCard};
+                      newDebitCreditCard.isBlocked = true;
+                      await updateRegisteredCard(debitCreditCard.id, newDebitCreditCard);
+                    });
+                    this.$swal(
+                      'Blocked!',
+                      'All cards are Blocked',
+                      'success'
+                    )
+                }
+                else{
+                    this.$swal({
+                      title: 'Could not Delete, Server Issue',
+                      text: "Sorry for inconvinience, please reload page",
+                      icon: 'warning',
+                      timer: 3000
+                      })
+                  }   
+                }       
+              }
+          })
+    }
   }
 }
 </script>

@@ -138,8 +138,8 @@ export default {
   async getAllCardsList(){
     let mobileNunber = this.loggedInUserMobileNum
     let responseData = await getRegisteredCards(mobileNunber);
-    responseData.filter(card => !card.isBlocked);
-    return responseData;
+    let allUnblockedCards = responseData.filter(card => !card.isBlocked);
+    return allUnblockedCards;
   },
   decreaseOpacity(cardType){
     if((this.selectedOption == "showAll") || (this.selectedOption == cardType))

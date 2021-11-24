@@ -16,7 +16,7 @@ const VueSweetalert2Options = {
   confirmButtonColor: '#007fff',
 }
 
-const GOOGLE_MAPS_API_KEY = `AIzaSyAmniXK3tFGb8t4TV1UMGDqQs3A-z8MeRY`;
+const GOOGLE_MAPS_API_KEY = `AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg`;
 const GoogleMapsConfigOptions = {
   key: `${GOOGLE_MAPS_API_KEY}`,
   libraries: 'places',
