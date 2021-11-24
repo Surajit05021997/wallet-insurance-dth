@@ -31,6 +31,12 @@
                   </ul>
                 </div>
               </div>
+              <div class="row mb-3">
+                <div>
+                  <label for="needFinancialAssistance" class="form-check-label">Do you need financial Assistance ?</label>&nbsp;
+                  <input type="checkbox" class="form-check-input increase-size" value="" id="needFinancialAssistance">                  
+                </div>
+              </div>
               <div class="row">
                 <div>
                   <label for="additionalDetailsOfLostWallet" class="form-label">Any Additional Details</label>
@@ -65,7 +71,7 @@
 </template>
 
 <script>
-import { getRegisteredCards, addLostWalletRecord, addClaim, getCustomerDetailsService } from '@/service/service.js'
+import { getRegisteredCards, getRegisteredCardWithId, updateRegisteredCard, addLostWalletRecord, addClaim, getCustomerDetailsService } from '@/service/service.js'
 import { mapState, mapActions } from 'vuex';
 
 export default {
@@ -101,28 +107,12 @@ export default {
   },
   created(){
     this.getCustomerDetailsAction(this.loggedInUser);
-    // this.checkIfPolicyExpired =  await this.isPolicyExpired();
-    // if(this.checkIfPolicyExpired)
-    // {
-    //   this.$swal({
-    //           title: 'Policy Expired',
-    //           html : `The Policy has been expired. Please renew policy`,
-    //           icon : 'warning'
-    //           });
-    // }
-    // else
     this.initialiseValues();
   },
   metaInfo () {
-    const API_KEY = `AIzaSyAmniXK3tFGb8t4TV1UMGDqQs3A-z8MeRY`;
+    const API_KEY = `AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg`;
       return {
         script: [
-          // {
-          // src: `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places`,
-          // async: true,
-          // defer: true,
-          // callback: () => this.googleMapPlacesAutocompleteServiceInit() // will declare it in methods
-          // },
           {
           src: `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`,
           async: true,
@@ -167,15 +157,9 @@ export default {
         this.addLostWalletRecordFormErrors.push("Mention how you lost wallet")
       }
 
-      // if(!this.addFormLocationOfLosingWallet){
-      //   this.addLostWalletRecordFormErrors.push("Mention where you lost wallet")
-      // }
-
-      // if(this.addFormLocationOfLosingWallet && !this.addFormLocationOfLosingWalletValid)
-      // {
-      //   this.addLostWalletRecordFormErrors.push("Please select location from Dropdown");
-      // }
-
+      if(!this.addFormLocationOfLosingWallet){
+        this.addLostWalletRecordFormErrors.push("Mention where you lost wallet")
+      }
       if(!this.addFormDateTimeOfLosingWallet){
         this.addLostWalletRecordFormErrors.push("Select when you lost wallet using calendar icon on date")
       }
@@ -204,9 +188,9 @@ export default {
       return { latitude : locationLatitude, longitude : locationLongitude };
     },
     async addLostWalletRecord(){
-      // let latLongObject = await this.getLocationLatLong(this.addFormLocationOfLosingWallet);
-      // this.addFormLocationOfLosingWalletLatitude = latLongObject.latitude;
-      // this.addFormLocationOfLosingWalletLongitude = latLongObject.longitude;
+       let latLongObject = await this.getLocationLatLong(this.addFormLocationOfLosingWallet);
+       this.addFormLocationOfLosingWalletLatitude = latLongObject.latitude;
+       this.addFormLocationOfLosingWalletLongitude = latLongObject.longitude;
       // The claims object that needs to be added for this lost wallet record
       let addClaimInClaimsHistoryFields = {
         notifiedOn : '',
@@ -245,6 +229,18 @@ export default {
                 if(newlyAddedLostWalletRecord && newlyAddedLostWalletRecord.statusText==="Created"){
                         // Once the Lost wallet record is added, create a claim and notify user
                     addClaimInClaimsHistoryFields["id"] = newlyAddedLostWalletRecordData.id; // Assign the same ID which is being used for lost wallet
+                    // Block all the cards START
+                      let debitCreditCardsToBlock = addLostWalletRecordFields.listOfCardsToBlock;
+                          debitCreditCardsToBlock.forEach(async debitCreditCardId =>{
+                              let id = parseInt(debitCreditCardId);
+                              let response = await getRegisteredCardWithId(id)
+                              let debitCreditCard = response;
+                              let newDebitCreditCard = {...debitCreditCard};
+                              newDebitCreditCard.isBlocked = true;
+                              debugger;
+                              await updateRegisteredCard(newDebitCreditCard.id, newDebitCreditCard);
+                          })
+                    //Block All the cards END
                     let newlyAddedClaim = await addClaim(addClaimInClaimsHistoryFields)
                       if(newlyAddedClaim && newlyAddedClaim.statusText==="Created"){
                         let claimId = newlyAddedClaim.data.id;
@@ -299,9 +295,6 @@ export default {
         let listOfCardsToBlock = document.querySelectorAll('input.listOfCardsToBlock:checked');      
         listOfCardsToBlock.forEach(element => element.checked = false);
     },
-    // googleMapPlacesAutocompleteServiceInit () {
-    //     this.googleMapPlacesAutocompleteService = new window.google.maps.places.AutocompleteService();
-    //   },
     googleMapGeocoderServiceInit () {
       this.googleMapGeocodeService = new window.google.maps.Geocoder();
     },
@@ -318,49 +311,12 @@ export default {
         return true;
       return false;
     },
-    // fetchDeviceLocation(){
-    //       function successCallback () {              
-    //       }
-    //       function errorCallback (error) {
-    //           console.log(error.message);
-    //       }
-    //       navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-    // },
-
-    // async isPolicyExpired(){
-    //   let policy = await getPolicies();
-    //   let todaysDate = new Date();
-    //   let endDate = new Date(policy.endDate);
-    //   let remainingDays = Math.round((endDate - todaysDate)/(1000*60*60*24));
-    //   if(remainingDays < 0)
-    //     return true;
-    //   return false;
-      
-    // }
   },
-  // watch: {
-  //     async addFormLocationOfLosingWallet(newValue) {
-  //       // If the location is not a valid selected one from google Places, then only search for more results
-  //       this.addFormLocationOfLosingWalletValid = false;        
-  //         if (newValue) {
-  //                 await this.googleMapPlacesAutocompleteService.getPlacePredictions({
-  //                 input: this.addFormLocationOfLosingWallet,
-  //                 types: ['geocode']
-  //                  }, (predictions, status) => {
-  //                     this.addFormLocationOfLosingWalletValid = false;
-  //                     if (status !== window.google.maps.places.PlacesServiceStatus.OK) {
-  //                       this.listOfAllPlaces = []
-  //                       console.error("No Place found");
-  //                       return;
-  //                     }
-  //                     this.listOfAllPlaces = predictions.map(prediction => prediction.description)
-  //                   })
-  //             }                
-  //       }
-  //     }
 }
 </script>
 
 <style scoped>
-
+.increase-size{
+  font-size: 1.3rem;
+}
 </style>

@@ -40,12 +40,12 @@
         </tbody>
       </table>
       <hr>
-      <map-of-lost-wallet-records :refreshMapList="refreshMap"></map-of-lost-wallet-records>
+      <map-of-lost-wallet-records v-if="lostWalletRecords.length > 0" :refreshMapList="refreshMap"></map-of-lost-wallet-records>
     </div>
-    <div v-if="!lostWalletRecords" class="container">
-      <h2 class="text-muted">Unable to load lost wallet records.</h2>
+    <div v-if="lostWalletRecords && lostWalletRecords.length === 0" class="container">
+      <h2 class="text-muted">No lost wallet records found</h2>
       <br>
-      <h4>Server Issue</h4>
+      <h4>Might be Server Issue</h4>
       <h4>We are sorry for the inconvinience, please try again after some time</h4>
     </div>
   </div>
