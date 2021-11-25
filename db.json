@@ -17,6 +17,15 @@
       "username": "anusha",
       "password": "anusha",
       "id": 2
+    },
+    {
+      "name": "Surajit Maity",
+      "mobileNum": "9083495694",
+      "emailId": "surajitmaity@testgmail.com",
+      "type": "platinum",
+      "username": "surajit",
+      "password": "surajit",
+      "id": 3
     }
   ],
   "employees": [
@@ -45,6 +54,13 @@
       "insuranceAmount": "150000",
       "mobileNum": "9553805468",
       "id": 2
+    },
+    {
+      "startDate": "11/25/2021",
+      "endDate": "11/25/2022",
+      "insuranceAmount": "150000",
+      "mobileNum": "9083495694",
+      "id": 3
     }
   ],
   "registeredCards": [],
