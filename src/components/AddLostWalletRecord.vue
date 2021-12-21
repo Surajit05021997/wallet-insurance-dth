@@ -174,23 +174,26 @@ export default {
       }
     },
     async getLocationLatLong(addressOfLocation){
-      let locationObject = await this.googleMapGeocodeService.geocode({'address' : addressOfLocation})
-                            .then((locObject) => locObject).catch(()=>{
-                              // If we could not find any result, that may be due to bad internet connectio, Wrong API key, or no such Address
-                              this.$swal({
-                                title: 'Address not found !',
-                                html: "<h4>The mentioned address is not found, Please enter correct address</h4><br><h6><u>Note: Address search requires internet connection.</u> Please check and try again.<h6>",
-                                icon: 'warning',
-                              })
-                            });
-      let locationLatitude = locationObject.results[0].geometry.location.lat();
-      let locationLongitude = locationObject.results[0].geometry.location.lng();
+      let locationObject = await this.googleMapGeocodeService?.geocode({'address' : addressOfLocation})
+                            .then((locObject) => locObject);
+                            // .catch(()=>{
+                            //   // If we could not find any result, that may be due to bad internet connectio, Wrong API key, or no such Address
+                            //   this.$swal({
+                            //     title: 'Address not found !',
+                            //     html: "<h4>The mentioned address is not found, Please enter correct address</h4><br><h6><u>Note: Address search requires internet connection.</u> Please check and try again.<h6>",
+                            //     icon: 'warning',
+                            //   })
+                            // });
+      let locationLatitude = locationObject?.results[0].geometry.location.lat();
+      let locationLongitude = locationObject?.results[0].geometry.location.lng();
       return { latitude : locationLatitude, longitude : locationLongitude };
     },
     async addLostWalletRecord(){
        let latLongObject = await this.getLocationLatLong(this.addFormLocationOfLosingWallet);
-       this.addFormLocationOfLosingWalletLatitude = latLongObject.latitude;
-       this.addFormLocationOfLosingWalletLongitude = latLongObject.longitude;
+       if(latLongObject) {
+         this.addFormLocationOfLosingWalletLatitude = latLongObject.latitude;
+         this.addFormLocationOfLosingWalletLongitude = latLongObject.longitude;
+       }
       // The claims object that needs to be added for this lost wallet record
       let addClaimInClaimsHistoryFields = {
         notifiedOn : '',
@@ -237,7 +240,6 @@ export default {
                               let debitCreditCard = response;
                               let newDebitCreditCard = {...debitCreditCard};
                               newDebitCreditCard.isBlocked = true;
-                              debugger;
                               await updateRegisteredCard(newDebitCreditCard.id, newDebitCreditCard);
                           })
                     //Block All the cards END
