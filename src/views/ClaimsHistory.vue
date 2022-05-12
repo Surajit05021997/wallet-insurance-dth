@@ -9,7 +9,8 @@
         Congrats, your claim for wallet lost on <b>{{getShortDate(successfulClaim.dateTimeOfLosingWallet)}}</b> with claim ID <b>{{successfulClaim.id}}</b> is successful. Claim Amount is <b>{{successfulClaim.claimAmount}}</b>.
         <br>
         Please click the button to activate your Virtual card. It will be active for 7 days.
-        <button @click="updateNotifiedTimestamp(successfulClaim)" class="ml-3 btn btn-success">Thanks</button>
+        <br>
+        <button @click="updateNotifiedTimestamp(successfulClaim)" class="mt-1 btn btn-success">Activate</button>
       </div>
     </div>
     <div v-if="claimsHistoryList">
@@ -121,6 +122,9 @@ created(){
   }
   .ml-3{
     margin-left: 3rem;
+  }
+  .mt-1{
+    margin-top: 1rem !important;
   }
   .claims-history{
     font-size : 1.3rem;

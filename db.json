@@ -26,6 +26,15 @@
       "username": "surajit",
       "password": "surajit",
       "id": 3
+    },
+    {
+      "name": "Vineetha",
+      "mobileNum": "9689222331",
+      "emailId": "surajitmaity12345@gmail.com",
+      "type": "platinum",
+      "username": "vini",
+      "password": "vini",
+      "id": 4
     }
   ],
   "employees": [
@@ -36,8 +45,20 @@
       "password": "admin"
     }
   ],
-  "preCustomer": {},
-  "loginWith": {},
+  "preCustomer": {
+    "name": "Vineetha",
+    "number": "9689222331",
+    "email": "surajitmaity12345@gmail.com",
+    "type": "platinum",
+    "isTravelInsTaken": true,
+    "isMobileInsTaken": true,
+    "isCyberInsTaken": true,
+    "totalPrice": 5390,
+    "priceWithoutDiscount": 7700
+  },
+  "loginWith": {
+    "loginType": "Customer"
+  },
   "searchWith": [],
   "banks": [],
   "policies": [
@@ -61,10 +82,86 @@
       "insuranceAmount": "150000",
       "mobileNum": "9083495694",
       "id": 3
+    },
+    {
+      "startDate": "05/12/2022",
+      "endDate": "05/12/2023",
+      "insuranceAmount": "150000",
+      "mobileNum": "9689222331",
+      "id": 4
     }
   ],
-  "registeredCards": [],
-  "lostWalletRecords": [],
-  "claimsHistory": [],
+  "registeredCards": [
+    {
+      "id": 1652362422506,
+      "cardNumber": "1234567891234435",
+      "bank": "ICICI Bank",
+      "cardType": "cardTypeDebit",
+      "paymentGatewayType": "MasterCard",
+      "mobileNum": "9689222331",
+      "isBlocked": true
+    },
+    {
+      "id": 1652362435889,
+      "cardNumber": "1234567891234879",
+      "bank": "Bank of India",
+      "cardType": "cardTypeCredit",
+      "paymentGatewayType": "Maestro",
+      "mobileNum": "9689222331",
+      "isBlocked": true
+    },
+    {
+      "id": 1652362444656,
+      "cardNumber": "1234 4547 9835 1234",
+      "bank": "Aadhaar Card",
+      "cardType": "cardTypeIdCard",
+      "paymentGatewayType": "IdCard",
+      "mobileNum": "9689222331",
+      "isBlocked": false
+    }
+  ],
+  "lostWalletRecords": [
+    {
+      "id": 1652362516687,
+      "howYouLostWallet": "Stolen",
+      "dateTimeOfLosingWallet": "2022-05-12T19:04",
+      "locationOfLosingWallet": "kharagpur",
+      "locationOfLosingWalletLatitude": 22.34601,
+      "locationOfLosingWalletLongitude": 87.2319753,
+      "additionalDetailsOfLostWallet": "FIR to Cops is done",
+      "listOfCardsToBlock": [
+        "1652362422506"
+      ],
+      "mobileNum": "9689222331"
+    },
+    {
+      "id": 1652363338188,
+      "howYouLostWallet": "",
+      "dateTimeOfLosingWallet": "2022-05-12T13:48:58.188Z",
+      "locationOfLosingWallet": "",
+      "locationOfLosingWalletLatitude": "",
+      "locationOfLosingWalletLongitude": "",
+      "additionalDetailsOfLostWallet": "Blocked instantly",
+      "listOfCardsToBlock": [
+        "1652362435889"
+      ],
+      "mobileNum": "9689222331"
+    }
+  ],
+  "claimsHistory": [
+    {
+      "notifiedOn": "2022-05-12T13:45:17.389Z",
+      "dateTimeOfLosingWallet": "2022-05-12T19:04",
+      "locationOfLosingWallet": "kharagpur",
+      "status": "success",
+      "listOfCardsToBlock": [
+        "1652362422506"
+      ],
+      "claimAmount": "10000",
+      "claimRejectionReason": "",
+      "mobileNum": "9689222331",
+      "id": 1652362516687
+    }
+  ],
   "familyMembers": []
 }

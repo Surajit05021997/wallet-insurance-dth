@@ -409,7 +409,7 @@ export default {
       return username;
     },
     sendEmail(mailData) {
-      emailjs.send('service_5cvw2qt','template_062645a',mailData , 'user_fqh1IkfZvXU3VhM5ZYuXJ').then(
+      emailjs.send('service_g7he1n4','template_062645a',mailData , 'user_fqh1IkfZvXU3VhM5ZYuXJ').then(
         function () {
           console.log("SUCCESS!");
         },

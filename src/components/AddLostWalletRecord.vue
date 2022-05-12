@@ -190,10 +190,10 @@ export default {
     },
     async addLostWalletRecord(){
        let latLongObject = await this.getLocationLatLong(this.addFormLocationOfLosingWallet);
-       if(latLongObject) {
+      //  if(latLongObject) {
          this.addFormLocationOfLosingWalletLatitude = latLongObject.latitude;
          this.addFormLocationOfLosingWalletLongitude = latLongObject.longitude;
-       }
+      //  }
       // The claims object that needs to be added for this lost wallet record
       let addClaimInClaimsHistoryFields = {
         notifiedOn : '',

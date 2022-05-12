@@ -6,6 +6,7 @@
     <hr>
     <div v-if="!activeVirtualCard">
       <h3 class="text-muted">The card is currently inactive</h3>
+      <h3 class="text-muted">You can check if your claim is approved under Claims / Advances</h3>
       <div class="row">
         <div class="col-xl-5 col-lg-5 col-md-5 col-sm-4">
           <!-- Payment card Start -->
